@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Annecoding's">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Annecoding's">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Linux学习笔记 · Annecoding&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Annecoding&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Linux学习笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">Annecoding's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600*900)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Linux学习笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Centos">Centos</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/25</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <meta name="referrer" content="no-referrer">
+
+<p>如果你以前从未接触过Linux，可能就不清楚为什么会有这么多不同的Linux发行版。在查看Linux软件包时，你肯定被发行版、LiveCD和GNU之类的术语搞晕过。那，我也不会讲给你听。🤣<br><a id="more"></a></p>
+<h4 id="基本的bash命令"><a href="#基本的bash命令" class="headerlink" title="基本的bash命令"></a>基本的bash命令</h4><p><strong>处理文件</strong> </p>
+<ul>
+<li><p>链接文件,如需要在系统上维护同一文件的两份或多份副本，除了保存多份单独的物理文件副本之外，还可以采用保存一份物理文件副本和多个虚拟副本的方<br>法。</p>
+<ul>
+<li><p>软链接（符号链接），通过符号链接在一起的文件，彼此的内容并不相同。可用inode查看文件是否为独立文件<code>ls -i *data_file</code>。可用<code>ln -s 源文件 链接文件</code>创建符号链接文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s data_file sl_data_file</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>硬链接，引用硬链接文件等同于引用了源文件，只能对处于同一存储媒体的文件创建硬链接。可用<code>ln 源文件 链接文件</code>来创建硬链接文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln code_file hl_code_file</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>复制文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -i 源文件 目的文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>i</code>询问是否覆盖</p>
+</li>
+<li><p>移动文件，也可➕<code>i</code>参数询问是否移动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv 源文件 目的文件</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>处理目录</strong></p>
+<ul>
+<li>删除目录<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -R,递归删除目录</span></span><br><span class="line">rm -r xxx</span><br><span class="line"><span class="comment"># 递归强制删除目录，不提示，慎用</span></span><br><span class="line">rm -rf xxx</span><br><span class="line"><span class="comment"># rmdir,只能删除空目录</span></span><br><span class="line">rmdir xxx</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>查看文件</strong></p>
+<ul>
+<li><p>file,查看文件类型及编码方式，查看是否有相关链接等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# file passwd </span><br><span class="line">passwd: ASCII text</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cat</p>
+<ul>
+<li>cat -n 添加行号</li>
+<li>cat -b 只给有内容的数据添加行号</li>
+<li>cat -T 可去掉文件中的制表符</li>
+</ul>
+</li>
+<li><p>more，显示每页数据，可以按需切换，man more<br>只支持文本文件中的基本移动</p>
+</li>
+<li><p>less(less is more),more升级，能识别上下键及翻页键</p>
+</li>
+<li><p>tail，查寻文件最后十行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查看最后两行</span><br><span class="line">tail -n 2 test.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其中常用的是，动态的追踪最后十行日志等：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f test.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>head，查询文件的前十行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询文件的前5行</span><br><span class="line">head -5 test.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="监测程序"><a href="#监测程序" class="headerlink" title="监测程序"></a>监测程序</h4><ul>
+<li>ps，常用<code>ps -ef</code><ul>
+<li><code>e</code>显示所有的进程</li>
+<li><code>f</code>显示完整格式输出</li>
+<li><code>UID</code>启动这些进程的用户</li>
+<li><code>PID</code>进程ID</li>
+<li><code>PPID</code>父进程的进程号</li>
+<li><code>C</code>进程生命周期中的CPU利用率</li>
+<li><code>STIME</code>进程启动的系统时间</li>
+<li><code>TTY</code>终端设备</li>
+<li><code>TIME</code>运行进程需要的累计CPU时间</li>
+<li><code>CMD</code>启动的程序名称</li>
+</ul>
+</li>
+<li><p><code>ps -l</code>可查看更多信息</p>
+<ul>
+<li><code>F</code>内核分配给进程的系统标记</li>
+<li><code>S</code>进程的状态（O代表正在运行；S代表在休眠；R代表可运行，正等待运行；Z代表僵化，进程已结束但父进程已不存在；T代表停止）</li>
+<li><code>PRI</code>进程的优先级（越大的数字代表越低的优先级）</li>
+<li><code>NI</code>谦让度值用来参与决定优先级</li>
+<li><code>ADDR</code>进程的内存地址</li>
+<li><code>SZ</code>假如进程被换出，所需交换空间的大致大小</li>
+<li><code>WCHAN</code>进程休眠的内核函数的地址<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ps -l</span><br><span class="line">F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD</span><br><span class="line">4 S     0 27869 27867  0  80   0 - 28891 do_wai pts/0    00:00:00 bash</span><br><span class="line">0 R     0 27888 27869  0  80   0 - 38300 -      pts/0    00:00:00 ps</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>top，实时监测进程</p>
+<ul>
+<li><code>PR</code>进程优先级</li>
+<li><code>VIRT</code>虚拟内存总量</li>
+<li><code>RES</code>物理内存总量</li>
+<li><code>SHR</code>进程和其他进程的内存总量</li>
+<li><code>TIME+</code>时间总量</li>
+</ul>
+</li>
+<li><p>kill，强制终止进程，<code>s</code>可指定其他参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill PID</span><br><span class="line">kill -s HUP 3940</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>killall，支持通过进程名来结束进程，<strong>通配符等命令慎用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall http*</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="监测磁盘空间"><a href="#监测磁盘空间" class="headerlink" title="监测磁盘空间"></a>监测磁盘空间</h4><ul>
+<li>mount，挂载存储媒体</li>
+<li><p>该命令包含的四部分如下</p>
+<ul>
+<li>媒体的设备文件名</li>
+<li>媒体挂载到虚拟目录的挂载点</li>
+<li>文件系统类型</li>
+<li>已挂载媒体的访问状态</li>
+</ul>
+</li>
+<li><p>在虚拟目录中手动挂载设备，需要以root用户登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount -t type device directory </span><br><span class="line"># 将U盘/dev/sdb1 挂载到/media/disk</span><br><span class="line">mount -t vfat /dev/sdb1 /media/disk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>type参数指定了磁盘被格式化的类型，一般是vfat（大多数U盘和软盘）、ntfs、iso9660(数据CD)</p>
+</li>
+<li><p>umount，从linux中移除一个设备时，不能直接从系统上移除，应该先卸载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 要退出挂载的目录，避免命令提示符正在使用的情况</span><br><span class="line">[root@testbox mnt]# cd /home/rich</span><br><span class="line">[root@testbox rich]# umount /home/rich/mnt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>df命令，查看某个设备还有多少磁盘空间</p>
+</li>
+<li><p>df -hT<br><code>h</code>以1024进制，也就是M显示。<br><code>H</code>为1000进制。<br><code>T</code>显示文件系统类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# df -hT</span><br><span class="line">Filesystem     Type      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda1      ext4       40G  7.1G   31G  19% /</span><br><span class="line">devtmpfs       devtmpfs  909M     0  909M   0% /dev</span><br><span class="line">tmpfs          tmpfs     920M     0  920M   0% /dev/shm</span><br><span class="line">tmpfs          tmpfs     920M  500K  919M   1% /run</span><br><span class="line">tmpfs          tmpfs     920M     0  920M   0% /sys/fs/cgroup</span><br><span class="line">tmpfs          tmpfs     184M     0  184M   0% /run/user/0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>df -hT -t ext4<br><code>t</code>只匹配ext4类型的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# df -hT -t ext4</span><br><span class="line">Filesystem     Type  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda1      ext4   40G  7.1G   31G  19% /</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>df -hT  -x ext4<br><code>x</code>参数匹配所有非ext4类型的文件目录(反向匹配)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# df -hT -x ext4</span><br><span class="line">Filesystem     Type      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs       devtmpfs  909M     0  909M   0% /dev</span><br><span class="line">tmpfs          tmpfs     920M     0  920M   0% /dev/shm</span><br><span class="line">tmpfs          tmpfs     920M  500K  919M   1% /run</span><br><span class="line">tmpfs          tmpfs     920M     0  920M   0% /sys/fs/cgroup</span><br><span class="line">tmpfs          tmpfs     184M     0  184M   0% /run/user/0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>du，显示某个特定目录的磁盘使用情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">du -sh *.sh</span><br><span class="line">du -sH *.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="处理数据文件"><a href="#处理数据文件" class="headerlink" title="处理数据文件"></a>处理数据文件</h4><ul>
+<li><p>sort，可对数据文件以一定的顺序排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort file.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>sort -n file.txt</code>可按数字排序</p>
+</li>
+<li><code>sort -M file.txt</code>可按月份排序（英文，可简写）</li>
+<li><p><code>-k</code>和<code>-t</code>参数在对按字段分隔的数据进行排序时非常有用，例如/etc/passwd文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sort -t &apos;:&apos; -k 3 -n /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>-n</code>参数在排序数值时非常有用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ du -sh * | sort -nr</span><br><span class="line">1008k mrtg-2.9.29.tar.gz</span><br><span class="line">972k bldg1</span><br><span class="line">888k fbs2.pdf</span><br><span class="line">760k Printtest</span><br><span class="line">680k rsync-2.6.6.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>-r</code>参数将结果按降序输出</p>
+</li>
+<li><p>grep，搜索匹配模式的行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep three file1</span><br><span class="line"><span class="comment"># 反向搜索（输出不匹配该模式的行）</span></span><br><span class="line">grep -v t file1</span><br><span class="line"><span class="comment"># 显示所在行号 </span></span><br><span class="line">grep -n t file1 </span><br><span class="line"><span class="comment"># 显示有多少行匹配</span></span><br><span class="line">grep -c t file1 </span><br><span class="line"><span class="comment"># 指定多个匹配模式，`-t`参数</span></span><br><span class="line">grep -e t -e f file1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>egrep命令是grep的一个衍生，支持POSIX扩展正则表达式。</p>
+</li>
+</ul>
+<h4 id="压缩数据"><a href="#压缩数据" class="headerlink" title="压缩数据"></a>压缩数据</h4><ul>
+<li><p>gzip软件包</p>
+<ul>
+<li>gzip：用来压缩文件。</li>
+<li>gzcat：用来查看压缩过的文本文件的内容。</li>
+<li>gunzip：用来解压文件。</li>
+</ul>
+</li>
+<li><p>tar，归档数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar <span class="keyword">function</span> [options] object1 object2 ... </span><br><span class="line"><span class="comment"># 创建归档文件</span></span><br><span class="line">tar -cvf test.tar <span class="built_in">test</span>/ test2/ </span><br><span class="line"><span class="comment"># 列出归档文件内容</span></span><br><span class="line">tar -tf test.tar </span><br><span class="line"><span class="comment"># 提取归档文件到当前目录</span></span><br><span class="line">tar -xvf test.tar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其中，下载了开源软件之后，你会经常看到文件名以.tgz结尾。这些是gzip压缩过的tar文件，可以用命令<code>tar -zxvf filename.tgz</code>来解压。</p>
+</li>
+</ul>
+<h4 id="linux操作文件系统"><a href="#linux操作文件系统" class="headerlink" title="linux操作文件系统"></a>linux操作文件系统</h4><p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g324grqio9j31ak0o847j.jpg" alt="01"></p>
+<p>扩展分区必须挂载才能使用</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g324knbtzdj30tm08qq7z.jpg" alt="02"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g324l0wbovj30um070gom.jpg" alt="03"></p>
+<p><strong>创建MBR分区</strong></p>
+<ul>
+<li><p>fdisk，硬盘分区工具，管理安装在系统上的任何存储设备上的分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入分区模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可输入<strong>m</strong>查看帮助信息</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g324ogbq41j316y0ag4ak.jpg" alt="04"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g324oslnktj30ny0lw4dn.jpg" alt="05"></p>
+<p>输入<strong>n</strong>，创建新分区</p>
+<p><strong>p</strong>，主分区</p>
+<p><strong>e</strong>，扩展分区</p>
+<p>默认主分区，输入<strong>p</strong>，</p>
+<p>分区号，<strong>默认</strong>为1，</p>
+<p>扇区开始位置，终止位置<strong>+3000M</strong>，默认为剩下整个分区，</p>
+<p>可输入<strong>p</strong>查看已经添加的分区</p>
+<p>添加扩展分区，</p>
+<p>输入<strong>e</strong>,</p>
+<p>分区号2，可<strong>默认</strong></p>
+<p>起始扇区，<strong>默认</strong></p>
+<p>结束扇区，<strong>默认</strong>全部剩下的存储空间都为扩展分区</p>
+<p>扩展分区不可以直接使用</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g337sd4zj3j31380i8air.jpg" alt="06"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g337t74x4zj310805kte0.jpg" alt="07"></p>
+<p>GPT不支持32操作系统，使用fdisk只能创建MBR分区。</p>
+<p><strong>创建GPT分区</strong></p>
+<p>使用<strong>parted</strong>分区工具，既可创建GPT分区，也可创建MBR分区</p>
+<p>可使用<strong>help</strong>查看帮助</p>
+<p>切换目标硬盘，<strong>select  /dev/sdc</strong></p>
+<p>给目标硬盘指定目标分区表类型，使用<strong>mklabel</strong>工具，</p>
+<p>指定MBR分区，mklabel mados</p>
+<p>指定GPT分区，mklabel gpt，</p>
+<p>输入<strong>print</strong>，查看当前硬盘分区详情</p>
+<p>输入<strong>print all</strong>，可以看到所有的分区表详情。</p>
+<p><strong>给目标硬盘添加分区</strong></p>
+<p>gpt交互模式，创建分区，<strong>mkpart</strong></p>
+<p>名称？<strong>imooc</strong>，可回车。</p>
+<p>文件系统类型，<strong>默认</strong>ext2，后续可格式化，</p>
+<p>开始位置，fdisk扇区数据块编号，在这里是第几个分区，输入<strong>0</strong></p>
+<p>结束，<strong>2000M</strong></p>
+<p>第0M—第2000M</p>
+<p>数据块没有对齐，<strong>cancel</strong></p>
+<p><strong>第1M-第2000M</strong></p>
+<p>不提示数据块未对齐</p>
+<p>输入<strong>print</strong>，查看目前分区状况</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g338aajtm0j30nq0c2age.jpg" alt="08"></p>
+<ul>
+<li>gpt命令模式分区，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkpart  分区名称  分区开始位置  分区结束位置</span><br><span class="line">mkpart test 2000 3000</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g338bhjnsfj30ne08itdt.jpg" alt="09"></p>
+<p>如果分区和指定的重叠，如下：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g338ctrd3cj30nk0e6ajl.jpg" alt="10"></p>
+<p>删除分区3，<strong>rm 3</strong></p>
+<p>没有主分区，逻辑分区，扩展分区概念，</p>
+<p>以上都是以M为单位分区，如果要以GB为单位分区，可输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unit  GB</span><br></pre></td></tr></table></figure>
+<p>如果已经指定完成分区，输入<strong>quit</strong>，退出。和fdisk不同的是，不用<strong>w</strong>写入硬盘。</p>
+<hr>
+<p><strong>分区格式化工具mkfs</strong></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g338i57j6rj30xe0gwmz2.jpg" alt="11"><br>列出设备类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /dev/sdb*</span><br></pre></td></tr></table></figure></p>
+<p>将设备格式化为ext3系统，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3  /dev/sdb1</span><br></pre></td></tr></table></figure></p>
+<p>第二种写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs -t ext4 /dev/sdb2</span><br></pre></td></tr></table></figure></p>
+<p>注意：在MBR分区中，扩展分区不可格式化，只有主分区，逻辑分区才可格式化。</p>
+<p>GBT，要使用<strong>parted</strong>工具，输入<strong>print</strong>，查看硬盘分区表状况。</p>
+<hr>
+<p><strong>挂载分区</strong></p>
+<p>未挂载分区无法使用，而且必须挂载到存在的挂载点<img src="https://ws1.sinaimg.cn/large/006tNc79ly1g338o4moq5j30j403c40d.jpg" alt="12"></p>
+<p>创建挂载点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /mnt/imooc</span><br></pre></td></tr></table></figure></p>
+<p>挂载分区，重启失效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /mnt/imooc</span><br></pre></td></tr></table></figure></p>
+<p>手动挂载不具有永久性，想要在重启后生效，自动挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  /etc/ fstab</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g338sw4wnqj30ws082gry.jpg" alt="13"></p>
+<p>卸载掉挂载的分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt/imooc</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>swap分区</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g338v4l18jj30hg0aydki.jpg" alt="14"></p>
+<ul>
+<li>建立分区<code>/dev/sdb6</code></li>
+<li><p>进入分区模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改分区，输入<strong>t</strong>，</p>
+</li>
+<li>输入<strong>6</strong>，</li>
+<li>输入<strong>L</strong>，查看<strong>编码列表82，linux swap</strong></li>
+<li>输入<strong>82</strong>，</li>
+<li><p>输入<strong>w</strong>，保存</p>
+</li>
+<li><p>格式化交换分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /dev/sdb6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用交换分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /dev/sdb6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看swap加载状况，<strong>free</strong></p>
+</li>
+</ul>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g33904tw12j30u004k41u.jpg" alt="15"></p>
+<ul>
+<li>停用swap分区<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff /dev/sdb6</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="用户和用户组操作文件"><a href="#用户和用户组操作文件" class="headerlink" title="用户和用户组操作文件"></a>用户和用户组操作文件</h4><p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g3396ibbg4j30o204mdhp.jpg" alt="16"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g33981em34j30t8066whp.jpg" alt="17"></p>
+<p>root,组编号为0。</p>
+<p>1-499,安装给这个系统的软件和用户。</p>
+<p>500+，用户手动创建的用户。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g339bc0uf1j30u605oq69.jpg" alt="18"></p>
+<p>*和！  组密码为空</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g339ch65qdj30zq044adz.jpg" alt="19"></p>
+<p>每一行对应一个用户信息。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g339elju9dj30ug04c0v5.jpg" alt="20"></p>
+<hr>
+<h5 id="用户和用户组基本命令"><a href="#用户和用户组基本命令" class="headerlink" title="用户和用户组基本命令"></a>用户和用户组基本命令</h5><p>新建用户组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd sexy</span><br></pre></td></tr></table></figure></p>
+<p>修改用户组名称，新的组名称在前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod  -n market sexy</span><br></pre></td></tr></table></figure></p>
+<p>可通过<code>cat /etc/group</code>查看。</p>
+<p>修改用户组编号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod -g 668 market</span><br></pre></td></tr></table></figure></p>
+<p>创建用户组并添加编号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 888 boss</span><br></pre></td></tr></table></figure></p>
+<p>删除用户组，首先应该先删除用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel market</span><br></pre></td></tr></table></figure></p>
+<p>创建用户组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd sexy</span><br></pre></td></tr></table></figure></p>
+<p>给用户组添加用户，-g参数可以指定用户组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -g sexy serven</span><br><span class="line">useradd -g sexy jzmb</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>-d</code>创建用户指定个人文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d  /home/xxx imooc</span><br></pre></td></tr></table></figure></p>
+<p>imooc未指明用户组，系统会默认创建同名的用户组</p>
+<p>给用户添加备注<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -c shiqi serven</span><br></pre></td></tr></table></figure></p>
+<p>修改用户名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -l qiqi serven</span><br></pre></td></tr></table></figure></p>
+<p>修改用户文件路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -d /home/qiqi qiqi</span><br></pre></td></tr></table></figure></p>
+<p>修改用户所属用户组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g sexy imooc</span><br></pre></td></tr></table></figure></p>
+<p>删除用户，并不会删除个人文件夹的文件，可以 r 参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userdel jzmb</span><br></pre></td></tr></table></figure></p>
+<p>禁止除了root用户以外的普通用户登录系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/nologin</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>锁定账户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd -l qiqi</span><br></pre></td></tr></table></figure></p>
+<p>解锁账户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd -u qiqi</span><br></pre></td></tr></table></figure></p>
+<p>清除账户密码，可无密码登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd -d qiqi</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g349lemddgj30wg0kwdmd.jpg" alt="21"></p>
+<p>给用户添加附属组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpasswd -a qiqi boss</span><br></pre></td></tr></table></figure></p>
+<p>当一个用户有多个附属组，默认文件在主要组。需要可切换至附属组中<br>需要用户自己执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newgrp boss</span><br></pre></td></tr></table></figure></p>
+<p>给用户删除附属组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpasswd -a qiqi boss</span><br></pre></td></tr></table></figure></p>
+<p>创建用户既指定主要组，又指定附属组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g group1 -G group1,group2,group3...</span><br></pre></td></tr></table></figure></p>
+<p>给用户组设置组密码,输入两次密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpasswd imooc</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>切换用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su username</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g349shs8pmj30s80gu447.jpg" alt="22"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g349taxxlwj30la07ujtl.jpg" alt="23"></p>
+<blockquote>
+<p>部分瞻仰大佬笔记📒<br><a href="https://www.imooc.com/learn/111" target="_blank" rel="noopener">https://www.imooc.com/learn/111</a><br>linux硬盘分区等知识优秀笔记📒<br>LVM扩容文档:<a href="https://blog.51cto.com/11601346/1831795" target="_blank" rel="noopener">https://blog.51cto.com/11601346/1831795</a><br>Linux LVM简明教程:<a href="https://linux.cn/article-3218-1.html" target="_blank" rel="noopener">https://linux.cn/article-3218-1.html</a></p>
+</blockquote>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
+            </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/25/Linux学习笔记/">https://annecoding.github.io/2019/03/25/Linux学习笔记/</a>
+            </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/25/Linux学习笔记/">March 25th 2019, 10:20:24 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/25/Linux学习笔记/">May 27th 2019, 3:32:14 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/03/27/linux常用命令/" title="Linux系统常用命令整理">
+                    <div class="nextTitle">Linux系统常用命令整理</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/03/21/vue学习/" title="Vue.js学习">
+                    <div class="prevTitle">Vue.js学习</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:Annecoding@163.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Annecoding" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本的bash命令"><span class="toc-number">1.</span> <span class="toc-text">基本的bash命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监测程序"><span class="toc-number">2.</span> <span class="toc-text">监测程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监测磁盘空间"><span class="toc-number">3.</span> <span class="toc-text">监测磁盘空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理数据文件"><span class="toc-number">4.</span> <span class="toc-text">处理数据文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩数据"><span class="toc-number">5.</span> <span class="toc-text">压缩数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux操作文件系统"><span class="toc-number">6.</span> <span class="toc-text">linux操作文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用户和用户组操作文件"><span class="toc-number">7.</span> <span class="toc-text">用户和用户组操作文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#用户和用户组基本命令"><span class="toc-number">7.1.</span> <span class="toc-text">用户和用户组基本命令</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 20
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/linux安装hping添加环境变量/">linux安装hping添加环境变量</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/ubuntu修改IP地址/">ubuntu修改IP地址</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/linux系统扫描命令和安全防范笔记/">linux系统扫描命令和安全防范笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href="/2019/05/20/hexo img 403/">hexo图片显示问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/项目上线流程/">linux下项目上线流程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/shell脚本练习/">shell脚本练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href="/2019/04/25/vcustomers_demo/">Vue后台用户管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href="/2019/04/17/vue-blog项目/">vue-myblog项目实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2019/04/16/vue路由/">Vue.js路由组件学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2019/04/16/vue组件/">Vue.js中组件的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span><a class="archive-post-title" href="/2019/03/27/linux常用命令/">Linux系统常用命令整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/Linux学习笔记/">Linux学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/vue学习/">Vue.js学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/hello-world/">Hello World</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nmap"><span class="iconfont-archer">&#xe606;</span>Nmap</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ncap"><span class="iconfont-archer">&#xe606;</span>Ncap</span>
+    
+        <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
+        <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Annecoding's"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
