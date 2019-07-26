@@ -427,8 +427,7 @@ height:50vh;
 <li><p>同上，但忽略大小写:<code>find /home -iname &quot;*.txt&quot;</code></p>
 </li>
 <li><p>当前目录及子目录下查找所有以<code>.txt</code>和<code>.pdf</code>结尾的文件:</p>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . \( -name <span class="string">"*.txt"</span> -o -name <span class="string">"*.pdf"</span> \)或find . -name <span class="string">"*.txt"</span> -o -name <span class="string">"*.pdf"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . \( -name <span class="string">"*.txt"</span> -o -name <span class="string">"*.pdf"</span> \)或find . -name <span class="string">"*.txt"</span> -o -name <span class="string">"*.pdf"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>4.<strong>mv 目录名称 新目录名称</strong>：修改目录的名称（改） </p>
@@ -470,10 +469,16 @@ height:50vh;
 <h4 id="压缩文件的操作命令"><a href="#压缩文件的操作命令" class="headerlink" title="压缩文件的操作命令"></a>压缩文件的操作命令</h4><p><strong>1）打包并压缩文件：</strong></p>
 <p>Linux中的打包文件一般是以<code>.tar</code>结尾的，压缩的命令一般是以<code>.gz</code>结尾的。</p>
 <p>而一般情况下打包和压缩是一起进行的，打包并压缩后的文件的后缀名一般<code>.tar.gz</code>。命令：<code>tar -zcvf</code>打包压缩后的文件名 要打包压缩的文件,其中：</p>
-<p><code>z</code>：调用<code>gzip</code>压缩命令进行压缩</p>
-<p><code>c</code>：打包文件</p>
-<p><code>v</code>：显示运行过程</p>
-<p><code>f</code>：指定文件名</p>
+<ul>
+<li><p><code>z</code>：调用<code>gzip</code>压缩命令进行压缩</p>
+</li>
+<li><p><code>c</code>：打包文件</p>
+</li>
+<li><p><code>v</code>：显示运行过程</p>
+</li>
+<li><p><code>f</code>：指定文件名</p>
+</li>
+</ul>
 <p>比如：加入test目录下有三个文件分别是 :<code>aaa.txt bbb.txt ccc.txt</code>,如果我们要打包test目录并指定压缩后的压缩包名称为test.tar.gz可以使用命令：<code>tar -zcvf test.tar.gz aaa.txt bbb.txt ccc.txt</code>或：<code>tar -zcvf test.tar.gz /test/</code></p>
 <p><strong>2）解压压缩包：</strong></p>
 <p>命令：<code>tar [-xvf] 压缩文件</code></p>
@@ -561,9 +566,7 @@ height:50vh;
 <li><strong>其它组</strong></li>
 </ul>
 <p>除开文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
-<blockquote>
 <p>我们再来看看如何修改文件/目录的权限。</p>
-</blockquote>
 <p><strong>修改文件/目录的权限的命令：chmod</strong></p>
 <p>示例：修改/test下的aaa.txt的权限为属主有全部权限，属主所在的组有读写权限， 其他用户只有读的权限</p>
 <p><strong>chmod u=rwx,g=rw,o=r aaa.txt</strong></p>
@@ -578,20 +581,33 @@ height:50vh;
 <p>4.如果想看看是否添加成功，命令是：<code>chkconfig --list</code></p>
 <h4 id="Linux用户管理"><a href="#Linux用户管理" class="headerlink" title="Linux用户管理"></a>Linux用户管理</h4><p>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
 <p>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</p>
-<h4 id="Linux用户管理相关命令"><a href="#Linux用户管理相关命令" class="headerlink" title="Linux用户管理相关命令:"></a>Linux用户管理相关命令:</h4><p><code>useradd 选项 用户名</code>:添加用户账号</p>
-<p> <code>userdel 选项 用户名</code>:删除用户帐号</p>
-<p><code>usermod 选项 用户名</code>:修改帐号</p>
-<p><code>passwd 用户名</code>:更改或创建用户的密码</p>
-<p><code>passwd -S 用户名</code>:显示用户账号密码信息</p>
-<p><code>passwd -d 用户名</code>: 清除用户密码</p>
+<h4 id="Linux用户管理相关命令"><a href="#Linux用户管理相关命令" class="headerlink" title="Linux用户管理相关命令:"></a>Linux用户管理相关命令:</h4><ul>
+<li><p><code>useradd 选项 用户名</code>:添加用户账号</p>
+</li>
+<li><p><code>userdel 选项 用户名</code>:删除用户帐号</p>
+</li>
+<li><p><code>usermod 选项 用户名</code>:修改帐号</p>
+</li>
+<li><p><code>passwd 用户名</code>:更改或创建用户的密码</p>
+</li>
+<li><p><code>passwd -S 用户名</code>:显示用户账号密码信息</p>
+</li>
+<li><p><code>passwd -d 用户名</code>: 清除用户密码</p>
+</li>
+</ul>
 <p><strong>useradd</strong>命令用于Linux中创建的新的系统用户。<strong>useradd</strong>可用来建立用户帐号。帐号建好之后，再用<strong>passwd</strong>设定帐号的密码．而可用<strong>userdel</strong>删除帐号。使用<strong>useradd</strong>指令所建立的帐号，实际上是保存在<code>/etc/passwd</code>文本文件中。</p>
 <p><strong>passwd</strong>命令用于设置用户的认证信息，包括用户密码、密码过期时间等。系统管理者则能用它管理系统用户的密码。只有管理者可以指定用户名称，一般用户只能变更自己的密码。</p>
 <h4 id="Linux系统用户组的管理"><a href="#Linux系统用户组的管理" class="headerlink" title="Linux系统用户组的管理"></a>Linux系统用户组的管理</h4><p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux 系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。</p>
 <p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对<code>/etc/group</code>文件的更新。</p>
 <p>Linux系统用户组的管理相关命令:</p>
-<p><code>groupadd 选项 用户组</code> :增加一个新的用户组 </p>
-<p><code>groupdel 用户组</code>:要删除一个已有的用户组 </p>
-<p><code>groupmod 选项 用户组</code>: 修改用户组的属性</p>
+<ul>
+<li><p><code>groupadd 选项 用户组</code> :增加一个新的用户组 </p>
+</li>
+<li><p><code>groupdel 用户组</code>:要删除一个已有的用户组 </p>
+</li>
+<li><p><code>groupmod 选项 用户组</code>: 修改用户组的属性</p>
+</li>
+</ul>
 <p>其他常用命令</p>
 <ul>
 <li>pwd：显示当前所在位置</li>
@@ -641,23 +657,24 @@ height:50vh;
 </ul>
 </li>
 </ul>
-<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><h3 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h3><p>1.BIOS</p>
+<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><h5 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h5><p>1.BIOS</p>
 <ul>
-<li>计算机通电后，第一件事就是读取刷入ROM芯片的开机程序，这个程序叫做(Basic Input/Output System)</li>
+<li>计算机通电后，第一件事就是读取刷入ROM芯片的开机程序，这个程序叫做 <strong>(Basic Input/Output System)</strong></li>
 </ul>
 <p>2.硬件自检</p>
 <ul>
-<li>BIOS程序首先检查，计算机硬件能否满足运行的基本条件，这叫做”硬件自检”（Power-On Self-Test)</li>
-<li>如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。如果没有问题，屏幕就会显示出CPU、内存、硬盘等信息。</li>
+<li>BIOS程序首先检查，计算机硬件能否满足运行的基本条件，这叫做 <strong>“硬件自检”</strong>（Power-On Self-Test)</li>
+<li>如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。</li>
+<li>如果没有问题，屏幕就会显示出CPU、内存、硬盘等信息。</li>
 </ul>
 <p>3.启动顺序</p>
 <ul>
 <li>硬件自检完成后，BIOS把控制权转交给下一阶段的启动程序。</li>
-<li>这时，BIOS需要知道，”下一阶段的启动程序”具体存放在哪一个设备</li>
+<li>这时，BIOS需要知道，<strong>“下一阶段的启动程序”</strong>具体存放在哪一个设备</li>
 <li>BIOS需要有一个外部储存设备的排序，排在前面的设备就是优先转交控制权的设备。这种排序叫做 <strong>“启动顺序”</strong>（Boot Sequence）</li>
-<li>BIOS按照”启动顺序”，把控制权转交给排在第一位的储存设备。</li>
-<li>这时，计算机读取该设备的第一个扇区，也就是读取最前面的512个字节。如果这512个字节的最后两个字节是0x55和0xAA，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给”启动顺序”中的下一个设备。</li>
-<li>这最前面的512个字节，就叫做”主引导记录”（Master boot record，缩写为MBR）</li>
+<li>BIOS按照 <strong>“启动顺序”</strong>，把控制权转交给排在第一位的储存设备。</li>
+<li>这时，计算机读取该设备的第一个扇区，也就是读取最前面的512个字节。如果这512个字节的最后两个字节是0x55和0xAA，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给 <strong>“启动顺序”</strong>中的下一个设备。</li>
+<li>这最前面的512个字节，就叫做 <strong>“主引导记录”</strong>（Master boot record，缩写为MBR）</li>
 </ul>
 <p>4.主引导记录的结构</p>
 <ul>
@@ -672,7 +689,7 @@ height:50vh;
 <ul>
 <li><strong>磁盘分区</strong>是使用分区编辑器在磁盘上划分几个逻辑部分</li>
 <li>磁盘一旦划分成多个分区，不同类的目录与文件可以存储进不同的分区内</li>
-<li>“主引导记录”因此必须知道将控制权转交给哪个区</li>
+<li><strong>“主引导记录”</strong> 因此必须知道将控制权转交给哪个区</li>
 <li>分区表的长度只有64个字节，里面又分成四项，每项16个字节。所以，一个硬盘最多只能分四个一级分区，又叫做”主分区”<ul>
 <li>（1） 第1个字节：如果为0x80，就表示该主分区是激活分区，控制权要转交给这个分区。四个主分区里面只能有一个是激活的。</li>
 <li>（2） 第2-4个字节：主分区第一个扇区的物理位置（柱面、磁头、扇区号等等）。</li>
@@ -707,7 +724,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">https://annecoding.github.io/2019/05/11/linux基础-二/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">May 11th 2019, 9:56:52 am</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 26th 2019, 9:32:52 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 26th 2019, 9:42:05 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -839,7 +856,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令切换命令"><span class="toc-number">1.</span> <span class="toc-text">命令切换命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令的操作命令（增删改查）"><span class="toc-number">2.</span> <span class="toc-text">命令的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件的操作命令（增删改查）"><span class="toc-number">3.</span> <span class="toc-text">文件的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩文件的操作命令"><span class="toc-number">4.</span> <span class="toc-text">压缩文件的操作命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux的权限命令"><span class="toc-number">5.</span> <span class="toc-text">Linux的权限命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理"><span class="toc-number">6.</span> <span class="toc-text">Linux用户管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理相关命令"><span class="toc-number">7.</span> <span class="toc-text">Linux用户管理相关命令:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux系统用户组的管理"><span class="toc-number">8.</span> <span class="toc-text">Linux系统用户组的管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#附录"><span class="toc-number">9.</span> <span class="toc-text">附录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统启动"><span class="toc-number"></span> <span class="toc-text">系统启动</span></a>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令切换命令"><span class="toc-number">1.</span> <span class="toc-text">命令切换命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令的操作命令（增删改查）"><span class="toc-number">2.</span> <span class="toc-text">命令的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件的操作命令（增删改查）"><span class="toc-number">3.</span> <span class="toc-text">文件的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩文件的操作命令"><span class="toc-number">4.</span> <span class="toc-text">压缩文件的操作命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux的权限命令"><span class="toc-number">5.</span> <span class="toc-text">Linux的权限命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理"><span class="toc-number">6.</span> <span class="toc-text">Linux用户管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理相关命令"><span class="toc-number">7.</span> <span class="toc-text">Linux用户管理相关命令:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux系统用户组的管理"><span class="toc-number">8.</span> <span class="toc-text">Linux系统用户组的管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#附录"><span class="toc-number">9.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#系统启动"><span class="toc-number">9.1.</span> <span class="toc-text">系统启动</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -852,6 +869,8 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
     
     
     
@@ -1273,12 +1292,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
@@ -1311,27 +1330,23 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
-        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
-    
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1341,7 +1356,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
     
@@ -1380,13 +1399,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
-        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
-    
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+    
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
