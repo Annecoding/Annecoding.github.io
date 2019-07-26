@@ -484,8 +484,8 @@ height:50vh;
 <p>命令：<code>tar [-xvf] 压缩文件</code></p>
 <p>其中：<code>x</code>：代表解压</p>
 <p>示例：</p>
-<p>1 将/test下的test.tar.gz解压到当前目录下可以使用命令：<code>tar -xvf test.tar.gz</code></p>
-<p>2 将/test下的test.tar.gz解压到根目录/usr下:<code>tar -xvf xxx.tar.gz -C /usr</code>(-C代表指定解压的位置）</p>
+<p>1.将/test下的test.tar.gz解压到当前目录下可以使用命令：<code>tar -xvf test.tar.gz</code></p>
+<p>2.将/test下的test.tar.gz解压到根目录/usr下:<code>tar -xvf xxx.tar.gz -C /usr</code>(-C代表指定解压的位置）</p>
 <h4 id="Linux的权限命令"><a href="#Linux的权限命令" class="headerlink" title="Linux的权限命令"></a>Linux的权限命令</h4><p>操作系统中每个文件都拥有特定的权限、所属用户和所属组。权限是操作系统用来限制资源访问的机制，在Linux中权限一般分为读(readable)、写(writable)和执行(excutable)，分为三组。</p>
 <p>分别对应文件的属主(owner)，属组(group)和其他用户(other)，通过这样的机制来限制哪些用户、哪些组可以对特定的文件进行什么样的操作。通过 <code>ls -l</code> 命令我们可以 查看某个目录下的文件或目录的权限</p>
 <p>示例：在随意某个目录下<code>ls -l</code></p>
@@ -559,7 +559,7 @@ height:50vh;
 </li>
 <li><p><strong>文件所在组</strong><br>当某个用户创建了一个文件后，这个文件的所在组就是该用户所在的组 用ls ‐ahl命令可以看到文件的所有组 也可以使用chgrp 组名 文件名来修改文件所在的组。</p>
 </li>
-<li><p><strong>其它组</strong><br>除开文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组<br>我们再来看看如何修改文件/目录的权限。<br><strong>修改文件/目录的权限的命令：chmod</strong><br>示例：修改/test下的aaa.txt的权限为属主有全部权限，属主所在的组有读写权限， 其他用户只有读的权限<br><strong>chmod u=rwx,g=rw,o=r aaa.txt</strong><br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5d02oqzq5j30we0cgnbn.jpg" alt="image-20190726094910793"><br>上述示例还可以使用数字表示：<code>chmod 764 aaa.txt</code></p>
+<li><p><strong>其它组</strong><br>除开文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组<br>我们再来看看如何修改文件/目录的权限。<br><strong>修改文件/目录的权限的命令：chmod</strong><br>示例：修改/test下的aaa.txt的权限为属主有全部权限，属主所在的组有读写权限， 其他用户只有读的权限<br><strong>chmod u=rwx,g=rw,o=r aaa.txt</strong><br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5d76hd4jlj30h607wq7v.jpg" alt="image-20190726135501237"><br>上述示例还可以使用数字表示：<code>chmod 764 aaa.txt</code></p>
 </li>
 </ul>
 <p><strong>补充一个比较常用的东西:</strong></p>
@@ -696,9 +696,7 @@ height:50vh;
 <li>然后，<code>init</code>线程加载系统的各个模块，比如窗口程序和网络程序，直至执行<code>/bin/login</code>程序，跳出登录界面，等待用户输入用户名和密码。</li>
 </ul>
 <blockquote>
-<p>转载自：</p>
-<p>前端linux基础，这一篇就够了<a href="https://juejin.im/post/5c9319c2e51d450d597ea3ff" target="_blank" rel="noopener">https://juejin.im/post/5c9319c2e51d450d597ea3ff</a></p>
-<p>linux基础（二）<a href="https://mp.weixin.qq.com/s/C8kv8itPU1wHYGaH3tG9z" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/C8kv8itPU1wHYGaH3tG9z</a></p>
+<p>转载自：<br><a href="https://juejin.im/post/5c9319c2e51d450d597ea3ff" target="_blank" rel="noopener">前端linux基础，这一篇就够了</a><br><a href="https://mp.weixin.qq.com/s/C8kv8itPU1wHYGaH3tG9z" target="_blank" rel="noopener">linux基础（二）</a></p>
 </blockquote>
 
     </article>
@@ -708,7 +706,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">https://annecoding.github.io/2019/05/11/linux基础-二/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">May 11th 2019, 9:56:52 am</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 26th 2019, 10:04:06 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 26th 2019, 1:55:57 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1153,12 +1151,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 24
@@ -1300,7 +1292,13 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
@@ -1308,13 +1306,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
-    
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1324,17 +1322,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
     
-        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
-    
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
-    
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1369,19 +1361,19 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
-    
-        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
-        <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
-        <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
         <span class="sidebar-category-name" data-categories="linux"><span class="iconfont-archer">&#xe60a;</span>linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
