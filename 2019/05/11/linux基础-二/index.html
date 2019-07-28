@@ -408,14 +408,14 @@ height:50vh;
 <p>推荐一个Linux命令快查网站，非常不错，大家如果遗忘某些命令或者对某些命令不理解都可以在这里得到解决。</p>
 <p>Linux命令大全：<a href="http://man.linuxde.net/" target="_blank" rel="noopener">http://man.linuxde.net/</a></p>
 <a id="more"></a>
-<h4 id="命令切换命令"><a href="#命令切换命令" class="headerlink" title="命令切换命令"></a>命令切换命令</h4><ul>
+<h3 id="命令切换命令"><a href="#命令切换命令" class="headerlink" title="命令切换命令"></a>命令切换命令</h3><ul>
 <li><strong>cd usr：</strong> 切换到该目录下usr目录 </li>
 <li><strong>cd ..（或cd../）：</strong> 切换到上一层目录 </li>
 <li><strong>cd /：</strong> 切换到系统根目录 </li>
 <li><strong>cd ~：</strong> 切换到用户主目录 </li>
 <li><strong>cd -：</strong> 切换到上一个所在目录 </li>
 </ul>
-<h4 id="命令的操作命令（增删改查）"><a href="#命令的操作命令（增删改查）" class="headerlink" title="命令的操作命令（增删改查）"></a>命令的操作命令（增删改查）</h4><p>1.<strong>mkdir 目录名称</strong>：增加目录</p>
+<h3 id="命令的操作命令（增删改查）"><a href="#命令的操作命令（增删改查）" class="headerlink" title="命令的操作命令（增删改查）"></a>命令的操作命令（增删改查）</h3><p>1.<strong>mkdir 目录名称</strong>：增加目录</p>
 <p>2.<strong>ls或者ll</strong>（<code>ll</code>是<code>ls -l</code>的缩写，<code>ll</code>命令以看到该目录下的所有目录和文件的详细信息）：查看目录信息</p>
 <p>3.<strong>find 目录 参数</strong>：寻找目录（查）</p>
 <p>示例： </p>
@@ -439,7 +439,7 @@ height:50vh;
 <p>注意：<code>cp</code>命令不仅可以拷贝目录还可以拷贝文件，压缩包等，拷贝文件和压缩包时不 用写<code>-r</code>递归</p>
 <p>7.<strong>rm [-rf] 目录</strong>: 删除目录（删） </p>
 <p>注意：<code>rm</code>不仅可以删除目录，也可以删除其他文件或压缩包，为了增强大家的记忆， 无论删除任何目录或文件，都直接使用<code>rm -rf</code>目录/文件/压缩包</p>
-<h4 id="文件的操作命令（增删改查）"><a href="#文件的操作命令（增删改查）" class="headerlink" title="文件的操作命令（增删改查）"></a>文件的操作命令（增删改查）</h4><p>1.<strong>touch 文件名称</strong>: 文件的创建（增）</p>
+<h3 id="文件的操作命令（增删改查）"><a href="#文件的操作命令（增删改查）" class="headerlink" title="文件的操作命令（增删改查）"></a>文件的操作命令（增删改查）</h3><p>1.<strong>touch 文件名称</strong>: 文件的创建（增）</p>
 <p>2.<strong>cat/more/less/tail文件名称</strong>  文件的查看（查）</p>
 <ul>
 <li><strong>cat</strong>：只能显示最后一屏内容</li>
@@ -466,7 +466,7 @@ height:50vh;
 <li><code>u</code>取消上一次编辑操作（undo）</li>
 </ul>
 <p>4.<strong>rm -rf 文件</strong>：删除文件（删） 同目录删除：熟记 rm -rf文件 即可</p>
-<h4 id="压缩文件的操作命令"><a href="#压缩文件的操作命令" class="headerlink" title="压缩文件的操作命令"></a>压缩文件的操作命令</h4><p><strong>1）打包并压缩文件：</strong></p>
+<h3 id="压缩文件的操作命令"><a href="#压缩文件的操作命令" class="headerlink" title="压缩文件的操作命令"></a>压缩文件的操作命令</h3><p><strong>1）打包并压缩文件：</strong></p>
 <p>Linux中的打包文件一般是以<code>.tar</code>结尾的，压缩的命令一般是以<code>.gz</code>结尾的。</p>
 <p>而一般情况下打包和压缩是一起进行的，打包并压缩后的文件的后缀名一般<code>.tar.gz</code>。命令：<code>tar -zcvf</code>打包压缩后的文件名 要打包压缩的文件,其中：</p>
 <ul>
@@ -486,7 +486,7 @@ height:50vh;
 <p>示例：</p>
 <p>1.将/test下的test.tar.gz解压到当前目录下可以使用命令：<code>tar -xvf test.tar.gz</code></p>
 <p>2.将/test下的test.tar.gz解压到根目录/usr下:<code>tar -xvf xxx.tar.gz -C /usr</code>(-C代表指定解压的位置）</p>
-<h4 id="Linux的权限命令"><a href="#Linux的权限命令" class="headerlink" title="Linux的权限命令"></a>Linux的权限命令</h4><p>操作系统中每个文件都拥有特定的权限、所属用户和所属组。权限是操作系统用来限制资源访问的机制，在Linux中权限一般分为读(readable)、写(writable)和执行(excutable)，分为三组。</p>
+<h3 id="Linux的权限命令"><a href="#Linux的权限命令" class="headerlink" title="Linux的权限命令"></a>Linux的权限命令</h3><p>操作系统中每个文件都拥有特定的权限、所属用户和所属组。权限是操作系统用来限制资源访问的机制，在Linux中权限一般分为读(readable)、写(writable)和执行(excutable)，分为三组。</p>
 <p>分别对应文件的属主(owner)，属组(group)和其他用户(other)，通过这样的机制来限制哪些用户、哪些组可以对特定的文件进行什么样的操作。通过 <code>ls -l</code> 命令我们可以 查看某个目录下的文件或目录的权限</p>
 <p>示例：在随意某个目录下<code>ls -l</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5cx60784uj30tg0bak0v.jpg" alt="image-20190726080834499"></p>
@@ -568,9 +568,9 @@ height:50vh;
 <p>2.为新建的脚本zookeeper添加可执行权限，命令是:<code>chmod +x zookeeper</code></p>
 <p>3.把zookeeper这个脚本添加到开机启动项里面，命令是：<code>chkconfig --add zookeeper</code></p>
 <p>4.如果想看看是否添加成功，命令是：<code>chkconfig --list</code></p>
-<h4 id="Linux用户管理"><a href="#Linux用户管理" class="headerlink" title="Linux用户管理"></a>Linux用户管理</h4><p>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
+<h3 id="Linux用户管理"><a href="#Linux用户管理" class="headerlink" title="Linux用户管理"></a>Linux用户管理</h3><p>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
 <p>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</p>
-<h4 id="Linux用户管理相关命令"><a href="#Linux用户管理相关命令" class="headerlink" title="Linux用户管理相关命令"></a>Linux用户管理相关命令</h4><ul>
+<h3 id="Linux用户管理相关命令"><a href="#Linux用户管理相关命令" class="headerlink" title="Linux用户管理相关命令"></a>Linux用户管理相关命令</h3><ul>
 <li><p><code>useradd 选项 用户名</code>:添加用户账号</p>
 </li>
 <li><p><code>userdel 选项 用户名</code>:删除用户帐号</p>
@@ -641,7 +641,7 @@ height:50vh;
 </ul>
 </li>
 </ul>
-<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><h5 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h5><p>1.BIOS</p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h4><p>1.BIOS</p>
 <ul>
 <li>计算机通电后，第一件事就是读取刷入ROM芯片的开机程序，这个程序叫做 <strong>(Basic Input/Output System)</strong></li>
 </ul>
@@ -706,7 +706,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">https://annecoding.github.io/2019/05/11/linux基础-二/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">May 11th 2019, 9:56:52 am</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 26th 2019, 2:01:22 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/05/11/linux基础-二/">July 28th 2019, 9:41:39 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -838,7 +838,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令切换命令"><span class="toc-number">1.</span> <span class="toc-text">命令切换命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令的操作命令（增删改查）"><span class="toc-number">2.</span> <span class="toc-text">命令的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件的操作命令（增删改查）"><span class="toc-number">3.</span> <span class="toc-text">文件的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩文件的操作命令"><span class="toc-number">4.</span> <span class="toc-text">压缩文件的操作命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux的权限命令"><span class="toc-number">5.</span> <span class="toc-text">Linux的权限命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理"><span class="toc-number">6.</span> <span class="toc-text">Linux用户管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux用户管理相关命令"><span class="toc-number">7.</span> <span class="toc-text">Linux用户管理相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux系统用户组的管理"><span class="toc-number">8.</span> <span class="toc-text">Linux系统用户组的管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#附录"><span class="toc-number">9.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#系统启动"><span class="toc-number">9.1.</span> <span class="toc-text">系统启动</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令切换命令"><span class="toc-number">1.</span> <span class="toc-text">命令切换命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令的操作命令（增删改查）"><span class="toc-number">2.</span> <span class="toc-text">命令的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的操作命令（增删改查）"><span class="toc-number">3.</span> <span class="toc-text">文件的操作命令（增删改查）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩文件的操作命令"><span class="toc-number">4.</span> <span class="toc-text">压缩文件的操作命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux的权限命令"><span class="toc-number">5.</span> <span class="toc-text">Linux的权限命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux用户管理"><span class="toc-number">6.</span> <span class="toc-text">Linux用户管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux用户管理相关命令"><span class="toc-number">7.</span> <span class="toc-text">Linux用户管理相关命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux系统用户组的管理"><span class="toc-number">7.1.</span> <span class="toc-text">Linux系统用户组的管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附录"><span class="toc-number">8.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#系统启动"><span class="toc-number">8.1.</span> <span class="toc-text">系统启动</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -851,32 +851,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1185,12 +1159,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
@@ -1270,12 +1244,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
@@ -1308,27 +1282,23 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
-    
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1338,11 +1308,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
-        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
-    
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
     
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1377,13 +1351,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
-        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
