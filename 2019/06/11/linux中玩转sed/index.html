@@ -421,16 +421,16 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat data1.txt</span><br><span class="line">The quick brown fox jumps over the lazy dog.</span><br><span class="line">The quick brown fox jumps over the lazy dog.</span><br><span class="line">The quick brown fox jumps over the lazy dog.</span><br><span class="line">The quick brown fox jumps over the lazy dog.</span><br></pre></td></tr></table></figure>
 <p>使用sed命令进行替换：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sed <span class="string">'s/dog/cat/'</span> data1.txt</span><br><span class="line">The quick brown fox jumps over the lazy cat.</span><br><span class="line">The quick brown fox jumps over the lazy cat.</span><br><span class="line">The quick brown fox jumps over the lazy cat.</span><br><span class="line">The quick brown fox jumps over the lazy cat.</span><br></pre></td></tr></table></figure>
-<p>🌟 重要的是，要记住，<strong>sed编辑器并不会修改文本文件的数据</strong>。它只会将修改后的数据发送到<br>STDOUT。<strong>如果你查看原来的文本文件，它仍然保留着原始数据。</strong></p>
+<p>🌟 重要的是，要记住，<strong>sed编辑器并不会修改文本文件的数据</strong>。它只会将修改后的数据发送到STDOUT。<strong>如果你查看原来的文本文件，它仍然保留着原始数据。</strong></p>
 <p>3.在命令行使用多个编辑器命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sed -e <span class="string">'s/brown/green/; s/dog/cat/'</span> data1.txt</span><br><span class="line">The quick green fox jumps over the lazy cat.</span><br><span class="line">The quick green fox jumps over the lazy cat.</span><br><span class="line">The quick green fox jumps over the lazy cat.</span><br><span class="line">The quick green fox jumps over the lazy cat.</span><br></pre></td></tr></table></figure>
 <p>4.从文件中读取编辑器命令</p>
-<p>如果有大量要处理的sed命令，那么将它们放进一个单独的文件中通常会更方便一些。<br>可以在sed命令中用-f选项来指定文件。</p>
+<p>如果有大量要处理的sed命令，那么将它们放进一个单独的文件中通常会更方便一些。<br>可以在sed命令中用<code>-f</code>选项来指定文件。</p>
 <p>示例sed编辑器脚本文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat script1.sed</span><br><span class="line">s/brown/green/</span><br><span class="line">s/fox/elephant/</span><br><span class="line">s/dog/cat/</span><br></pre></td></tr></table></figure>
 <p>执行sed编辑器脚本文件，按照脚本文件替换。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sed -f script1.sed data1.txt</span><br><span class="line">The quick green elephant jumps over the lazy cat.</span><br><span class="line">The quick green elephant jumps over the lazy cat.</span><br><span class="line">The quick green elephant jumps over the lazy cat.</span><br><span class="line">The quick green elephant jumps over the lazy cat.</span><br></pre></td></tr></table></figure>
-<h3 id="更多替换选项"><a href="#更多替换选项" class="headerlink" title="更多替换选项"></a>更多替换选项</h3><h4 id="替换标记"><a href="#替换标记" class="headerlink" title="替换标记"></a>替换标记</h4><p>替换命令在替换多行中的文本时能正常工作，但默认情况下它只替换每行中出现的第一处。<br>要让替换命令能够替换一行中不同地方出现的文本必须使用替换标记（substitution flag）。</p>
+<h3 id="更多替换选项"><a href="#更多替换选项" class="headerlink" title="更多替换选项"></a>更多替换选项</h3><h4 id="替换标记"><a href="#替换标记" class="headerlink" title="替换标记"></a>替换标记</h4><p>替换命令在替换多行中的文本时能正常工作，但默认情况下它只替换每行中出现的第一处。要让替换命令能够替换一行中不同地方出现的文本必须使用替换标记（substitution flag）。</p>
 <p>替换标记会在替换命令字符串之后设置。格式如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s/pattern/replacement/flags</span><br></pre></td></tr></table></figure>
 <p>有4种可用的替换标记：</p>
@@ -466,7 +466,7 @@ height:50vh;
 </ul>
 <p>💡 强大到无往不利的正则表达式简单示例，比如去除某html中的tags</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你这样搞的话，就会有问题，贪婪模式，匹配(&lt;)到(&gt;)之间的所有内容</span></span><br><span class="line">$ sed <span class="string">'s/&lt;.*&gt;//g'</span> html.txt</span><br><span class="line"> meant. Understand</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 要解决上面的那个问题，就得像下面这样。</span></span><br><span class="line"><span class="comment"># 其中的'[^&gt;]' 指定了除了&gt;的字符重复0次或多次。</span></span><br><span class="line">$ sed <span class="string">'s/&lt;[^&gt;]*&gt;//g'</span> html.txt</span><br><span class="line">This is what I meant. Understand?</span><br></pre></td></tr></table></figure>
-<h3 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h3><p>默认情况下，在sed编辑器中使用的命令会作用于文本数据的所有行。如果只想将命令作用<br>于特定行或某些行，则必须用行寻址（line addressing）。</p>
+<h3 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h3><p>默认情况下，在sed编辑器中使用的命令会作用于文本数据的所有行。如果只想将命令作用于特定行或某些行，则必须用行寻址（line addressing）。</p>
 <h4 id="数字方式寻址"><a href="#数字方式寻址" class="headerlink" title="数字方式寻址"></a>数字方式寻址</h4><p>sed编辑器会将文本流中的第一行编号为1，然后继续按顺序为接下来的行分配行号。</p>
 <p>1.只修改第二行的数据</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sed <span class="string">'2s/dog/cat/'</span> data1.txt</span><br><span class="line">The quick brown fox jumps over the lazy dog</span><br><span class="line">The quick brown fox jumps over the lazy cat</span><br><span class="line">The quick brown fox jumps over the lazy dog</span><br><span class="line">The quick brown fox jumps over the lazy dog</span><br></pre></td></tr></table></figure>
@@ -512,7 +512,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">https://annecoding.github.io/2019/06/11/linux中玩转sed/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">June 11th 2019, 6:51:19 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">August 2nd 2019, 6:56:26 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">August 2nd 2019, 6:59:16 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -657,6 +657,8 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
     
     
     
