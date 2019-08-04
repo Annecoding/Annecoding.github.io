@@ -466,8 +466,8 @@ height:50vh;
 <li><code>[ ]</code> 字符集合。 如：<code>[abc]</code> 表示匹配a或b或c，还有 <code>[a-zA-Z]</code> 表示匹配所有的26个字符。如果其中有^表示反，如 <code>[^a]</code> 表示非a的字符。还有<code>[0-9]</code> 匹配括号中的任何一个字符。</li>
 <li><code>{m}</code>前面的匹配重复m次，<code>{m,n}</code> 前面的匹配重复m到n次</li>
 </ul>
-<p>💡 强大到无往不利的正则表达式简单示例，比如去除某html中的tags</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你这样搞的话，就会有问题，贪婪模式，匹配(&lt;)到(&gt;)之间的所有内容</span></span><br><span class="line">$ sed <span class="string">'s/&lt;.*&gt;//g'</span> html.txt</span><br><span class="line"> meant. Understand</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 要解决上面的那个问题，就得像下面这样。</span></span><br><span class="line"><span class="comment"># 其中的'[^&gt;]' 指定了除了&gt;的字符重复0次或多次。</span></span><br><span class="line">$ sed <span class="string">'s/&lt;[^&gt;]*&gt;//g'</span> html.txt</span><br><span class="line">This is what I meant. Understand?</span><br></pre></td></tr></table></figure>
+<p>💡 强大到无往不利的正则表达式简单示例，比如去除下面html中的tags:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;b&gt;This&lt;/b&gt; is what &lt;span style=<span class="string">"text-decoration: underline;"</span>&gt;I&lt;/span&gt; meant. Understand?</span><br></pre></td></tr></table></figure></p>
+<p>sed命令实现：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你这样搞的话，就会有问题，贪婪模式，匹配(&lt;)到(&gt;)之间的所有内容</span></span><br><span class="line">$ sed <span class="string">'s/&lt;.*&gt;//g'</span> html.txt</span><br><span class="line"> meant. Understand</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 要解决上面的那个问题，就得像下面这样。</span></span><br><span class="line"><span class="comment"># 其中的'[^&gt;]' 指定了除了&gt;的字符重复0次或多次。</span></span><br><span class="line">$ sed <span class="string">'s/&lt;[^&gt;]*&gt;//g'</span> html.txt</span><br><span class="line">This is what I meant. Understand?</span><br></pre></td></tr></table></figure></p>
 <p>💡 <strong>其他有趣示例</strong></p>
 <p>1.输出长度不小于50个字符的行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/^.&#123;50&#125;/p'</span></span><br></pre></td></tr></table></figure>
@@ -496,7 +496,7 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除所有文本</span></span><br><span class="line">sed <span class="string">'d'</span> data1.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除单行</span></span><br><span class="line">sed <span class="string">'2d'</span> data1.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除行区间[2,3]</span></span><br><span class="line">sed <span class="string">'2,3d'</span> data1.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除行区间[2,endline]</span></span><br><span class="line">sed <span class="string">'2,$d'</span> data1.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除匹配文本aa的行</span></span><br><span class="line">sed <span class="string">'/aa/d'</span> data1.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除两个匹配文本之间的文本 匹配到1和3的行之间的文本全部被删除</span></span><br><span class="line">sed <span class="string">'/1/,/3/d'</span> data1.txt</span><br></pre></td></tr></table></figure>
 <h3 id="插入、附加文本"><a href="#插入、附加文本" class="headerlink" title="插入、附加文本"></a>插入、附加文本</h3><p>1.插入命令<code>i</code>在指定行前增加新行</p>
 <p>2.附加命令<code>a</code>在指定行后增加新行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"Test Line 2"</span> | sed <span class="string">'a\Test Line 1'</span></span><br><span class="line">Test Line 2</span><br><span class="line">Test Line 1 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Test Line 2"</span> | sed <span class="string">'i\Test Line 1'</span></span><br><span class="line">Test Line 1</span><br><span class="line">Test Line 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 追加</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Test Line 2"</span> | sed <span class="string">'a\Test Line 1'</span></span><br><span class="line">Test Line 2</span><br><span class="line">Test Line 1 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Test Line 2"</span> | sed <span class="string">'i\Test Line 1'</span></span><br><span class="line">Test Line 1</span><br><span class="line">Test Line 2</span><br></pre></td></tr></table></figure>
 <h3 id="修改行"><a href="#修改行" class="headerlink" title="修改行"></a>修改行</h3><p>使用<code>c</code>命令来修改一行数据</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改第三行文本</span></span><br><span class="line">$ sed <span class="string">'3c\</span></span><br><span class="line"><span class="string">This is a changed line of text.'</span> data1.txt</span><br><span class="line">the quick brown fox jumps over the lazy dog.</span><br><span class="line">the quick brown fox jumps over the lazy dog.</span><br><span class="line">This is a changed line of text.</span><br><span class="line">the quick brown fox jumps over the lazy dog.</span><br></pre></td></tr></table></figure>
 <h3 id="转换命令"><a href="#转换命令" class="headerlink" title="转换命令"></a>转换命令</h3><p>命令格式<code>sed &#39;y/inchar/outchar&#39;</code></p>
@@ -522,7 +522,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">https://annecoding.github.io/2019/06/11/linux中玩转sed/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">June 11th 2019, 6:51:19 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">August 3rd 2019, 9:14:28 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">August 4th 2019, 12:52:39 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -995,20 +995,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 26
@@ -1122,12 +1108,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
@@ -1160,9 +1146,7 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
@@ -1172,13 +1156,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1188,7 +1168,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
     
@@ -1196,9 +1182,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
-    
         <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
+    
+        <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1233,15 +1219,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
-    
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
     
