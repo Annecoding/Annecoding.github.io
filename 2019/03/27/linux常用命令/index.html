@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Linux系统常用命令整理 · Annecoding&#39;s Studio</title>
+    <title>Linux系统常用命令整理（精选） · Annecoding&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Annecoding&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Linux系统常用命令整理</a>
+                <a href="#" class="post-name">Linux系统常用命令整理（精选）</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Linux系统常用命令整理
+            Linux系统常用命令整理（精选）
             <!-- 404 -->
             
         </h1>
@@ -270,11 +270,15 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Centos">Centos</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="grep">grep</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="cut">cut</a>
+    
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">3.9k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -437,6 +441,108 @@ height:50vh;
 <p>正文内容解释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PID：进程的ID</span><br><span class="line">USER：进程所有者</span><br><span class="line">PR：进程的优先级别，越小越优先被执行</span><br><span class="line">NInice：值</span><br><span class="line">VIRT：进程占用的虚拟内存</span><br><span class="line">RES：进程占用的物理内存</span><br><span class="line">SHR：进程使用的共享内存</span><br><span class="line">S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数</span><br><span class="line">%CPU：进程占用CPU的使用率</span><br><span class="line">%MEM：进程使用的物理内存和总内存的百分比</span><br><span class="line">TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。</span><br><span class="line">COMMAND：进程启动命令名称</span><br></pre></td></tr></table></figure></p>
 <h3 id="查询网络信息等"><a href="#查询网络信息等" class="headerlink" title="查询网络信息等"></a>查询网络信息等</h3><h4 id="查看网络信息"><a href="#查看网络信息" class="headerlink" title="查看网络信息"></a>查看网络信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ifconfig  #需要安装yum install net-tools</span><br><span class="line">#或者 </span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
 <h4 id="查看dns信息"><a href="#查看dns信息" class="headerlink" title="查看dns信息"></a>查看dns信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf</span><br></pre></td></tr></table></figure>
+<h4 id="cat"><a href="#cat" class="headerlink" title="cat"></a><strong>cat</strong></h4><p>最常用的就是<code>cat</code>命令了，注意，如果文件很大的话，cat命令的输出结果会疯狂在终端上输出，可以多次按<code>ctrl+c</code>终止。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看文件大小</span></span><br><span class="line">$ du -h file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件内容</span></span><br><span class="line">$ cat file</span><br></pre></td></tr></table></figure>
+<h4 id="sort-排序命令"><a href="#sort-排序命令" class="headerlink" title="sort 排序命令"></a>sort 排序命令</h4><p>将输入按照一定方式排序，然后再输出,它支持的排序有按字典排序,数字排序，按月份排序，随机排序，反转排序，指定特定字段进行排序等等。<br>默认为字典排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | sort</span><br></pre></td></tr></table></figure>
+<p>反转排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | sort -r</span><br></pre></td></tr></table></figure>
+<p>按特定字段排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | sort -t<span class="string">':'</span> -k 3</span><br></pre></td></tr></table></figure>
+<p>上面的<code>-t</code>参数用于指定字段的分隔符，这里是以<code>:</code>作为分隔符；<code>-k</code> 字段号用于指定对哪一个字段进行排序。这里<code>/etc/passwd</code>文件的第三个字段为数字，默认情况下是以字典序排序的，如果要按照数字排序就要加上<code>-n</code>参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | sort -t<span class="string">':'</span> -k 3 -n</span><br></pre></td></tr></table></figure>
+<h4 id="less"><a href="#less" class="headerlink" title="less"></a>less</h4><p>既然cat有这个问题，针对比较大的文件，我们就可以使用<code>less</code>命令打开某个文件。 类似vim，less可以在输入<code>/</code>后进入查找模式，然后按<code>n</code>(N)向下(上)查找。<br>有许多操作，都和vim类似，你可以类比看下。</p>
+<h4 id="tail"><a href="#tail" class="headerlink" title="tail"></a><strong>tail</strong></h4><p>大多数做服务端开发的同学，都了解这么命令。比如，查看nginx的滚动日志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tail -f access.log</span><br></pre></td></tr></table></figure>
+<p>tail命令可以静态的查看某个文件的最后n行，与之对应的，head命令查看文件头n行。但head没有滚动功能，就像尾巴是往外长的，不会反着往里长。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tail -n100 access.log</span><br><span class="line">$ head -n100 access.log</span><br></pre></td></tr></table></figure>
+<h4 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a><strong>crontab</strong></h4><p>这就是linux本地的job工具。不是分布式的，你要不是运维，就不要用了。比如，每10分钟提醒喝茶上厕所。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /home/xjj/wc10min</span><br></pre></td></tr></table></figure>
+<h4 id="date"><a href="#date" class="headerlink" title="date"></a><strong>date</strong></h4><p>date命令用来输出当前的系统时间，可以使用-s参数指定输出格式。但设置时间涉及到设置硬件，所以有另外一个命令叫做<code>hwclock</code>。</p>
+<h3 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a><strong>xargs</strong></h3><p>xargs读取输入源，然后逐行处理。这个命令非常有用。举个栗子，删除目录中的所有class文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find . | grep .class$ | xargs rm -rvf</span><br><span class="line"></span><br><span class="line"><span class="comment">#把所有的rmvb文件拷贝到目录</span></span><br><span class="line">ls *.rmvb | xargs -n1 -i cp &#123;&#125; /mount/xiaodianying</span><br></pre></td></tr></table></figure>
+<h4 id="cut命令"><a href="#cut命令" class="headerlink" title="cut命令"></a>cut命令</h4><p>cut是一个选取命令，就是将一段数据经过分析，取出我们想要的。一般来说，选取信息通常是针对“行”来进行分析的，并不是整篇信息分析的。</p>
+<p><strong>命令原型</strong> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut [选项]… [文件]…</span><br></pre></td></tr></table></figure>
+<p><strong>使用说明</strong></p>
+<p>cut 命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段写至标准输出。<br>如果不指定 File 参数，cut 命令将读取标准输入。必须指定 -b、-c 或 -f 标志之一。</p>
+<p><strong>主要参数</strong></p>
+<p><strong>-b ：</strong>以字节字节（bytes）为单位进行分割。这些字节位置将忽略多字节字符边界，除非也指定了 -n 标志。<br><strong>-c ：</strong>以字符（characters）为单位进行分割。<br><strong>-d ：</strong>自定义分隔符，默认为制表符。<br><strong>-f ：</strong>与-d一起使用，指定显示哪个区域（fields）。<br><strong>-n ：</strong>取消分割多字节字符。仅和 -b 标志一起使用。如果字符的最后一个字节落在由 -b 标志的 List 参数指示的<br>范围之内，该字符将被写出；否则，该字符将被排除。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">范围</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>a-b</code></td>
+<td style="text-align:left">a 和 b 之间的范围（闭区间）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a</code></td>
+<td style="text-align:left">与范围 <code>a-a</code> 等价</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-b</code></td>
+<td style="text-align:left">与范围 <code>1-a</code> 等价</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>b-</code></td>
+<td style="text-align:left">与范围 <code>b-∞</code> 等价</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">$ who</span><br><span class="line">rocrocket :0           2009-01-08 11:07</span><br><span class="line">rocrocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">rocrocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 选取第1到第3个字节</span></span><br><span class="line">$ who | cut -b -3</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line"><span class="comment"># 选取第3个字节到行尾</span></span><br><span class="line">$ who | cut -b 3-</span><br><span class="line">crocket :0           2009-01-08 11:07</span><br><span class="line">crocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">crocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 用-d来设置间隔符为冒号，然后用-f来设置我要取的是第一个域</span></span><br><span class="line"><span class="comment"># 取第1，3，4，5段</span></span><br><span class="line">$ cat /etc/passwd | head -n 5 | cut -d : -f 1,3-5</span><br><span class="line">root:0:0:root</span><br><span class="line">bin:1:1:bin</span><br><span class="line">daemon:2:2:daemon</span><br><span class="line">adm:3:4:adm</span><br><span class="line">lp:4:7:lp</span><br><span class="line"><span class="comment"># 取第1，3，4，5，7段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f 1,3-5,7</span><br><span class="line">root:0:0:root:/bin/bash</span><br><span class="line">bin:1:1:bin:/sbin/nologin</span><br><span class="line">daemon:2:2:daemon:/sbin/nologin</span><br><span class="line">adm:3:4:adm:/sbin/nologin</span><br><span class="line">lp:4:7:lp:/sbin/nologin</span><br><span class="line"><span class="comment"># 取第1，2段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f -2</span><br><span class="line">root:x</span><br><span class="line">bin:x</span><br><span class="line">daemon:x</span><br><span class="line">adm:x</span><br><span class="line">lp:x</span><br><span class="line"><span class="comment"># 用空格切割后的第1,2个元素</span></span><br><span class="line">ll | cut -d <span class="string">' '</span> -f 1,2 </span><br><span class="line">total 252</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxrwxr-x 4</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxr-xr-x 2</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br></pre></td></tr></table></figure>
+<p>💡 <strong>cut有哪些缺陷和不足？</strong></p>
+<p>猜出来了吧？对，就是在处理多空格时。<br>如果文件里面的某些域是由若干个空格来间隔的，那么用cut就有点麻烦了，<strong>因为cut只擅长处理“以一个字符间隔”</strong>。</p>
+<h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a><strong>grep</strong></h4><p><code>grep</code>按行检索输入的每一行，如果输入行包含模式<code>PATTERN</code>，则输出这一行。</p>
+<p>1.输出文件<code>/etc/passwd</code>中包含<code>root</code>的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ grep root /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line"><span class="comment"># 从标准输入获得</span></span><br><span class="line">$ cat /etc/passwd | grep root</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>🌟 需要注意的地方是：当grep的输入既来自文件也来自标准输入时，grep将忽略标准输入的内容不做处理，除非使用符号<code>-</code>来代表标准输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | grep root /etc/passwd -</span><br><span class="line">/etc/passwd:root:x:0:0:root:/root:/bin/bash</span><br><span class="line">/etc/passwd:operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line">(standard input):root:x:0:0:root:/root:/bin/bash</span><br><span class="line">(standard input):operator:x:11:0:operator:/root:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>此时，grep会标明哪些结果来自于文件哪些来自于标准输入。</p>
+<p>2.输出文件/etc/passwd和文件/etc/group中以root开头的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"^root"</span> /etc/passwd /etc/group</span><br><span class="line">/etc/passwd:root:x:0:0:root:/root:/bin/bash</span><br><span class="line">/etc/group:root:x:0:</span><br></pre></td></tr></table></figure>
+<p>3.输出文件/etc/passwd中以/bin/bash结尾的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"/bin/bash$"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>🌟 注意以上两个例子中<code>PATTERN</code>被双引号引用起来以防止被shell解析。</p>
+<p>4.输出文件/etc/passwd中不以a-s中任何一个字母开头的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"^[^a-s]"</span> /etc/passwd </span><br><span class="line">tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin</span><br><span class="line">tcpdump:x:72:72::/:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>这里需要理解两个<code>^</code>间不同的含义，第一个<code>^</code>表示行首，第二个在<code>[]</code>内部的首个字符<code>^</code>表示取反。</p>
+<p>5.输出文件/etc/passwd中字符<code>0</code>连续出现3次及以上的行(注意转义字符’\’)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"0\&#123;3,\&#125;"</span> /etc/passwd</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>6.输出文件/etc/passwd中以字符<code>r</code>或<code>l</code>开头的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"^[rl]"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>7.选项<code>-i</code>使grep在匹配模式时忽略大小写🔅：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep -i abcd file </span><br><span class="line">ABCD</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">abcd</span></span>() &#123;</span><br></pre></td></tr></table></figure>
+<p>8.选项<code>-o</code>表示只输出匹配的字符🔅，而不是整行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep -oi abcd file </span><br><span class="line">ABCD</span><br><span class="line">abcd</span><br></pre></td></tr></table></figure>
+<p>9.选项<code>-c</code>统计匹配的行数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep -oic abcd file </span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>10.选项<code>-v</code>表示取反匹配🔅，如输出/etc/passwd中不以/sbin/nologin结尾的行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ grep -v <span class="string">"/sbin/nologin$"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">sync:x:5:0:sync:/sbin:/bin/sync</span><br><span class="line">shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</span><br><span class="line">halt:x:7:0:halt:/sbin:/sbin/halt</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>11.选项<code>-E</code>可以使用扩展的正则表达式，如同执行<code>egrep</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ egrep <span class="string">"^root|^learner"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>🔅使用扩展正则表达式意味着不需要转义就能表示字符的特殊含义，包括<code>?</code>,<code>+</code>,<code>{</code>,<code>|</code>,<code>(</code>和<code>)</code>。</p>
+<p>选项<code>-P</code>表示使用perl的正则表达式进行匹配<br>如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"helloworld123456"</span>| grep -oP <span class="string">"\d+"</span></span><br><span class="line">123456</span><br></pre></td></tr></table></figure>
+<p>perl正则中”\d”表示数字，<code>+</code>表示匹配一到多次(同vim)。</p>
+<p>选项<code>-a</code>将二进制文件当成文本文件处理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep -a online /usr/bin/ls</span><br><span class="line">%s online <span class="built_in">help</span>: &lt;%s&gt;</span><br></pre></td></tr></table></figure>
+<p>💡 <strong>高级玩法</strong></p>
+<p>1.grep用来对内容进行过滤，带上<code>--color</code>参数，可以在支持的终端可以打印彩色，参数<code>n</code>则输出具体的行数，用来快速定位。<br>比如：查看nginx日志中的POST请求。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep -rn --color POST access.log</span><br></pre></td></tr></table></figure>
+<p>推荐每次都使用这样的参数。</p>
+<p>2.如果我想要看某个异常前后相关的内容，就可以使用ABC参数。它们是几个单词的缩写，经常被使用。 <strong>A</strong>  after  内容后n行 <strong>B</strong>  before  内容前n行 <strong>C</strong>  count?  内容前后n行<br>就像是这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep -rn --color Exception -A10 -B2   error.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考链接：</p>
+<p><a href="https://segmentfault.com/a/1190000007416745" target="_blank" rel="noopener">linux基础命令介绍五：文本过滤 grep</a></p>
+<p>[Linux上，最常用的一批命令解析（10年精选)](<a href="https://juejin.im/post/5d134fbfe51d4510727c80d1）" target="_blank" rel="noopener">https://juejin.im/post/5d134fbfe51d4510727c80d1）</a></p>
+</blockquote>
+
     </article>
     <!-- license  -->
     
@@ -444,7 +550,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">https://annecoding.github.io/2019/03/27/linux常用命令/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">March 27th 2019, 2:52:47 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">April 29th 2019, 9:23:15 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:10:22 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -576,7 +682,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看linux的版本"><span class="toc-number">1.</span> <span class="toc-text">查看linux的版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看版本号32位还是64位"><span class="toc-number">1.1.</span> <span class="toc-text">查看版本号32位还是64位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看系统版本"><span class="toc-number">1.2.</span> <span class="toc-text">查看系统版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看内核版本"><span class="toc-number">1.3.</span> <span class="toc-text">查看内核版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询磁盘使用情况"><span class="toc-number">2.</span> <span class="toc-text">查询磁盘使用情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录使用状况"><span class="toc-number">2.1.</span> <span class="toc-text">目录使用状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独文件夹使用状况"><span class="toc-number">2.2.</span> <span class="toc-text">单独文件夹使用状况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询内存状况"><span class="toc-number">3.</span> <span class="toc-text">查询内存状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询cpu"><span class="toc-number">4.</span> <span class="toc-text">查询cpu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询网络信息等"><span class="toc-number">5.</span> <span class="toc-text">查询网络信息等</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看网络信息"><span class="toc-number">5.1.</span> <span class="toc-text">查看网络信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看dns信息"><span class="toc-number">5.2.</span> <span class="toc-text">查看dns信息</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看linux的版本"><span class="toc-number">1.</span> <span class="toc-text">查看linux的版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看版本号32位还是64位"><span class="toc-number">1.1.</span> <span class="toc-text">查看版本号32位还是64位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看系统版本"><span class="toc-number">1.2.</span> <span class="toc-text">查看系统版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看内核版本"><span class="toc-number">1.3.</span> <span class="toc-text">查看内核版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询磁盘使用情况"><span class="toc-number">2.</span> <span class="toc-text">查询磁盘使用情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录使用状况"><span class="toc-number">2.1.</span> <span class="toc-text">目录使用状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独文件夹使用状况"><span class="toc-number">2.2.</span> <span class="toc-text">单独文件夹使用状况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询内存状况"><span class="toc-number">3.</span> <span class="toc-text">查询内存状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询cpu"><span class="toc-number">4.</span> <span class="toc-text">查询cpu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询网络信息等"><span class="toc-number">5.</span> <span class="toc-text">查询网络信息等</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看网络信息"><span class="toc-number">5.1.</span> <span class="toc-text">查看网络信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看dns信息"><span class="toc-number">5.2.</span> <span class="toc-text">查看dns信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cat"><span class="toc-number">5.3.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort-排序命令"><span class="toc-number">5.4.</span> <span class="toc-text">sort 排序命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#less"><span class="toc-number">5.5.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tail"><span class="toc-number">5.6.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crontab"><span class="toc-number">5.7.</span> <span class="toc-text">crontab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#date"><span class="toc-number">5.8.</span> <span class="toc-text">date</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xargs"><span class="toc-number">6.</span> <span class="toc-text">xargs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cut命令"><span class="toc-number">6.1.</span> <span class="toc-text">cut命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#grep"><span class="toc-number">6.2.</span> <span class="toc-text">grep</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -589,6 +695,26 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1015,7 +1141,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/27</span><a class="archive-post-title" href="/2019/03/27/linux常用命令/">Linux系统常用命令整理</a>
+            <span class="archive-post-date">03/27</span><a class="archive-post-title" href="/2019/03/27/linux常用命令/">Linux系统常用命令整理（精选）</a>
         </li>
     
     
@@ -1068,7 +1194,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
@@ -1076,11 +1204,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
-        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
-    
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1090,23 +1220,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
-    
-        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
         <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
     
         <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
+    
+        <span class="sidebar-tag-name" data-tags="grep"><span class="iconfont-archer">&#xe606;</span>grep</span>
+    
+        <span class="sidebar-tag-name" data-tags="cut"><span class="iconfont-archer">&#xe606;</span>cut</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1141,15 +1271,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+        <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
         <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
     
