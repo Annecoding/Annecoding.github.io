@@ -515,17 +515,17 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"0\&#123;3,\&#125;"</span> /etc/passwd</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
 <p>6.输出文件/etc/passwd中以字符<code>r</code>或<code>l</code>开头的行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"^[rl]"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
-<p>7.选项<code>-i</code>使grep在匹配模式时忽略大小写🔅：</p>
+<p>7.选项<code>-i</code>使grep在匹配模式时忽略大小写⭐️：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep -i abcd file </span><br><span class="line">ABCD</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">abcd</span></span>() &#123;</span><br></pre></td></tr></table></figure>
-<p>8.选项<code>-o</code>表示只输出匹配的字符🔅，而不是整行：</p>
+<p>8.选项<code>-o</code>表示只输出匹配的字符⭐️，而不是整行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep -oi abcd file </span><br><span class="line">ABCD</span><br><span class="line">abcd</span><br></pre></td></tr></table></figure>
 <p>9.选项<code>-c</code>统计匹配的行数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep -oic abcd file </span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>10.选项<code>-v</code>表示取反匹配🔅，如输出/etc/passwd中不以/sbin/nologin结尾的行：</p>
+<p>10.选项<code>-v</code>表示取反匹配⭐️，如输出/etc/passwd中不以/sbin/nologin结尾的行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ grep -v <span class="string">"/sbin/nologin$"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">sync:x:5:0:sync:/sbin:/bin/sync</span><br><span class="line">shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</span><br><span class="line">halt:x:7:0:halt:/sbin:/sbin/halt</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
 <p>11.选项<code>-E</code>可以使用扩展的正则表达式，如同执行<code>egrep</code>命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ egrep <span class="string">"^root|^learner"</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">learner:x:1000:1000::/home/learner:/bin/bash</span><br></pre></td></tr></table></figure>
-<p>🔅使用扩展正则表达式意味着不需要转义就能表示字符的特殊含义，包括<code>?</code>,<code>+</code>,<code>{</code>,<code>|</code>,<code>(</code>和<code>)</code>。</p>
+<p>⭐️ 使用扩展正则表达式意味着不需要转义就能表示字符的特殊含义，包括<code>?</code>,<code>+</code>,<code>{</code>,<code>|</code>,<code>(</code>和<code>)</code>。</p>
 <p>选项<code>-P</code>表示使用perl的正则表达式进行匹配<br>如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"helloworld123456"</span>| grep -oP <span class="string">"\d+"</span></span><br><span class="line">123456</span><br></pre></td></tr></table></figure>
 <p>perl正则中”\d”表示数字，<code>+</code>表示匹配一到多次(同vim)。</p>
@@ -548,7 +548,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">https://annecoding.github.io/2019/03/27/linux常用命令/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">March 27th 2019, 2:52:47 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:18:18 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:21:09 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1009,6 +1009,34 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 26
@@ -1027,12 +1055,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
@@ -1122,22 +1150,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
         </li>
     
     
@@ -1148,6 +1171,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1164,15 +1192,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1181,10 +1213,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="Ncap"><span class="iconfont-archer">&#xe606;</span>Ncap</span>
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
-    
-        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
@@ -1239,9 +1267,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
-        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
-    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
