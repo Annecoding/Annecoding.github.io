@@ -459,7 +459,7 @@ height:50vh;
 <h4 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a><strong>crontab</strong></h4><p>这就是linux本地的job工具。不是分布式的，你要不是运维，就不要用了。比如，每10分钟提醒喝茶上厕所。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /home/xjj/wc10min</span><br></pre></td></tr></table></figure>
 <h4 id="date"><a href="#date" class="headerlink" title="date"></a><strong>date</strong></h4><p>date命令用来输出当前的系统时间，可以使用-s参数指定输出格式。但设置时间涉及到设置硬件，所以有另外一个命令叫做<code>hwclock</code>。</p>
-<h3 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a><strong>xargs</strong></h3><p>xargs读取输入源，然后逐行处理。这个命令非常有用。举个栗子，删除目录中的所有class文件。</p>
+<h4 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a><strong>xargs</strong></h4><p>xargs读取输入源，然后逐行处理。这个命令非常有用。举个栗子，删除目录中的所有class文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find . | grep .class$ | xargs rm -rvf</span><br><span class="line"></span><br><span class="line"><span class="comment">#把所有的rmvb文件拷贝到目录</span></span><br><span class="line">ls *.rmvb | xargs -n1 -i cp &#123;&#125; /mount/xiaodianying</span><br></pre></td></tr></table></figure>
 <h3 id="cut命令"><a href="#cut命令" class="headerlink" title="cut命令"></a>cut命令</h3><p>cut是一个选取命令，就是将一段数据经过分析，取出我们想要的。一般来说，选取信息通常是针对“行”来进行分析的，并不是整篇信息分析的。</p>
 <p><strong>命令原型</strong> </p>
@@ -494,10 +494,10 @@ height:50vh;
 </tr>
 </tbody>
 </table>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">$ who</span><br><span class="line">rocrocket :0           2009-01-08 11:07</span><br><span class="line">rocrocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">rocrocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 选取第1到第3个字节</span></span><br><span class="line">$ who | cut -b -3</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line"><span class="comment"># 选取第3个字节到行尾</span></span><br><span class="line">$ who | cut -b 3-</span><br><span class="line">crocket :0           2009-01-08 11:07</span><br><span class="line">crocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">crocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 用-d来设置间隔符为冒号，然后用-f来设置我要取的是第一个域</span></span><br><span class="line"><span class="comment"># 取第1，3，4，5段</span></span><br><span class="line">$ cat /etc/passwd | head -n 5 | cut -d : -f 1,3-5</span><br><span class="line">root:0:0:root</span><br><span class="line">bin:1:1:bin</span><br><span class="line">daemon:2:2:daemon</span><br><span class="line">adm:3:4:adm</span><br><span class="line">lp:4:7:lp</span><br><span class="line"><span class="comment"># 取第1，3，4，5，7段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f 1,3-5,7</span><br><span class="line">root:0:0:root:/bin/bash</span><br><span class="line">bin:1:1:bin:/sbin/nologin</span><br><span class="line">daemon:2:2:daemon:/sbin/nologin</span><br><span class="line">adm:3:4:adm:/sbin/nologin</span><br><span class="line">lp:4:7:lp:/sbin/nologin</span><br><span class="line"><span class="comment"># 取第1，2段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f -2</span><br><span class="line">root:x</span><br><span class="line">bin:x</span><br><span class="line">daemon:x</span><br><span class="line">adm:x</span><br><span class="line">lp:x</span><br><span class="line"><span class="comment"># 用空格切割后的第1,2个元素</span></span><br><span class="line">ll | cut -d <span class="string">' '</span> -f 1,2 </span><br><span class="line">total 252</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxrwxr-x 4</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxr-xr-x 2</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">$ who</span><br><span class="line">rocrocket :0           2009-01-08 11:07</span><br><span class="line">rocrocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">rocrocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 选取第1到第3个字节</span></span><br><span class="line">$ who | cut -b -3</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line">roc</span><br><span class="line"><span class="comment"># 选取第3个字节到行尾</span></span><br><span class="line">$ who | cut -b 3-</span><br><span class="line">crocket :0           2009-01-08 11:07</span><br><span class="line">crocket pts/0        2009-01-08 11:23 (:0.0)</span><br><span class="line">crocket pts/1        2009-01-08 14:15 (:0.0)</span><br><span class="line"><span class="comment"># 用-d来设置间隔符为冒号，然后用-f来设置我要取的是第一个域</span></span><br><span class="line"><span class="comment"># 取第1，3，4，5段</span></span><br><span class="line">$ cat /etc/passwd | head -n 5 | cut -d : -f 1,3-5</span><br><span class="line">root:0:0:root</span><br><span class="line">bin:1:1:bin</span><br><span class="line">daemon:2:2:daemon</span><br><span class="line">adm:3:4:adm</span><br><span class="line">lp:4:7:lp</span><br><span class="line"><span class="comment"># 取第1，3，4，5，7段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f 1,3-5,7</span><br><span class="line">root:0:0:root:/bin/bash</span><br><span class="line">bin:1:1:bin:/sbin/nologin</span><br><span class="line">daemon:2:2:daemon:/sbin/nologin</span><br><span class="line">adm:3:4:adm:/sbin/nologin</span><br><span class="line">lp:4:7:lp:/sbin/nologin</span><br><span class="line"><span class="comment"># 取第1，2段</span></span><br><span class="line">$ cat /etc/passwd|head -n 5 | cut -d : -f -2</span><br><span class="line">root:x</span><br><span class="line">bin:x</span><br><span class="line">daemon:x</span><br><span class="line">adm:x</span><br><span class="line">lp:x</span><br><span class="line"><span class="comment"># 用空格切割后的第1,2个元素</span></span><br><span class="line">$ ll | cut -d <span class="string">' '</span> -f 1,2 </span><br><span class="line">total 252</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxrwxr-x 4</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">drwxr-xr-x 2</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br><span class="line">-rw-r--r-- 1</span><br></pre></td></tr></table></figure>
 <p>💡 <strong>cut有哪些缺陷和不足？</strong></p>
 <p>猜出来了吧？对，就是在处理多空格时。<br>如果文件里面的某些域是由若干个空格来间隔的，那么用cut就有点麻烦了，<strong>因为cut只擅长处理“以一个字符间隔”</strong>。</p>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a><strong>grep</strong></h3><p><code>grep</code>按行检索输入的每一行，如果输入行包含模式<code>PATTERN</code>，则输出这一行。</p>
+<h3 id="grep命令"><a href="#grep命令" class="headerlink" title="grep命令"></a><strong>grep命令</strong></h3><p><code>grep</code>按行检索输入的每一行，如果输入行包含模式<code>PATTERN</code>，则输出这一行。</p>
 <p>1.输出文件<code>/etc/passwd</code>中包含<code>root</code>的行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ grep root /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line"><span class="comment"># 从标准输入获得</span></span><br><span class="line">$ cat /etc/passwd | grep root</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br></pre></td></tr></table></figure>
 <p>🌟 需要注意的地方是：当grep的输入既来自文件也来自标准输入时，grep将忽略标准输入的内容不做处理，除非使用符号<code>-</code>来代表标准输入：</p>
@@ -538,9 +538,7 @@ height:50vh;
 <p>2.如果我想要看某个异常前后相关的内容，就可以使用ABC参数。它们是几个单词的缩写，经常被使用。 <strong>A</strong>  after  内容后n行 <strong>B</strong>  before  内容前n行 <strong>C</strong>  count?  内容前后n行<br>就像是这样：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep -rn --color Exception -A10 -B2   error.log</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参考链接：</p>
-<p><a href="https://segmentfault.com/a/1190000007416745" target="_blank" rel="noopener">linux基础命令介绍五：文本过滤 grep</a></p>
-<p>[Linux上，最常用的一批命令解析（10年精选)](<a href="https://juejin.im/post/5d134fbfe51d4510727c80d1）" target="_blank" rel="noopener">https://juejin.im/post/5d134fbfe51d4510727c80d1）</a></p>
+<p>参考链接：<br><a href="https://segmentfault.com/a/1190000007416745" target="_blank" rel="noopener">linux基础命令介绍五：文本过滤 grep</a><br><a href="https://juejin.im/post/5d134fbfe51d4510727c80d1" target="_blank" rel="noopener">Linux上，最常用的一批命令解析(十年精选)</a></p>
 </blockquote>
 
     </article>
@@ -550,7 +548,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">https://annecoding.github.io/2019/03/27/linux常用命令/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">March 27th 2019, 2:52:47 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:11:53 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:18:18 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -682,7 +680,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看linux的版本"><span class="toc-number">1.</span> <span class="toc-text">查看linux的版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看版本号32位还是64位"><span class="toc-number">1.1.</span> <span class="toc-text">查看版本号32位还是64位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看系统版本"><span class="toc-number">1.2.</span> <span class="toc-text">查看系统版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看内核版本"><span class="toc-number">1.3.</span> <span class="toc-text">查看内核版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询磁盘使用情况"><span class="toc-number">2.</span> <span class="toc-text">查询磁盘使用情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录使用状况"><span class="toc-number">2.1.</span> <span class="toc-text">目录使用状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独文件夹使用状况"><span class="toc-number">2.2.</span> <span class="toc-text">单独文件夹使用状况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询内存状况"><span class="toc-number">3.</span> <span class="toc-text">查询内存状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询cpu"><span class="toc-number">4.</span> <span class="toc-text">查询cpu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询网络信息等"><span class="toc-number">5.</span> <span class="toc-text">查询网络信息等</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看网络信息"><span class="toc-number">5.1.</span> <span class="toc-text">查看网络信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看dns信息"><span class="toc-number">5.2.</span> <span class="toc-text">查看dns信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-number">6.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cat"><span class="toc-number">6.1.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort-排序命令"><span class="toc-number">6.2.</span> <span class="toc-text">sort 排序命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#less"><span class="toc-number">6.3.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tail"><span class="toc-number">6.4.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crontab"><span class="toc-number">6.5.</span> <span class="toc-text">crontab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#date"><span class="toc-number">6.6.</span> <span class="toc-text">date</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xargs"><span class="toc-number">7.</span> <span class="toc-text">xargs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cut命令"><span class="toc-number">8.</span> <span class="toc-text">cut命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep"><span class="toc-number">9.</span> <span class="toc-text">grep</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看linux的版本"><span class="toc-number">1.</span> <span class="toc-text">查看linux的版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看版本号32位还是64位"><span class="toc-number">1.1.</span> <span class="toc-text">查看版本号32位还是64位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看系统版本"><span class="toc-number">1.2.</span> <span class="toc-text">查看系统版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看内核版本"><span class="toc-number">1.3.</span> <span class="toc-text">查看内核版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询磁盘使用情况"><span class="toc-number">2.</span> <span class="toc-text">查询磁盘使用情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录使用状况"><span class="toc-number">2.1.</span> <span class="toc-text">目录使用状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独文件夹使用状况"><span class="toc-number">2.2.</span> <span class="toc-text">单独文件夹使用状况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询内存状况"><span class="toc-number">3.</span> <span class="toc-text">查询内存状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询cpu"><span class="toc-number">4.</span> <span class="toc-text">查询cpu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询网络信息等"><span class="toc-number">5.</span> <span class="toc-text">查询网络信息等</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看网络信息"><span class="toc-number">5.1.</span> <span class="toc-text">查看网络信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看dns信息"><span class="toc-number">5.2.</span> <span class="toc-text">查看dns信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-number">6.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cat"><span class="toc-number">6.1.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort-排序命令"><span class="toc-number">6.2.</span> <span class="toc-text">sort 排序命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#less"><span class="toc-number">6.3.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tail"><span class="toc-number">6.4.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crontab"><span class="toc-number">6.5.</span> <span class="toc-text">crontab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#date"><span class="toc-number">6.6.</span> <span class="toc-text">date</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xargs"><span class="toc-number">6.7.</span> <span class="toc-text">xargs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cut命令"><span class="toc-number">7.</span> <span class="toc-text">cut命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep命令"><span class="toc-number">8.</span> <span class="toc-text">grep命令</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -695,32 +693,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1150,17 +1122,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1171,11 +1148,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1192,19 +1164,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
-    
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
-    
-        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1213,6 +1181,10 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="Ncap"><span class="iconfont-archer">&#xe606;</span>Ncap</span>
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
@@ -1267,9 +1239,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
-        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
-    
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+    
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
