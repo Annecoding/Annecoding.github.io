@@ -278,7 +278,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">3.9k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">4k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -439,7 +439,56 @@ height:50vh;
 </li>
 </ul>
 <p>正文内容解释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PID：进程的ID</span><br><span class="line">USER：进程所有者</span><br><span class="line">PR：进程的优先级别，越小越优先被执行</span><br><span class="line">NInice：值</span><br><span class="line">VIRT：进程占用的虚拟内存</span><br><span class="line">RES：进程占用的物理内存</span><br><span class="line">SHR：进程使用的共享内存</span><br><span class="line">S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数</span><br><span class="line">%CPU：进程占用CPU的使用率</span><br><span class="line">%MEM：进程使用的物理内存和总内存的百分比</span><br><span class="line">TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。</span><br><span class="line">COMMAND：进程启动命令名称</span><br></pre></td></tr></table></figure></p>
-<h3 id="查询网络信息等"><a href="#查询网络信息等" class="headerlink" title="查询网络信息等"></a>查询网络信息等</h3><h4 id="查看网络信息"><a href="#查看网络信息" class="headerlink" title="查看网络信息"></a>查看网络信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ifconfig  #需要安装yum install net-tools</span><br><span class="line">#或者 </span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+<h3 id="查询网络信息等"><a href="#查询网络信息等" class="headerlink" title="查询网络信息等"></a>查询网络信息等</h3><h4 id="查看网络信息"><a href="#查看网络信息" class="headerlink" title="查看网络信息"></a>查看网络信息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要安装yum install net-tools</span></span><br><span class="line">ifconfig  </span><br><span class="line"><span class="comment">#或者 </span></span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+<p><code>netstat</code>属于<code>net-tools</code>工具集，而<code>ss</code>属于<code>iproute</code>。其命令对应如下，是时候和net-tools说Bye了。</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>net-tools</th>
+<th>iproute</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>统计</td>
+<td>ifconfig</td>
+<td>ss</td>
+</tr>
+<tr>
+<td>地址</td>
+<td>netstat</td>
+<td>ip addr</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>route</td>
+<td>ip route</td>
+</tr>
+<tr>
+<td>邻居</td>
+<td>arp</td>
+<td>ip neigh</td>
+</tr>
+<tr>
+<td>VPN</td>
+<td>iptunnel</td>
+<td>ip tunnel</td>
+</tr>
+<tr>
+<td>VLAN</td>
+<td>vconfig</td>
+<td>ip link</td>
+</tr>
+<tr>
+<td>组播</td>
+<td>ipmaddr</td>
+<td>ip maddr</td>
+</tr>
+</tbody>
+</table>
+<p>查看连接本机最多的前10个ip地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -antp | awk <span class="string">'&#123;print $4&#125;'</span> | cut -d <span class="string">':'</span> -f1 | sort | uniq -c  | sort -n -k1 -r | head -n 10</span><br></pre></td></tr></table></figure>
 <h4 id="查看dns信息"><a href="#查看dns信息" class="headerlink" title="查看dns信息"></a>查看dns信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf</span><br></pre></td></tr></table></figure>
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="cat"><a href="#cat" class="headerlink" title="cat"></a><strong>cat</strong></h4><p>最常用的就是<code>cat</code>命令了，注意，如果文件很大的话，cat命令的输出结果会疯狂在终端上输出，可以多次按<code>ctrl+c</code>终止。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看文件大小</span></span><br><span class="line">$ du -h file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件内容</span></span><br><span class="line">$ cat file</span><br></pre></td></tr></table></figure>
@@ -538,7 +587,7 @@ height:50vh;
 <p>2.如果我想要看某个异常前后相关的内容，就可以使用ABC参数。它们是几个单词的缩写，经常被使用。 <strong>A</strong>  after  内容后n行 <strong>B</strong>  before  内容前n行 <strong>C</strong>  count?  内容前后n行<br>就像是这样：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep -rn --color Exception -A10 -B2   error.log</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参考链接：<br><a href="https://segmentfault.com/a/1190000007416745" target="_blank" rel="noopener">linux基础命令介绍五：文本过滤 grep</a><br><a href="https://juejin.im/post/5d134fbfe51d4510727c80d1" target="_blank" rel="noopener">Linux上，最常用的一批命令解析(十年精选)</a></p>
+<p>参考链接：<br><a href="https://segmentfault.com/a/1190000007416745" target="_blank" rel="noopener">linux基础命令介绍五：文本过滤 grep</a><br><a href="https://juejin.im/post/5d134fbfe51d4510727c80d1" target="_blank" rel="noopener">Linux上，最常用的一批命令解析(十年精选)</a><br><a href="https://juejin.im/post/5c272ec66fb9a049e93ccffe" target="_blank" rel="noopener">Linux之《荒岛余生》（五）网络篇</a></p>
 </blockquote>
 
     </article>
@@ -548,7 +597,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">https://annecoding.github.io/2019/03/27/linux常用命令/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">March 27th 2019, 2:52:47 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:21:09 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/27/linux常用命令/">August 5th 2019, 5:46:41 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1027,16 +1076,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 26
@@ -1150,17 +1189,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1175,11 +1219,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/hello-world/">Hello World</a>
         </li>
     
@@ -1188,19 +1227,19 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
-    
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
-    
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
@@ -1216,11 +1255,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
+        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
+    
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
         <span class="sidebar-tag-name" data-tags="Shell"><span class="iconfont-archer">&#xe606;</span>Shell</span>
-    
-        <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
@@ -1265,9 +1304,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
