@@ -419,7 +419,7 @@ height:50vh;
 <li>从<code>$VAR</code>中删除位于<code>%</code>右侧的通配符（在上例中式<code>.*</code>），通配符从右向左进行匹配。</li>
 <li>给<code>VAR</code>赋值，即<code>VAR=sample.jpg</code>，通配符从右向左匹配得到的内容是<code>.jpg</code>，因此从<code>$VAR</code>中删除匹配结果，得到输出结果sample。</li>
 </ul>
-<p>💡 那么，有没有考虑过，要是文件名由很多后缀呢<code>cute.a.b.c.d.txt</code>？要是提取的变量为域名<code>www.google.com</code>呢？有的是办法，往下看~</p>
+<p>💡 那么，有没有考虑过，要是文件名有很多后缀呢<code>cute.a.b.c.d.txt</code>？要是提取的变量为域名<code>www.google.com</code>呢？有的是办法，往下看~</p>
 <p><strong>%属于非贪婪匹配，它从右向左找出匹配通配符的最短结果。还有另一个操作符%%，它于%相似，但行为模式确是贪婪的，它会匹配符合通配符的最长结果。</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 声明变量var</span></span><br><span class="line">$ var=hack.fun.book.txt</span><br><span class="line"><span class="comment"># 执行从右向左非贪婪匹配，得到的匹配结果为.txt,删除了.txt之后文件名，可以得到具体的文件名</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;var%.*&#125;</span></span><br><span class="line">hack.fun.book</span><br><span class="line"><span class="comment"># 执行从右向左贪婪匹配，得到结果.fun.book.txt,删除了.fun.book.txt</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;var%%.*&#125;</span></span><br><span class="line">hack</span><br></pre></td></tr></table></figure>
 <p><code>${VAR#*.}</code>工作原理：</p>
@@ -440,7 +440,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/">https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/">August 13th 2019, 4:22:49 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/">August 13th 2019, 4:31:00 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/">August 13th 2019, 4:50:59 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -925,6 +925,40 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 27
@@ -1043,12 +1077,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统下Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
@@ -1091,9 +1125,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
-    
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
@@ -1107,11 +1141,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
+        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
+    
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
-    
-        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
     
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
