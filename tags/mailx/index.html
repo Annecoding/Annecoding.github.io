@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>linux系统扫描命令和安全防范笔记 · Annecoding&#39;s Studio</title>
+    <title>Annecoding&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">Annecoding&#39;s Studio.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">linux系统扫描命令和安全防范笔记</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">Annecoding's Studio.</a>
 </header>
@@ -231,84 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600*900)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            linux系统扫描命令和安全防范笔记
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="hping">hping</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="traceroute">traceroute</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Nmap">Nmap</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Ncap">Ncap</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="fping">fping</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/07/20</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -409,182 +338,44 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <meta name="referrer" content="no-referrer">
-
-<p>本文主要介绍了一些常用的网络扫描工具以及安全防范，了解更多命令的使用。<br><a id="more"></a></p>
-<h3 id="linux系统扫描命令和安全防范笔记"><a href="#linux系统扫描命令和安全防范笔记" class="headerlink" title="linux系统扫描命令和安全防范笔记"></a><strong>linux系统扫描命令和安全防范笔记</strong></h3><p>通过网络入侵来窃取敏感信息</p>
-<p>通过网络扫描获取运营商核心设备的管理权限</p>
-<h3 id="网络入侵方式"><a href="#网络入侵方式" class="headerlink" title="网络入侵方式"></a><strong>网络入侵方式</strong></h3><p>踩点-网络扫描-差点-提权</p>
-<p><strong>常用命令</strong></p>
-<p>tracert/traceroute、namp、nc</p>
-<h3 id="主机扫描命令fping"><a href="#主机扫描命令fping" class="headerlink" title="主机扫描命令fping"></a><strong>主机扫描命令fping</strong></h3><p>批量的给目标主机发送ping请求，测试主机的存活情况。</p>
-<p>特点：并行发送，结果易读</p>
-<p><strong>源码包编译过程</strong></p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g54yozizhcj30yg0lign8.jpg" alt="image-20190719105646797"></p>
-<p>fping编译安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># wget https://fping.org/dist/fping-4.2.tar.gz</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar -xvf fping-4.2.tar.gz </span></span><br><span class="line">[root@localhost fping-4.2]<span class="comment"># ./configure &amp; make &amp; make install</span></span><br><span class="line">[root@localhost fping-4.2]<span class="comment"># fping -h  #查看帮助命令</span></span><br><span class="line">[root@localhost fping-4.2]<span class="comment"># fping -v</span></span><br><span class="line">fping: Version 4.2</span><br><span class="line">fping: comments to david@schweikert.ch</span><br></pre></td></tr></table></figure>
-<h4 id="fping参数介绍"><a href="#fping参数介绍" class="headerlink" title="fping参数介绍"></a><strong>fping参数介绍</strong></h4><p>命令参数man、-h方式</p>
-<p>常用参数：</p>
-<p>-a 只显示出存活的主机(相反参数-u)</p>
-<p>-l 循环ping</p>
-<p>1、通过标准输入方式fping+IP1+IP2</p>
-<p>-g 支持主机段的方式 192.168.1.1 192.168.1.255 192.168.1.0/24</p>
-<p>2、通过读取一个文件中的IP内容</p>
-<p>方式：fping -f filename</p>
-<p>3、fping使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找存货的主机</span></span><br><span class="line">fping -a 10.10.163.233</span><br><span class="line"><span class="comment"># 可以查找某个网段内存活的主机</span></span><br><span class="line">fping  -g -a 10.10.163.1 10.10.163.254</span><br><span class="line"><span class="comment"># 查找某个网段内存活主机第二种写法</span></span><br><span class="line">fping -a -g 10.10.163.233/24</span><br></pre></td></tr></table></figure>
-<h3 id="主机扫描命令hping"><a href="#主机扫描命令hping" class="headerlink" title="主机扫描命令hping"></a><strong>主机扫描命令hping</strong></h3><p>支持使用tcp/ip数据包组装、分析工具</p>
-<p>linux下编译安装</p>
-<p>如果遇到如下错误</p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g556megt3vj30oi04et9c.jpg" alt="image-20190719153110732"></p>
-<p>可通过安装下面库解决</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g556sceynmj30ji09274q.jpg" alt="image-20190719153652881"></p>
-<p><a href="http://rpmfind.net/" target="_blank" rel="noopener">http://rpmfind.net/</a></p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g556pk21f9j30xy082do7.jpg" alt="image-20190719153414670"></p>
-<h4 id="hping常用参数"><a href="#hping常用参数" class="headerlink" title="hping常用参数"></a><strong>hping常用参数</strong></h4><p>1、对特定的目标发起tcp探测（规避运营商防火墙、主机等对icmp包屏蔽）</p>
-<p>-p 端口tcp</p>
-<p>-S 设置TCP模式SYN包</p>
-<p>2、伪造来源IP，模拟Ddos攻击</p>
-<p>-a 伪造IP地址</p>
-<p>3、hping使用 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo hping -p 22 -S 10.10.163.233</span><br><span class="line"></span><br><span class="line">sudo hping -p 22 -S 10.10.163.233 -a 10.10.163.235</span><br></pre></td></tr></table></figure>
-<p> centos拒绝掉icmp包设置</p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g56489gypsj30kg01mwei.jpg" alt="image-20190720105353473"></p>
-<h3 id="路由扫描"><a href="#路由扫描" class="headerlink" title="路由扫描"></a><strong>路由扫描</strong></h3><p>作用：查询一个主机经过的路由的跳数、及数据延迟情况</p>
-<p>常用工具：traceroute、mtr</p>
-<p>mtr特点：能测出主机到每一个路由间的联通性。</p>
-<p>traceroute连接原理。</p>
-<p>linux下发送udp包（&gt;30000端口），windows发送icmp包。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g564xl90vhj30pk0i23zb.jpg" alt="image-20190720111813791"></p>
-<p>TTL，生存时间的值。发给第一跳，ttl-1=0，返回udp数据包。</p>
-<p>扫描到几个路由器，发送几个ttl数据包。</p>
-<h4 id="traceroute参数的使用"><a href="#traceroute参数的使用" class="headerlink" title="traceroute参数的使用"></a><strong>traceroute参数的使用</strong></h4><p> linux一般默认有，如果没有安装方式</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5657hwwdpj30mi03gjru.jpg" alt="image-20190720112746947"></p>
-<p>1、默认使用的是udp协议(30000以上的端口)</p>
-<p>2、支持使用TCP协议 -T(发送tcp协议) -p(基于tcp什么端口)</p>
-<p>3、使用ICMP协议介绍 -I </p>
-<p>4、traceroute使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">traceroute www.baidu.com</span><br><span class="line"><span class="comment"># -n 去掉解析</span></span><br><span class="line">traceroute -n www.baidu.com </span><br><span class="line"><span class="comment"># 使用icmp，window默认使用</span></span><br><span class="line">traceroute -In  www.imooc.com</span><br><span class="line"><span class="comment"># 使用tcp才能检测到最终跳数(一般会屏蔽icmp协议)</span></span><br><span class="line">traceroute -T -p 80 -n www.imooc.com</span><br></pre></td></tr></table></figure>
-<h4 id="mtr使用"><a href="#mtr使用" class="headerlink" title="mtr使用"></a>mtr使用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">yum install mtr -y</span><br><span class="line"><span class="comment"># 使用，原理和traceroute一样，可以看到到哪一跳丢包率更为严重</span></span><br><span class="line">mtr www.baidu.com</span><br></pre></td></tr></table></figure>
-<h3 id="批量主机扫描"><a href="#批量主机扫描" class="headerlink" title="批量主机扫描"></a><strong>批量主机扫描</strong></h3><p>目的：</p>
-<p>1、批量主机存活扫描</p>
-<p>2、针对主机服务扫描</p>
-<p>作用：</p>
-<p>1、能快捷的获取主机的存活状态</p>
-<p>2、能更加细致、只能获取主机服务侦查情况</p>
-<p><strong>典型命令</strong></p>
-<p>1、nmap 基于端口扫描，特别强大</p>
-<p>2、ncat 瑞士军刀</p>
-<h4 id="nmap使用"><a href="#nmap使用" class="headerlink" title="nmap使用"></a><strong>nmap使用</strong></h4><p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g56dmqgtktj30v60f8dhb.jpg" alt="image-20190720161913675"></p>
-<p>tcp半开放，不建立完整的tcp，未建立完整的三次握手。</p>
-<p>1、主机存活扫描</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扫描主机存活状态,s检测用什么协议做侦测</span></span><br><span class="line">namp -sP 10.10.140.0/24</span><br></pre></td></tr></table></figure>
-<p>2、主机端口开放扫描，默认扫描范围1-1024，以及一些常用的服务端口</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sS 10.10.10.163.233</span><br></pre></td></tr></table></figure>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g56dzj5o2kj30mq0ae400.jpg" alt="image-20190720163117782"></p>
-<p>3、半开放指定端口扫描</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sS -p 0-30000 10.10.163.233</span><br></pre></td></tr></table></figure>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g56e6peru2j30nw0a0t9w.jpg" alt="image-20190720163823202"></p>
-<p>4、全开放连接参数，建立一次全握手，时间长</p>
-<p>建立全握手，可以模拟用户的真实操作请求，需要服务端能检测到相关的日志，打印出相关记录信息。</p>
-<p>建议日常使用半扫描模式。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -p 0-30000 10.10.163.233</span><br></pre></td></tr></table></figure>
-<p> 5、udp协议扫描方式</p>
-<p>扫描udp，响应比较慢、可能特别慢。会限制icmp不可达返回的次数。不建议使用。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sU 10.10.163.233</span><br></pre></td></tr></table></figure>
-<h4 id="ncat使用"><a href="#ncat使用" class="headerlink" title="ncat使用"></a><strong>ncat使用</strong></h4><p>查看某个路由开放哪些端口80 23</p>
-<p>通过shell交互更改数据 ，可进行任意操作</p>
-<p>nc -lvp 2005 监听端口</p>
-<p><strong>nc好处</strong></p>
-<p>1、不会频繁通过界面登录留下痕迹</p>
-<p>2、登录非常方便</p>
-<p>3、不会被侦测设备侦测到</p>
-<p>-w 设置的超市时间</p>
-<p>-z 一个输入输出模式</p>
-<p>-v 显示命令执行过程</p>
-<p>1、基于tcp协议(默认)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看22端口开放情况</span></span><br><span class="line">nc -zv 10.10.163.233 22</span><br><span class="line"><span class="comment"># 查看一些端口开放 超时2s</span></span><br><span class="line">nc -zv -w2 10.10.163.233 1-50</span><br></pre></td></tr></table></figure>
-<p>2、基于udp协议 -u  </p>
-<p>回应时间长，不建议使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看一些端口开放 超时2s</span></span><br><span class="line">nc -zv -u -w2 10.10.163.233 1-50</span><br></pre></td></tr></table></figure>
-<h3 id="预防策略"><a href="#预防策略" class="headerlink" title="预防策略"></a><strong>预防策略</strong></h3><p>在linux进行防御。</p>
-<p>常见攻击方法：</p>
-<p>1、SYN攻击</p>
-<p>2、DDoS攻击</p>
-<p>3、恶意扫描</p>
-<p>什么是SYN攻击？</p>
-<p>利用TCP协议缺陷进行，导致系统服务停止响应，网络带宽跑满或者响应缓慢。</p>
-<p>什么是DDoS攻击？</p>
-<p>分布式拒绝访问服务攻击。</p>
-<p>正常服务在同一时间接到了很多个类似于正常服务的请求，也有可能是完全正常的请求，导致服务响应不过来。</p>
-<p>SYN攻击一般会伴随着DDoS攻击进行</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g56eutfdydj30qq0ikgmc.jpg" alt="image-20190720170129641"></p>
-<p>SYN攻击原理，eg可以利用hping伪造源ip，发送给假的主机，得不到第三次请求。目标机器不断发送重试，不停回应包，就会导致网络带宽占满。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g56f1z4xe1j30og0iuq3m.jpg" alt="image-20190720170357218"></p>
-<ul>
-<li><p>减少重试次数</p>
-</li>
-<li><p>可以增加backlog</p>
-</li>
-<li><p>禁止三次握手，SYN cookies技术</p>
-</li>
-</ul>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g56f1r9lamj30m40c40x8.jpg" alt="image-20190720170816652"></p>
-<p>linux下其他预防策略</p>
-<p>1、防火墙上面做相关设置</p>
-<p>2、linux下面可以关闭icmp协议请求</p>
-<p>3、通过iptables防止扫描</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g56f53ibkej30xc0bqmyd.jpg" alt="image-20190720171122849"></p>
-<blockquote>
-<p>学习笔记整理自慕课网以下课程:<br>linux系统扫描命令和安全防范笔记</p>
-</blockquote>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
-            </p><p>原文链接：<a href="https://annecoding.github.io/2019/07/20/linux系统扫描命令和安全防范笔记/">https://annecoding.github.io/2019/07/20/linux系统扫描命令和安全防范笔记/</a>
-            </p><p>发表日期：<a href="https://annecoding.github.io/2019/07/20/linux系统扫描命令和安全防范笔记/">July 20th 2019, 5:21:31 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/07/20/linux系统扫描命令和安全防范笔记/">July 28th 2019, 9:40:42 am</a>
-            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/08/22/Centos使用mailx告警邮件配置/">
+            
+                <span>Centos使用mailx告警邮件配置</span>
+        </a>
+        <div class="abstract-content">
+            <!-- <meta name="referrer" content="no-referrer" /> -->
+<p>今天为大家介绍一个可以直接在 Linux 上使用 SMTP 发送邮件的程序：Mailx，这个程序可以帮助我们让服务器直接支持邮件发送，不用再在每个站点上都设置了。</p>
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Centos">Centos</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="mailx">mailx</a>
+    
+</div>
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/07/20/ubuntu修改IP地址/" title="ubuntu修改IP地址">
-                    <div class="nextTitle">ubuntu修改IP地址</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/06/11/linux中玩转sed/" title="linux中玩转sed">
-                    <div class="prevTitle">linux中玩转sed</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -664,24 +455,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux系统扫描命令和安全防范笔记"><span class="toc-number">1.</span> <span class="toc-text">linux系统扫描命令和安全防范笔记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络入侵方式"><span class="toc-number">2.</span> <span class="toc-text">网络入侵方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主机扫描命令fping"><span class="toc-number">3.</span> <span class="toc-text">主机扫描命令fping</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fping参数介绍"><span class="toc-number">3.1.</span> <span class="toc-text">fping参数介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主机扫描命令hping"><span class="toc-number">4.</span> <span class="toc-text">主机扫描命令hping</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hping常用参数"><span class="toc-number">4.1.</span> <span class="toc-text">hping常用参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由扫描"><span class="toc-number">5.</span> <span class="toc-text">路由扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#traceroute参数的使用"><span class="toc-number">5.1.</span> <span class="toc-text">traceroute参数的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mtr使用"><span class="toc-number">5.2.</span> <span class="toc-text">mtr使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量主机扫描"><span class="toc-number">6.</span> <span class="toc-text">批量主机扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nmap使用"><span class="toc-number">6.1.</span> <span class="toc-text">nmap使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ncat使用"><span class="toc-number">6.2.</span> <span class="toc-text">ncat使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预防策略"><span class="toc-number">7.</span> <span class="toc-text">预防策略</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1389,8 +1162,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
