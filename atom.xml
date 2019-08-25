@@ -192,8 +192,6 @@
     
       <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
     
-      <category term="hping" scheme="https://annecoding.github.io/tags/hping/"/>
-    
       <category term="traceroute" scheme="https://annecoding.github.io/tags/traceroute/"/>
     
       <category term="Nmap" scheme="https://annecoding.github.io/tags/Nmap/"/>
@@ -201,6 +199,8 @@
       <category term="Ncap" scheme="https://annecoding.github.io/tags/Ncap/"/>
     
       <category term="fping" scheme="https://annecoding.github.io/tags/fping/"/>
+    
+      <category term="hping" scheme="https://annecoding.github.io/tags/hping/"/>
     
   </entry>
   
