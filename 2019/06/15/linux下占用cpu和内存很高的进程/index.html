@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>mac下如何修改环境变量 · Annecoding&#39;s Studio</title>
+    <title>linux下占用cpu和内存top10 · Annecoding&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Annecoding&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">mac下如何修改环境变量</a>
+                <a href="#" class="post-name">linux下占用cpu和内存top10</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            mac下如何修改环境变量
+            linux下占用cpu和内存top10
             <!-- 404 -->
             
         </h1>
@@ -268,18 +268,18 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Mac">Mac</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="shell">shell</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">686</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">373</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/07/24</span>
+                    <span class="post-intro-time">2019/06/15</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -404,53 +404,20 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <!-- <meta name="referrer" content="no-referrer" /> -->
-<p>mac下环境变量到底该修改哪个文件呢？？？黑人问号脸，所以，一起来揭穿它神秘的面纱吧。<br><a id="more"></a></p>
-<p>mac下一般使用bash作为默认shell</p>
-<p>mac系统的环境变量，加载顺序为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/profile /etc/paths ~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc</span><br></pre></td></tr></table></figure>
-<p>当然<code>/etc/profile</code>和<code>/etc/paths</code>是系统级别的，系统启动就会加载，后面几个是当前用户级的环境变量。</p>
-<p>后面3个按照从前往后的顺序读取，如果<code>/.bash_profile</code>文件存在，则后面的几个文件就会被忽略不读了，如果<code>~/.bash_profile</code>文件不存在，才会以此类推读取后面的文件。</p>
-<p><code>~/.bashrc</code>没有上述规则，它是<code>bash shell</code>打开的时候载入的。</p>
-<p>如果没特殊说明,设置PATH的语法都为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#中间用冒号隔开 </span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:------:&lt;PATH N&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>下面的几个文件设置是全局的,修改时需要root权限</p>
-<p>1、<code>/etc/paths</code> （全局建议修改这个文件 ）</p>
-<p>编辑 <code>/etc/paths</code>，将环境变量添加到<code>/etc/paths</code>文件中 ，一行一个路径</p>
-<p>Hint：输入环境变量时，不用一个一个地输入，只要拖动文件夹到 Terminal 里就可以了。</p>
-<p>2、<code>/etc/profile</code>（建议不修改这个文件 ）全局（公有）配置，不管是哪个用户，登录时都会读取该文件。</p>
-<p>3、<code>/etc/bashrc</code>（一般在这个文件中添加系统级环境变量）全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。</p>
-<p>4、这条是什么鬼，先放着hhh~~~~👻</p>
-<p>1.创建一个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /etc/paths.d/mysql</span><br></pre></td></tr></table></figure>
-<p>2.用 vim 打开这个文件（如果是以 open -t 的方式打开，则不允许编辑）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/paths.d/mysql</span><br></pre></td></tr></table></figure>
-<p>3.编辑该文件，键入路径并保存（关闭该 Terminal 窗口并重新打开一个，就能使用 mysql 命令了）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
-<p>据说，这样可以自己生成新的文件，不用把变量全都放到 paths 一个文件里，方便管理。</p>
-<h3 id="单个用户设置"><a href="#单个用户设置" class="headerlink" title="单个用户设置"></a>单个用户设置</h3><p>1、<code>~/.bash_profile</code> （任意一个文件中添加用户级环境变量）</p>
-<p>（注：Linux 里面是<code>.bashrc</code> 而 Mac 是 <code>.bash_profile</code>）</p>
-<p>若<code>bash shell</code>是以login方式执行时，才会读取此文件。该文件仅仅执行一次!默认情况下,他设置一些环境变量</p>
-<p>设置命令别名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ll=’ls -la’</span><br></pre></td></tr></table></figure>
-<p>设置环境变量：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/opt/<span class="built_in">local</span>/bin:/opt/<span class="built_in">local</span>/sbin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<p>2、<code>~/.bashrc</code>同上</p>
-<p>如果想立刻生效，则可执行下面的语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source 相应的文件</span><br></pre></td></tr></table></figure>
-<p>一般环境变量更改后，重启程序后生效。</p>
-<blockquote>
-<p>参考：</p>
-<p><a href="https://segmentfault.com/q/1010000008484965/a-1020000008485621" target="_blank" rel="noopener">MAC OS中修改环境变量到底应该修改哪个文件</a></p>
-</blockquote>
-
+<p>服务器访问变慢，那么到底是什么进程导致服务器资源变慢呢？我们可以根据cpu、内存等查看占用资源较高的进程。</p>
+<a id="more"></a>
+<p>可以通过ps命令的相关操作来查看。这里分别找出最高占用cpu和内存的10个进程，实现脚本如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat cpu_memory_top.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 查看占用cpu、内存过高的进程</span></span><br><span class="line"><span class="comment"># 占用cpu内存过高的前十个进程</span></span><br><span class="line"><span class="comment"># -e 显示所有程序 -o 使用用户自定义格式 --sort排序</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------    cpu top10   ---------"</span></span><br><span class="line">ps -eo user,pid,pcpu,pmem,args --sort=-pcpu |head -n 10</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------  memory top10  ---------"</span></span><br><span class="line">ps -eo user,pid,pcpu,pmem,args --sort=-pmem |head -n 10</span><br></pre></td></tr></table></figure>
+<p>执行结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ./cpu_memory_top.sh   </span><br><span class="line">--------    cpu top10   ---------</span><br><span class="line">USER       PID %CPU %MEM COMMAND</span><br><span class="line">root      1066  0.3  0.6 /usr/<span class="built_in">local</span>/aegis/aegis_client/aegis_10_69/AliYunDun</span><br><span class="line">root         1  0.0  0.1 /usr/lib/systemd/systemd --switched-root --system --deserialize 21</span><br><span class="line">root         2  0.0  0.0 [kthreadd]</span><br><span class="line">root         3  0.0  0.0 [ksoftirqd/0]</span><br><span class="line">root         5  0.0  0.0 [kworker/0:0H]</span><br><span class="line">root         7  0.0  0.0 [migration/0]</span><br><span class="line">root         8  0.0  0.0 [rcu_bh]</span><br><span class="line">root         9  0.0  0.0 [rcu_sched]</span><br><span class="line">root        10  0.0  0.0 [watchdog/0]</span><br><span class="line">--------  memory top10  ---------</span><br><span class="line">USER       PID %CPU %MEM COMMAND</span><br><span class="line">root       683  0.0  1.8 /sbin/dhclient -H localhost -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid eth0</span><br><span class="line">root       328  0.0  1.5 /usr/lib/systemd/systemd-journald</span><br><span class="line">root       765  0.0  0.8 /usr/bin/python -Es /usr/sbin/tuned -l -P</span><br><span class="line">polkitd    458  0.0  0.6 /usr/lib/polkit-1/polkitd --no-debug</span><br><span class="line">root      1066  0.3  0.6 /usr/<span class="built_in">local</span>/aegis/aegis_client/aegis_10_69/AliYunDun</span><br><span class="line">root       767  0.0  0.4 /usr/sbin/rsyslogd -n</span><br><span class="line">root     11661  0.0  0.3 sshd: root@notty</span><br><span class="line">root     11752  0.0  0.2 sshd: root@pts/0</span><br><span class="line">root      2166  0.0  0.2 /usr/sbin/aliyun-service</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
-            </p><p>原文链接：<a href="https://annecoding.github.io/2019/07/24/mac下如何修改环境变量/">https://annecoding.github.io/2019/07/24/mac下如何修改环境变量/</a>
-            </p><p>发表日期：<a href="https://annecoding.github.io/2019/07/24/mac下如何修改环境变量/">July 24th 2019, 4:00:33 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/07/24/mac下如何修改环境变量/">July 28th 2019, 9:39:28 am</a>
+            </p><p>原文链接：<a href="https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/">https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/</a>
+            </p><p>发表日期：<a href="https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/">June 15th 2019, 2:00:21 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/">August 31st 2019, 2:15:38 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,16 +426,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/07/24/mtr网络分析工具安装/" title="mtr网络分析工具安装">
-                    <div class="nextTitle">mtr网络分析工具安装</div>
+                <a href="/2019/07/20/linux系统扫描命令和安全防范笔记/" title="linux系统扫描命令和安全防范笔记">
+                    <div class="nextTitle">linux系统扫描命令和安全防范笔记</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/07/20/linux安装hping添加环境变量/" title="linux安装hping添加环境变量">
-                    <div class="prevTitle">linux安装hping添加环境变量</div>
+                <a href="/2019/06/11/linux中玩转sed/" title="linux中玩转sed">
+                    <div class="prevTitle">linux中玩转sed</div>
                 </a>
             
         </li>
@@ -582,7 +549,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局设置"><span class="toc-number">1.</span> <span class="toc-text">全局设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个用户设置"><span class="toc-number">2.</span> <span class="toc-text">单个用户设置</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
