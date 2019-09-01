@@ -268,13 +268,15 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="Centos">Centos</a>
+    
         <a class="post-tag" href="javascript:void(0);" data-tags="shell">shell</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,15 +414,12 @@ height:50vh;
 <p>DEV显示网络接口信息。<br>EDEV显示关于网络错误的统计数据。<br>NFS统计活动的NFS客户端的信息。<br>NFSD统计NFS服务器的信息<br>SOCK显示套接字信息<br>ALL显示所有5个开关</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sar -n DEV 1 2       </span><br><span class="line">Linux 3.10.0-514.26.2.el7.x86_64 (localhost)    08/31/2019      _x86_64_        (1 CPU)</span><br><span class="line"></span><br><span class="line">09:52:28 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</span><br><span class="line">09:52:29 AM      eth0      2.02      1.01      0.13      0.16      0.00      0.00      0.00</span><br><span class="line">09:52:29 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">09:52:29 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</span><br><span class="line">09:52:30 AM      eth0      1.02      1.02      0.07      0.23      0.00      0.00      0.00</span><br><span class="line">09:52:30 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">Average:        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</span><br><span class="line">Average:         eth0      1.52      1.02      0.10      0.19      0.00      0.00      0.00</span><br><span class="line">Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br></pre></td></tr></table></figure>
 <p><strong>参数说明：</strong><br>IFACE：LAN接口<br>rxpck/s：每秒钟接收的数据包<br>txpck/s：每秒钟发送的数据包<br>rxbyt/s：每秒钟接收的字节数<br>txbyt/s：每秒钟发送的字节数<br>rxcmp/s：每秒钟接收的压缩数据包<br>txcmp/s：每秒钟发送的压缩数据包<br>rxmcst/s：每秒钟接收的多播数据包<br>rxerr/s：每秒钟接收的坏数据包<br>txerr/s：每秒钟发送的坏数据包<br>coll/s：每秒冲突数<br>rxdrop/s：因为缓冲充满，每秒钟丢弃的已接收数据包数<br>txdrop/s：因为缓冲充满，每秒钟丢弃的已发送数据包数<br>txcarr/s：发送数据包时，每秒载波错误数<br>rxfram/s：每秒接收数据包的帧对齐错误数<br>rxfifo/s：接收的数据包每秒FIFO过速的错误数<br>txfifo/s：发送的数据包每秒FIFO过速的错误数</p>
-<h3 id="实时监控脚本一"><a href="#实时监控脚本一" class="headerlink" title="实时监控脚本一"></a>实时监控脚本一</h3><p>ifconfig可以查看的是从连上网开始的流量总和，<code>cat /proc/net/dev</code>记录的值也是总流量，那么可以计算一下，实时流量=当前流量-上一秒的流量。</p>
+<h3 id="实时监控脚本（1）"><a href="#实时监控脚本（1）" class="headerlink" title="实时监控脚本（1）"></a>实时监控脚本（1）</h3><p>ifconfig可以查看的是从连上网开始的流量总和，<code>cat /proc/net/dev</code>记录的值也是总流量，那么可以计算一下，实时流量=当前流量-上一秒的流量。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat network.sh </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 传入网卡参数</span></span><br><span class="line">ethn=<span class="variable">$1</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  RX_pre=$(cat /proc/net/dev | grep <span class="variable">$ethn</span> | sed <span class="string">'s/:/ /g'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">  TX_pre=$(cat /proc/net/dev | grep <span class="variable">$ethn</span> | sed <span class="string">'s/:/ /g'</span> | awk <span class="string">'&#123;print $10&#125;'</span>)</span><br><span class="line">  sleep 1</span><br><span class="line">  RX_next=$(cat /proc/net/dev | grep <span class="variable">$ethn</span> | sed <span class="string">'s/:/ /g'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">  TX_next=$(cat /proc/net/dev | grep <span class="variable">$ethn</span> | sed <span class="string">'s/:/ /g'</span> | awk <span class="string">'&#123;print $10&#125;'</span>)</span><br><span class="line"> </span><br><span class="line">  clear</span><br><span class="line">  <span class="comment"># echo -e激活转义符</span></span><br><span class="line">  <span class="comment"># 输出时间的标题</span></span><br><span class="line">  <span class="built_in">echo</span> -e <span class="string">"\t RX `date +%k:%M:%S` TX"</span></span><br><span class="line"> </span><br><span class="line">  RX=$((<span class="variable">$&#123;RX_next&#125;</span>-<span class="variable">$&#123;RX_pre&#125;</span>))</span><br><span class="line">  TX=$((<span class="variable">$&#123;TX_next&#125;</span>-<span class="variable">$&#123;TX_pre&#125;</span>))</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$RX</span> -lt 1024 ]];<span class="keyword">then</span></span><br><span class="line">    RX=<span class="string">"<span class="variable">$&#123;RX&#125;</span>B/s"</span></span><br><span class="line">  <span class="keyword">elif</span> [[ <span class="variable">$RX</span> -gt 1048576 ]];<span class="keyword">then</span></span><br><span class="line">    RX=$(<span class="built_in">echo</span> <span class="variable">$RX</span> | awk <span class="string">'&#123;print $1/1048576 "MB/s"&#125;'</span>)</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    RX=$(<span class="built_in">echo</span> <span class="variable">$RX</span> | awk <span class="string">'&#123;print $1/1024 "KB/s"&#125;'</span>)</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$TX</span> -lt 1024 ]];<span class="keyword">then</span></span><br><span class="line">    TX=<span class="string">"<span class="variable">$&#123;TX&#125;</span>B/s"</span></span><br><span class="line">  <span class="keyword">elif</span> [[ <span class="variable">$TX</span> -gt 1048576 ]];<span class="keyword">then</span></span><br><span class="line">    TX=$(<span class="built_in">echo</span> <span class="variable">$TX</span> | awk <span class="string">'&#123;print $1/1048576 "MB/s"&#125;'</span>)</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    TX=$(<span class="built_in">echo</span> <span class="variable">$TX</span> | awk <span class="string">'&#123;print $1/1024 "KB/s"&#125;'</span>)</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="comment"># 输出流量</span></span><br><span class="line">  <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$ethn</span> \t <span class="variable">$RX</span>   <span class="variable">$TX</span> "</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <p>执行结果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ./network.sh  eth0</span></span><br><span class="line">         RX 20:23:38 TX</span><br><span class="line">eth0     66B/s   0B/s </span><br><span class="line">         RX 20:23:39 TX</span><br><span class="line">eth0     132B/s   0B/s </span><br><span class="line">         RX 20:23:40 TX</span><br><span class="line">eth0     186B/s   194B/s </span><br><span class="line">         RX 20:23:41 TX</span><br><span class="line">eth0     240B/s   194B/s </span><br><span class="line">         RX 20:23:42 TX</span><br><span class="line">eth0     132B/s   0B/s </span><br><span class="line">         RX 20:23:43 TX</span><br><span class="line">eth0     240B/s   194B/s </span><br><span class="line">         RX 20:23:44 TX</span><br><span class="line">eth0     396B/s   4.19727KB/s </span><br><span class="line">         RX 20:23:45 TX</span><br><span class="line">eth0     276B/s   178B/s</span><br></pre></td></tr></table></figure></p>
-<h3 id="实时监控脚本二"><a href="#实时监控脚本二" class="headerlink" title="实时监控脚本二"></a>实时监控脚本二</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ cat network_flow.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 监控实时网卡流量</span></span><br><span class="line"><span class="comment"># $1 接收所传第一个参数 即要监控的网卡</span></span><br><span class="line">NIC=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># echo -e "traffic in --- traffic out"</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;<span class="keyword">do</span></span><br><span class="line">        <span class="comment"># $0 命令输出结果 ~ 匹配模式</span></span><br><span class="line">        OLD_IN=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $2&#125;'</span> /proc/net/dev`</span><br><span class="line">        OLD_OUT=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $10&#125;'</span> /proc/net/dev`</span><br><span class="line">        sleep 1</span><br><span class="line">        NEW_IN=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $2&#125;'</span> /proc/net/dev`</span><br><span class="line">        NEW_OUT=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $10&#125;'</span> /proc/net/dev`</span><br><span class="line">        clear</span><br><span class="line">        <span class="comment"># printf不换行 %s占位符</span></span><br><span class="line">        IN=$(<span class="built_in">printf</span> <span class="string">"%.1f%s"</span> <span class="string">"<span class="variable">$(($NEW_IN-$OLD_IN)</span>)"</span> <span class="string">"B/s"</span>)</span><br><span class="line">        OUT=$(<span class="built_in">printf</span> <span class="string">"%.1f%s"</span> <span class="string">"<span class="variable">$(($NEW_OUT-$OLD_OUT)</span>)"</span> <span class="string">"B/s"</span>)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"       traffic in  `date +%k:%M:%S`  traffic out "</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$NIC</span>   <span class="variable">$IN</span>              <span class="variable">$OUT</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="实时监控脚本（2）"><a href="#实时监控脚本（2）" class="headerlink" title="实时监控脚本（2）"></a>实时监控脚本（2）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ cat network_flow.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 监控实时网卡流量</span></span><br><span class="line"><span class="comment"># $1 接收所传第一个参数 即要监控的网卡</span></span><br><span class="line">NIC=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># echo -e "traffic in --- traffic out"</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;<span class="keyword">do</span></span><br><span class="line">        <span class="comment"># $0 命令输出结果 ~ 匹配模式</span></span><br><span class="line">        OLD_IN=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $2&#125;'</span> /proc/net/dev`</span><br><span class="line">        OLD_OUT=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $10&#125;'</span> /proc/net/dev`</span><br><span class="line">        sleep 1</span><br><span class="line">        NEW_IN=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $2&#125;'</span> /proc/net/dev`</span><br><span class="line">        NEW_OUT=`awk <span class="string">'$0~"'</span><span class="variable">$NIC</span><span class="string">'"&#123;print $10&#125;'</span> /proc/net/dev`</span><br><span class="line">        clear</span><br><span class="line">        <span class="comment"># printf不换行 %s占位符</span></span><br><span class="line">        IN=$(<span class="built_in">printf</span> <span class="string">"%.1f%s"</span> <span class="string">"<span class="variable">$(($NEW_IN-$OLD_IN)</span>)"</span> <span class="string">"B/s"</span>)</span><br><span class="line">        OUT=$(<span class="built_in">printf</span> <span class="string">"%.1f%s"</span> <span class="string">"<span class="variable">$(($NEW_OUT-$OLD_OUT)</span>)"</span> <span class="string">"B/s"</span>)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"       traffic in  `date +%k:%M:%S`  traffic out "</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$NIC</span>   <span class="variable">$IN</span>              <span class="variable">$OUT</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <p>执行结果如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ ./network_flow.sh eth0</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:02  traffic out </span><br><span class="line">eth0   732.0B/s              948.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:03  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:04  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:05  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:06  traffic out </span><br><span class="line">eth0   186.0B/s              242.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:07  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:08  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:09  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:10  traffic out </span><br><span class="line">eth0   240.0B/s              242.0B/s</span><br><span class="line">       traffic <span class="keyword">in</span>  11:15:11  traffic out </span><br><span class="line">eth0   132.0B/s              0.0B/s</span><br></pre></td></tr></table></figure>
-<h3 id="网络连接情况查询"><a href="#网络连接情况查询" class="headerlink" title="网络连接情况查询"></a>网络连接情况查询</h3><p>1.查看网络连接情况</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo awk <span class="string">'&#123;print $1&#125;'</span> |sort|uniq -c|sort -nr |head -10 /var/<span class="built_in">log</span>/auth.log</span><br></pre></td></tr></table></figure>
-<p>2.按连接数查看客户端ip，根据ip分组计数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -ntu | awk <span class="string">'&#123;print $5&#125;'</span> | cut -d: -f1 | sort | uniq -c</span><br><span class="line">      1 100.100.30.25</span><br><span class="line">      2 112.213.179.149</span><br><span class="line">      1 173.255.234.138</span><br><span class="line">      1 47.52.207.198</span><br><span class="line">      1 47.93.222.200</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -429,7 +428,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/">https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/">August 30th 2019, 8:24:52 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/">August 31st 2019, 2:07:28 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/">September 1st 2019, 12:57:57 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -556,7 +555,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar命令"><span class="toc-number">1.</span> <span class="toc-text">sar命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时监控脚本一"><span class="toc-number">2.</span> <span class="toc-text">实时监控脚本一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时监控脚本二"><span class="toc-number">3.</span> <span class="toc-text">实时监控脚本二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络连接情况查询"><span class="toc-number">4.</span> <span class="toc-text">网络连接情况查询</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar命令"><span class="toc-number">1.</span> <span class="toc-text">sar命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时监控脚本（1）"><span class="toc-number">2.</span> <span class="toc-text">实时监控脚本（1）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时监控脚本（2）"><span class="toc-number">3.</span> <span class="toc-text">实时监控脚本（2）</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -569,10 +568,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
     
     
     
@@ -1066,12 +1061,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a>
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a>
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a>
         </li>
     
     
@@ -1096,12 +1091,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
@@ -1146,7 +1141,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/shell脚本练习/">shell脚本实例</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/shell脚本练习/">shell脚本实例入门精选系列</a>
         </li>
     
     
@@ -1196,17 +1191,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1221,11 +1221,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/hello-world/">Hello World</a>
         </li>
     
@@ -1234,33 +1229,23 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+    
+        <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
+    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
     
-        <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
-    
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
-    
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
-    
-        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
-    
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1270,13 +1255,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
+        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
-    
         <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
+    
+        <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
     
         <span class="sidebar-tag-name" data-tags="grep"><span class="iconfont-archer">&#xe606;</span>grep</span>
     
@@ -1315,11 +1310,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
-    
-        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
