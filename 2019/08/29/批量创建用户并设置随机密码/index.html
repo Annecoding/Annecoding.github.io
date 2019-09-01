@@ -274,7 +274,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">247</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">253</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -406,9 +406,9 @@ height:50vh;
         <!-- <meta name="referrer" content="no-referrer" /> -->
 <p>假如，在linux系统服务器上，要一次创建多个用户并设置密码，你有什么好办法吗？跟我来吧🔅</p>
 <a id="more"></a>
-<p>使用shell脚本实现批量创建用户，实现方式如下:</p>
+<h3 id="批量创建用户"><a href="#批量创建用户" class="headerlink" title="批量创建用户"></a>批量创建用户</h3><p>使用shell脚本实现批量创建用户，实现方式如下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ cat batch_create_user.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 批量创建用户</span></span><br><span class="line"><span class="comment"># $@接收输入的所有参数</span></span><br><span class="line">USER_LIST=<span class="variable">$@</span></span><br><span class="line"><span class="comment"># 将生成的用户名和密码存在文件里面，这样写默认user.txt存在当前路径下</span></span><br><span class="line">USER_FILE=user.txt</span><br><span class="line"><span class="keyword">for</span> USER <span class="keyword">in</span> <span class="variable">$USER_LIST</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 通过id来判断用户是否存在</span></span><br><span class="line">    <span class="keyword">if</span> ! id <span class="variable">$USER</span> &amp;&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    	<span class="comment"># 生产随机的8位字符串</span></span><br><span class="line">        PASS=$(<span class="built_in">echo</span> <span class="variable">$RANDOM</span> |md5sum |cut -c 1-8)</span><br><span class="line">        <span class="comment"># 创建用户</span></span><br><span class="line">        useradd <span class="variable">$USER</span></span><br><span class="line">        <span class="comment"># 将随机生成的密码分配给用户</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="variable">$PASS</span> |passwd --stdin <span class="variable">$USER</span> &amp;&gt;/dev/null</span><br><span class="line">        <span class="comment"># 生成的用户名和密码存入文件中</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$USER</span>   <span class="variable">$PASS</span>"</span> &gt;&gt; <span class="variable">$USER_FILE</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$USER</span> User create successful."</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$USER</span> User already exists!"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>执行结果如下：</p>
+<p><strong>执行结果如下：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./batch_create_user.sh coco zhangsan</span><br><span class="line">coco User create successful.</span><br><span class="line">zhangsan User create successful.</span><br><span class="line"><span class="comment"># 文件默认存放在当前目录下</span></span><br><span class="line">$ cat user.txt </span><br><span class="line">coco   69b7bc14</span><br><span class="line">zhangsan   fd343a4f</span><br></pre></td></tr></table></figure>
 
     </article>
@@ -418,7 +418,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/">https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/">August 29th 2019, 5:08:31 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/">August 29th 2019, 5:18:27 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/">September 1st 2019, 7:42:01 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -550,7 +550,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#批量创建用户"><span class="toc-number">1.</span> <span class="toc-text">批量创建用户</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -563,48 +563,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1122,12 +1080,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
@@ -1222,17 +1180,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1243,11 +1206,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
         </li>
     
     
@@ -1266,15 +1224,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
     
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
-    
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
     
@@ -1290,11 +1248,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
-        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
     
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
     
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
@@ -1343,9 +1301,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
