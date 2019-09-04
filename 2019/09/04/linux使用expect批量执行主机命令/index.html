@@ -444,7 +444,7 @@ height:50vh;
 <p><code>spawn</code>命令用来<strong>启动新的进程</strong>，<code>spawn</code>后的<code>send</code>和<code>expect</code>命令都是和使用<code>spawn</code>打开的进程进行交互。</p>
 <p>interact命令用的其实不是很多，一般情况下使用<code>spawn</code>、<code>send</code>和<code>expect</code>命令就可以很好的完成我们的任务；但在一些特殊场合下还是需要使用<code>interact</code>命令的，<code>interact</code>命令主要用于退出自动化，进入人工交互。比如我们使用<code>spawn</code>、<code>send</code>和<code>expect</code>命令完成了ftp登陆主机，执行下载文件任务，但是我们希望在文件下载结束以后，仍然可以停留在ftp命令行状态，以便手动的执行后续命令，此时使用<code>interact</code>命令就可以很好的完成这个任务。</p>
 <h3 id="ssh免密登录"><a href="#ssh免密登录" class="headerlink" title="ssh免密登录"></a>ssh免密登录</h3><p>1.实现ssh登录执行命令，脚本如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">SERVER=<span class="string">"192.168.1.241"</span></span><br><span class="line">PASSWD=nf123456</span><br><span class="line"></span><br><span class="line">expect -c <span class="string">"</span></span><br><span class="line"><span class="string">        set timeout -1;</span></span><br><span class="line"><span class="string">        spawn ssh <span class="variable">$SERVER</span>;</span></span><br><span class="line"><span class="string">        expect &#123;</span></span><br><span class="line"><span class="string">                \"yes/no\" &#123; send \"yes\r\" ;exp_contine; &#125;</span></span><br><span class="line"><span class="string">                \"password:\" &#123; send \"<span class="variable">$PASSWD</span>\r\"; &#125;</span></span><br><span class="line"><span class="string">        &#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        expect \"]#\" &#123; send \"ls -la \r\" &#125;;</span></span><br><span class="line"><span class="string">        expect \"]#\" &#123; send \"exit \r\" &#125;;</span></span><br><span class="line"><span class="string">        expect eof;</span></span><br><span class="line"><span class="string">        "</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">SERVER=<span class="string">"192.168.1.241"</span></span><br><span class="line">PASSWD=nf123456</span><br><span class="line">expect -c <span class="string">"</span></span><br><span class="line"><span class="string">        set timeout -1;</span></span><br><span class="line"><span class="string">        spawn ssh <span class="variable">$SERVER</span>;</span></span><br><span class="line"><span class="string">        expect &#123;</span></span><br><span class="line"><span class="string">                \"yes/no\" &#123; send \"yes\r\" ;exp_contine; &#125;</span></span><br><span class="line"><span class="string">                \"password:\" &#123; send \"<span class="variable">$PASSWD</span>\r\"; &#125;</span></span><br><span class="line"><span class="string">        &#125;;</span></span><br><span class="line"><span class="string">        expect \"]#\" &#123; send \"ls -la \r\" &#125;;</span></span><br><span class="line"><span class="string">        expect \"]#\" &#123; send \"exit \r\" &#125;;</span></span><br><span class="line"><span class="string">        expect eof;</span></span><br><span class="line"><span class="string">        "</span></span><br></pre></td></tr></table></figure>
 <p>上面的shell功能和expect脚本实现的功能一致，都是通过ssh登录进去后输入，执行<code>ls -la</code>命令，其中</p>
 <p><code>set timeout -1</code>设置超时时间</p>
 <p><code>expect</code>后面需要加上-c</p>
@@ -452,7 +452,7 @@ height:50vh;
 <p><code>ls -la</code>代表命令结束后发送一个退出命令，一般需要加上，防止阻塞</p>
 <p><code>expect eof</code>匹配spawn结束</p>
 <p>2.ssh批量免密demo，脚本如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">SERVERS=<span class="string">"192.168.1.241 192.168.1.242"</span></span><br><span class="line">PASSWD=<span class="string">"123456"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> sshcopyid</span><br><span class="line">&#123;</span><br><span class="line">        expect -c <span class="string">"</span></span><br><span class="line"><span class="string">                set timeout -1;</span></span><br><span class="line"><span class="string">                spawn ssh-copy-id <span class="variable">$1</span>;</span></span><br><span class="line"><span class="string">                expect &#123;</span></span><br><span class="line"><span class="string">                        \"yes/no\" &#123; send \"yes\r\" ;exp_contine; &#125;</span></span><br><span class="line"><span class="string">                        \"password:\" &#123; send \"<span class="variable">$PASSWD</span>\r\";exp_continue; &#125;</span></span><br><span class="line"><span class="string">                &#125;;</span></span><br><span class="line"><span class="string">                expect eof;</span></span><br><span class="line"><span class="string">        "</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> server <span class="keyword">in</span> <span class="variable">$SERVERS</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        sshcopyid <span class="variable">$server</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">SERVERS=<span class="string">"192.168.1.241 192.168.1.242"</span></span><br><span class="line">PASSWD=<span class="string">"123456"</span></span><br><span class="line"><span class="keyword">function</span> sshcopyid</span><br><span class="line">&#123;</span><br><span class="line">        expect -c <span class="string">"</span></span><br><span class="line"><span class="string">                set timeout -1;</span></span><br><span class="line"><span class="string">                spawn ssh-copy-id <span class="variable">$1</span>;</span></span><br><span class="line"><span class="string">                expect &#123;</span></span><br><span class="line"><span class="string">                        \"yes/no\" &#123; send \"yes\r\" ;exp_contine; &#125;</span></span><br><span class="line"><span class="string">                        \"password:\" &#123; send \"<span class="variable">$PASSWD</span>\r\";exp_continue; &#125;</span></span><br><span class="line"><span class="string">                &#125;;</span></span><br><span class="line"><span class="string">                expect eof;</span></span><br><span class="line"><span class="string">        "</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> server <span class="keyword">in</span> <span class="variable">$SERVERS</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        sshcopyid <span class="variable">$server</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <h3 id="批量执行主机命令"><a href="#批量执行主机命令" class="headerlink" title="批量执行主机命令"></a>批量执行主机命令</h3><p>1.存储在host.info的主机信息如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat host.info </span><br><span class="line">192.168.1.3 root 22 111111</span><br></pre></td></tr></table></figure>
 <p>2.linux下批量执行主机命令实现脚本</p>
@@ -472,7 +472,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/">https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/">September 4th 2019, 10:57:10 am</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/">September 4th 2019, 1:47:24 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/">September 4th 2019, 2:00:41 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1093,6 +1093,22 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 35
@@ -1121,12 +1137,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a>
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a>
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a>
         </li>
     
     
@@ -1251,12 +1267,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
         </li>
     
     
@@ -1289,27 +1305,31 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
     
         <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
-    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
         <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
         <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
     
         <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
+        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1319,15 +1339,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
     
-        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
-    
-        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
-    
-        <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
-    
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
     
@@ -1370,17 +1386,17 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
-        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
         <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
+    
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
