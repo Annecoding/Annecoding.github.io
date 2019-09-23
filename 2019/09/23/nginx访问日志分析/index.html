@@ -509,7 +509,7 @@ height:50vh;
 </table>
 <p><strong>access日志格式如下：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">111.222.222.222 - - [16/Apr/2018:16:18:15 +0800] <span class="string">"GET / HTTP/1.1"</span> 200 612 <span class="string">"-"</span> <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"</span></span><br><span class="line">111.222.222.222 - - [16/Apr/2018:16:18:16 +0800] <span class="string">"GET /favicon.ico HTTP/1.1"</span> 404 571 <span class="string">"http://39.107.204.206/"</span> <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"</span></span><br></pre></td></tr></table></figure>
-<p>1.客户端（用户）IP地址<br>2.访问时间<br>3.请求的url（目标url地址）的host和http协议<br>4.请求状态(状态码，200表示成功，404表示页面不存在，301表示永久重定向等)<br>5.请求页面大小，默认为B（byte）<br>6.来源页面，即从哪个页面转到本页，专业名称叫做“referer”。<br>7.用户浏览器的其他信息，浏览器版本、浏览器类型等</p>
+<p>1.客户端（用户）IP地址<br>2.访问时间<br>3.请求的url（目标url地址）的host和http协议<br>4.请求状态(状态码，200表示成功，404表示页面不存在，301表示永久重定向等)<br>5.请求页面大小，默认为B（byte）<br>6.来源页面，即从哪个页面转到本页，专业名称叫做“referer”<br>7.用户浏览器的其他信息，浏览器版本、浏览器类型等</p>
 <h3 id="常用日志分析示例"><a href="#常用日志分析示例" class="headerlink" title="常用日志分析示例"></a>常用日志分析示例</h3><p>1.根据IP地址统计访问页码状态码数量TOP5</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据IP地址、状态码和访问路径统计并排序找出top5</span></span><br><span class="line">$ awk <span class="string">'&#123;a[$1" "$7" "$9]++&#125;END&#123;for(v in a)&#123;if(a[v]&gt;10)print v,a[v]&#125;&#125;'</span> access.log | sort -k4 -nr | head -5</span><br><span class="line">185.234.217.54 /user/index.jsp 302 96701</span><br><span class="line">222.165.230.7 /user/index.jsp 302 76652</span><br><span class="line">210.27.176.184 /wls-wsat/index.jsp 302 45952</span><br><span class="line">61.162.236.77 /cgi-bin/index.jsp 302 2733</span><br></pre></td></tr></table></figure>
 <p>2.根据时间段统计访问最多的IP地址TOP5</p>
@@ -539,7 +539,7 @@ height:50vh;
 <p><strong>PV：即Page View</strong>，中文翻译为页面浏览，即页面浏览量或点击量，不管客户端是否相同，也不管IP和网站页面是否相同，用户只要访问网站页面就会计算PV，一次计为一个PV</p>
 <p><strong>UV：即Unique Visitor</strong>，同一个客户端（PC或移动端）访问网站被计为一个访客。一天（00:00-24:00）内相同的客户端访问同一个网站只统计一次UV。UV一般是以客户端Cookie等技术作为统计依据的，实际统计会有误差。</p>
 <p><strong>IP，PV，UV的区别在哪？</strong></p>
-<p>举例说明：假设某个公司有10个员工，都访问了<a href="http://www.taobao.com这个网站。每个人平均浏览了5个页面，但是公司的对外出口是一个公网IP。所以对于www.taobao.com这个网站而言，只会计算1个独立IP访问。但是因为有10个人在访问www.taobao.com这个网站，并且平均都访问了5次，因此，对于www.taobao.com这个网站而言，PV数就是10x5=50个PV，而因为有10个人访问，就是10个不同的客户端访问，因此，UV（独立访客）为10。" target="_blank" rel="noopener">www.taobao.com这个网站。每个人平均浏览了5个页面，但是公司的对外出口是一个公网IP。所以对于www.taobao.com这个网站而言，只会计算1个独立IP访问。但是因为有10个人在访问www.taobao.com这个网站，并且平均都访问了5次，因此，对于www.taobao.com这个网站而言，PV数就是10x5=50个PV，而因为有10个人访问，就是10个不同的客户端访问，因此，UV（独立访客）为10。</a></p>
+<p>举例说明：假设某个公司有10个员工，都访问了<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站。每个人平均浏览了5个页面，但是公司的对外出口是一个公网IP。所以对于<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站而言，只会计算1个独立IP访问。但是因为有10个人在访问      <strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站，并且平均都访问了5次，因此，对于<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站而言，PV数就是10x5=50个PV，而因为有10个人访问，就是10个不同的客户端访问，因此，UV（独立访客）为10。</p>
 <p>因此上例结果为IP数为1个，PV数为50个，UV为10个。通过这个结果，不难看出，一个网站的独立IP数量要比网站实际访问的PV数量小得多。通常情况下，网站的UV数也会大于独立IP数。</p>
 <p>统计该服务器访问PV和UV</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PV</span></span><br><span class="line">$ awk <span class="string">'&#123;a[$7]++&#125;END&#123;print "PV:",length(a);for(v in a)&#123;if(a[v]&gt;10)print v,a[v]&#125;&#125;'</span> access.log |sort -k2 -nr | head</span><br><span class="line">/user/index.jsp 173382</span><br><span class="line">/wls-wsat/index.jsp 46197</span><br><span class="line">/ 24163</span><br><span class="line">PV: 13907</span><br><span class="line">/phpMyAdmin/scripts/index.jsp 12507</span><br><span class="line">/phpMyAdmin-3.0.1.1/scripts/index.jsp 7564</span><br><span class="line">/index.jsp 7306</span><br><span class="line">/services/json/management/modcard/getcard 5498</span><br><span class="line">400 5428</span><br><span class="line">/services/json/schema/setup/getconfiguration 3312</span><br><span class="line"><span class="comment"># UV</span></span><br><span class="line">$ awk <span class="string">'&#123;a[$1]++&#125;END&#123;print "UV:",length(a);for(v in a)&#123;if(a[v]&gt;10)print v,a[v]&#125;&#125;'</span> access.log |sort -k2 -nr | head</span><br><span class="line">185.234.217.54 96703</span><br><span class="line">222.165.230.7 77701</span><br><span class="line">210.27.176.184 45953</span><br><span class="line">UV: 16218</span><br><span class="line">1.202.116.228 8386</span><br><span class="line">1.202.117.42 7524</span><br><span class="line">111.222.222.222 7067</span><br><span class="line">1.202.50.170 6452</span><br><span class="line">124.126.27.107 5384</span><br><span class="line">1.202.1.189 5379</span><br></pre></td></tr></table></figure>
@@ -554,7 +554,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">https://annecoding.github.io/2019/09/23/nginx访问日志分析/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 4:42:34 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 4:47:47 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 4:54:19 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1188,6 +1188,28 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 36
@@ -1251,12 +1273,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
@@ -1351,12 +1373,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
         </li>
     
     
@@ -1366,12 +1388,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
         </li>
     
     
@@ -1395,17 +1417,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
-    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
     
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
     
@@ -1414,10 +1440,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="Ncap"><span class="iconfont-archer">&#xe606;</span>Ncap</span>
     
         <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
-    
-        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
@@ -1472,11 +1494,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
