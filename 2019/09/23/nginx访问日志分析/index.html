@@ -274,7 +274,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">2.3k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.4k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -541,7 +541,7 @@ height:50vh;
 <p><strong>IP，PV，UV的区别在哪？</strong></p>
 <p>举例说明：假设某个公司有10个员工，都访问了<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站。每个人平均浏览了5个页面，但是公司的对外出口是一个公网IP。所以对于<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站而言，只会计算1个独立IP访问。但是因为有10个人在访问      <strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站，并且平均都访问了5次，因此，对于<strong><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></strong>这个网站而言，PV数就是10x5=50个PV，而因为有10个人访问，就是10个不同的客户端访问，因此，UV（独立访客）为10。</p>
 <p>因此上例结果为IP数为1个，PV数为50个，UV为10个。通过这个结果，不难看出，一个网站的独立IP数量要比网站实际访问的PV数量小得多。通常情况下，网站的UV数也会大于独立IP数。</p>
-<p>统计该服务器访问PV和UV</p>
+<p>🔅 举个栗子：统计该服务器访问PV和UV</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PV</span></span><br><span class="line">$ awk <span class="string">'&#123;a[$7]++&#125;END&#123;print "PV:",length(a);for(v in a)&#123;if(a[v]&gt;10)print v,a[v]&#125;&#125;'</span> access.log |sort -k2 -nr | head</span><br><span class="line">/user/index.jsp 173382</span><br><span class="line">/wls-wsat/index.jsp 46197</span><br><span class="line">/ 24163</span><br><span class="line">PV: 13907</span><br><span class="line">/phpMyAdmin/scripts/index.jsp 12507</span><br><span class="line">/phpMyAdmin-3.0.1.1/scripts/index.jsp 7564</span><br><span class="line">/index.jsp 7306</span><br><span class="line">/services/json/management/modcard/getcard 5498</span><br><span class="line">400 5428</span><br><span class="line">/services/json/schema/setup/getconfiguration 3312</span><br><span class="line"><span class="comment"># UV</span></span><br><span class="line">$ awk <span class="string">'&#123;a[$1]++&#125;END&#123;print "UV:",length(a);for(v in a)&#123;if(a[v]&gt;10)print v,a[v]&#125;&#125;'</span> access.log |sort -k2 -nr | head</span><br><span class="line">185.234.217.54 96703</span><br><span class="line">222.165.230.7 77701</span><br><span class="line">210.27.176.184 45953</span><br><span class="line">UV: 16218</span><br><span class="line">1.202.116.228 8386</span><br><span class="line">1.202.117.42 7524</span><br><span class="line">111.222.222.222 7067</span><br><span class="line">1.202.50.170 6452</span><br><span class="line">124.126.27.107 5384</span><br><span class="line">1.202.1.189 5379</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>部分参考链接如下</strong><br><a href="https://blog.csdn.net/bbwangj/article/details/82186162" target="_blank" rel="noopener">Nginx日志配置及日志分析脚本案例</a><br><a href="https://blog.51cto.com/13707680/2116001" target="_blank" rel="noopener">Nginx日志分析和参数详解</a></p>
@@ -554,7 +554,7 @@ height:50vh;
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
             </p><p>原文链接：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">https://annecoding.github.io/2019/09/23/nginx访问日志分析/</a>
             </p><p>发表日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 4:42:34 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 4:54:19 pm</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">September 23rd 2019, 5:29:03 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1210,6 +1210,42 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 36
@@ -1273,12 +1309,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
         </li>
     
     
@@ -1388,12 +1424,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
         </li>
     
     
@@ -1417,15 +1453,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
     
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
-    
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
     
         <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
     
@@ -1443,17 +1479,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
     
-        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
-    
         <span class="sidebar-tag-name" data-tags="Nginx"><span class="iconfont-archer">&#xe606;</span>Nginx</span>
+    
+        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
     
         <span class="sidebar-tag-name" data-tags="Ubuntu"><span class="iconfont-archer">&#xe606;</span>Ubuntu</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
-    
         <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
+    
+        <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
     
         <span class="sidebar-tag-name" data-tags="grep"><span class="iconfont-archer">&#xe606;</span>grep</span>
     
@@ -1494,11 +1530,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
         <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
     
         <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
-    
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
     
