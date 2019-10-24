@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://annecoding.github.io/2019/03/18/linux_centos%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2019-10-24T02:08:13.472Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://annecoding.github.io/2019/09/23/nginx%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2019-09-25T06:55:47.320Z</lastmod>
@@ -215,13 +222,6 @@
     <loc>https://annecoding.github.io/2019/04/25/vcustomers_demo/</loc>
     
     <lastmod>2019-05-20T03:21:06.180Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://annecoding.github.io/2019/03/18/linux_centos%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2019-04-26T06:23:13.896Z</lastmod>
     
   </url>
   

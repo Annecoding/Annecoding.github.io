@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://annecoding.github.io/2019/03/18/linux_centos%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2019-10-24</lastmod>
+  </url>  <url>
     <loc>https://annecoding.github.io/2019/09/23/nginx%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</loc>
     <lastmod>2019-09-25</lastmod>
   </url>  <url>
@@ -90,9 +93,6 @@
   </url>  <url>
     <loc>https://annecoding.github.io/2019/04/25/vcustomers_demo/</loc>
     <lastmod>2019-05-20</lastmod>
-  </url>  <url>
-    <loc>https://annecoding.github.io/2019/03/18/linux_centos%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2019-04-26</lastmod>
   </url>  <url>
     <loc>https://annecoding.github.io/2019/03/18/linux%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/</loc>
     <lastmod>2019-04-26</lastmod>
