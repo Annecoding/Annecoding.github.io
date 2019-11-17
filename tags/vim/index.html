@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Centos使用mailx告警邮件配置 · Annecoding&#39;s Studio</title>
+    <title>Annecoding&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">Annecoding&#39;s Studio.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Centos使用mailx告警邮件配置</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">Annecoding's Studio.</a>
 </header>
@@ -231,78 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600*900)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Centos使用mailx告警邮件配置
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Centos">Centos</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="mailx">mailx</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">595</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/08/22</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -403,72 +338,75 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <!-- <meta name="referrer" content="no-referrer" /> -->
-<p>今天为大家介绍一个可以直接在 Linux 上使用 SMTP 发送邮件的程序：Mailx，这个程序可以帮助我们让服务器直接支持邮件发送，不用再在每个站点上都设置了。</p>
-<a id="more"></a>
-<p><strong>centos配置自带邮件服务器mailx发件配置</strong></p>
-<h4 id="安装mailx程序"><a href="#安装mailx程序" class="headerlink" title="安装mailx程序"></a>安装mailx程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install mailx</span><br></pre></td></tr></table></figure>
-<p>🌟 安装之前，建议移除不再需要且可能会引起冲突的 postfix 或 sendmail 程序。</p>
-<h4 id="修改发件人设置"><a href="#修改发件人设置" class="headerlink" title="修改发件人设置"></a>修改发件人设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ vim + /etc/mail.rc </span><br><span class="line"><span class="built_in">set</span> nss-config-dir=/root/.certs</span><br><span class="line"><span class="built_in">set</span> smtp=<span class="string">"smtps://smtp.163.com:465"</span></span><br><span class="line"><span class="comment"># set smtp=smtp.163.com  默认25端口不放开</span></span><br><span class="line"><span class="built_in">set</span> from=<span class="string">"annecoding@163.com"</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=<span class="string">"annecoding@163.com"</span></span><br><span class="line"><span class="comment"># 不是密码，不是密码！！！获取网易163设置的客户端授权密码。</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=<span class="string">"xxxxxx"</span></span><br><span class="line"><span class="built_in">set</span> ssl-verify=ignore</span><br></pre></td></tr></table></figure>
-<p>💡 一般邮件服务器会提供 smtp、smtps 和 smtp starttls 服务来发送邮件。smtp 最简单的，也最不安全的，不建议使用，最好使用 smtps 或者 smtp starttls 来发送邮件。</p>
-<h4 id="测试发送"><a href="#测试发送" class="headerlink" title="测试发送"></a>测试发送</h4><p>可以发送出邮件，但是会报错，如下面这种情况。需要生成证书来解决此问题。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"TEST"</span> | mail -s <span class="string">"Title"</span> <span class="string">"annecoding@163.com"</span></span><br><span class="line">$ Error <span class="keyword">in</span> certificate: Peer<span class="string">'s certificate issuer is not recognized.</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><p>在本地新建目录生成证书<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir /root/.certs/</span><br><span class="line">$ <span class="built_in">echo</span> -n | openssl s_client -connect smtp.163.com:465 | sed -ne <span class="string">'/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'</span> &gt; ~/.certs/163.crt</span><br><span class="line">$ certutil -A -n <span class="string">"GeoTrust SSL CA"</span> -t <span class="string">"C,,"</span> -d ~/.certs -i ~/.certs/163.crt</span><br><span class="line">$ certutil -A -n <span class="string">"GeoTrust Global CA"</span> -t <span class="string">"C,,"</span> -d ~/.certs -i ~/.certs/163.crt</span><br><span class="line">$ certutil -L -d /root/.certs</span><br><span class="line"><span class="comment"># 信任证书</span></span><br><span class="line">$ <span class="built_in">cd</span> .certs</span><br><span class="line">$ certutil -A -n <span class="string">"GeoTrust SSL CA - G3"</span> -t <span class="string">"Pu,Pu,Pu"</span>  -d ./ -i 163.crt</span><br></pre></td></tr></table></figure></p>
-<p>💡 参考上面的设置（如果要用qq邮箱，可以把所有的生成证书的163改为qq），同样可以使用 126，163 等邮箱在服务器上通过 SMTP 发送邮件。设置成功以后，服务器上的所有站点，或者其他程序、其他语言开发的站点，都可以直接发送邮件了，是不是很方便？</p>
-<h4 id="再次修改mail-rc"><a href="#再次修改mail-rc" class="headerlink" title="再次修改mail.rc"></a>再次修改mail.rc</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/mail.rc</span><br><span class="line">$ <span class="built_in">set</span> nss-config-dir=/root/.certs/</span><br></pre></td></tr></table></figure>
-<h4 id="测试发送-1"><a href="#测试发送-1" class="headerlink" title="测试发送"></a>测试发送</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mail -s发送邮件 -v可以显示发件的详细信息</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"邮件正文"</span> | mail -s <span class="string">"标题"</span> <span class="string">"annecoding@163.com"</span> </span><br><span class="line">$ mail -s <span class="string">"xxxx"</span> annecoding@163.com &lt; /root/cpu.sh</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参考链接：</p>
-<p><a href="https://www.wpzhiku.com/shi-yong-mailx-tong-guo-smtp-zai-centos-shang-fa-song-you-jian/" target="_blank" rel="noopener">使用 Mailx 通过 SMTP 在 Centos 上发送邮件，解决 WordPress 发送邮件问题</a></p>
-<p> <a href="https://www.cnblogs.com/hqqq/p/6261419.html" target="_blank" rel="noopener">mialx配置qq邮箱发送邮件</a></p>
-<p> <a href="https://help.mail.163.com/faqDetail.do?code=d7a5dc8471cd0c0e8b4b8f4f8e49998b374173cfe9171305fa1ce630d7f67ac2cda80145a1742516" target="_blank" rel="noopener">如何开启客户端授权码？</a></p>
-</blockquote>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
-            </p><p>原文链接：<a href="https://annecoding.github.io/2019/08/22/Centos使用mailx告警邮件配置/">https://annecoding.github.io/2019/08/22/Centos使用mailx告警邮件配置/</a>
-            </p><p>发表日期：<a href="https://annecoding.github.io/2019/08/22/Centos使用mailx告警邮件配置/">August 22nd 2019, 9:09:19 am</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/08/22/Centos使用mailx告警邮件配置/">August 24th 2019, 9:38:04 am</a>
-            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/22/linxu下vi编辑器的配置/">
+            
+                <span>linxu下vi编辑器的配置</span>
+        </a>
+        <div class="abstract-content">
+            <!-- <meta name="referrer" content="no-referrer" /> -->
+<p>正常我们使用vim编辑器打开的文件没有行号，可能部分语法也没有高亮等，对于一个常用的人来说，这就很不方便。既然想定制化，那就来吧~</p>
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="vim">vim</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/22/linxu下vi编辑器的使用/">
+            
+                <span>生产环境下最快速学会vi编辑器的使用</span>
+        </a>
+        <div class="abstract-content">
+            <!-- <meta name="referrer" content="no-referrer" /> -->
+<p>vim是vi的增强版，一般现代linux都不缺那几兆空间，所以预装的都是增强版，本文默认使用vim。</p>
+<p>不要使用vim打开大文件，vim会一次性读取所有内容到内存，<strong>容易造成宿主机内存溢出</strong>。 打开文件前，可以使用<code>du -h</code>命令查看文件大小。一般，<strong>100MB以下为宜。</strong></p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="vim">vim</a>
+    
+</div>
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/08/28/shell脚本实现centos系统初始化配置/" title="shell脚本实现centos系统初始化配置">
-                    <div class="nextTitle">shell脚本实现centos系统初始化配置</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/08/13/shell中切分文件名和扩展名/" title="shell中切分文件名和扩展名">
-                    <div class="prevTitle">shell中切分文件名和扩展名</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -548,24 +486,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装mailx程序"><span class="toc-number">1.</span> <span class="toc-text">安装mailx程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改发件人设置"><span class="toc-number">2.</span> <span class="toc-text">修改发件人设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试发送"><span class="toc-number">3.</span> <span class="toc-text">测试发送</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成证书"><span class="toc-number">4.</span> <span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再次修改mail-rc"><span class="toc-number">5.</span> <span class="toc-text">再次修改mail.rc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试发送-1"><span class="toc-number">6.</span> <span class="toc-text">测试发送</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1431,8 +1351,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
