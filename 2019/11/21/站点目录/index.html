@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>史上最详细的linux下安装Nodejs · Annecoding&#39;s Studio</title>
+    <title>站点目录 · Annecoding&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Annecoding&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">史上最详细的linux下安装Nodejs</a>
+                <a href="#" class="post-name">站点目录</a>
             </div>
     </div>
     
@@ -241,13 +241,13 @@ height:50vh;
     <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/linux_nodejs.png)"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600*900)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            史上最详细的linux下安装Nodejs
+            站点目录
             <!-- 404 -->
             
         </h1>
@@ -268,18 +268,16 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Nodejs">Nodejs</a>
-    
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">373</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">451</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/18</span>
+                    <span class="post-intro-time">2019/11/21</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -403,23 +401,80 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="Linux安装Nodejs及环境配置"><a href="#Linux安装Nodejs及环境配置" class="headerlink" title="Linux安装Nodejs及环境配置"></a>Linux安装Nodejs及环境配置</h3><a id="more"></a>
-<h3 id="去官网下载和自己系统匹配的文件："><a href="#去官网下载和自己系统匹配的文件：" class="headerlink" title="去官网下载和自己系统匹配的文件："></a>去官网下载和自己系统匹配的文件：</h3><p> 英文网址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a><br> 中文网址：<a href="http://nodejs.cn/download/" target="_blank" rel="noopener">http://nodejs.cn/download/</a></p>
-<p> 通过  uname -a  命令查看Linux系统位数是64位（备注：x86_64表示64位系统， i686 i386表示32位系统）</p>
-<h3 id="将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局"><a href="#将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局" class="headerlink" title="将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局"></a>将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局</h3><p>1）上传服务器可以是自己任意路径，目前我的放置路径为  cd /opt/nodejs</p>
-<p>2）解压上传（解压后的文件我这边将名字改为了nodejs，这个地方自己随意，只要在建立软连接的时候写正确就可以）<br>    ① tar -xvf   node-v8.12.0-linux-x64.tar.xz<br>    ② mv node-v8.12.0-linux-x64  nodejs<br>    ③确认一下nodejs下bin目录是否有node 和npm文件，如果有执行软连接，如果没有重新下载执行上边步骤；</p>
-<p>3）建立软连接，变为全局<br>根据需要是否安装yarn<br><code>npm install -g yarn</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ln -s  /opt/nodejs/bin/npm     /usr/local/bin/</span><br><span class="line">ln -s  /opt/nodejs/bin/node     /usr/local/bin/</span><br><span class="line">ln -s  /opt/nodejs/bin/yarn     /usr/local/bin/</span><br><span class="line"></span><br><span class="line">ln -s /opt/nodejs/node-v8.12.0-linux-x64/bin/yarn  /usr/local/bin/</span><br><span class="line">ln -s /opt/nodejs/node-v8.12.0-linux-x64/bin/yarn  /usr/local/bin/</span><br><span class="line">ln -s /opt/nodejs/node-v8.12.0-linux-x64/bin/cnpm  /usr/local/bin/</span><br><span class="line">ln -s /opt/nodejs/node-v8.12.0-linux-x64/bin/node  /usr/local/bin/</span><br></pre></td></tr></table></figure>
-<p>4）最后一步检验nodejs是否已变为全局<br>在Linux命令行node -v 命令会显示nodejs版本，证明安装成功。</p>
+        <!-- <meta name="referrer" content="no-referrer" /> -->
+<p>本站点目录所有系列基本由难到易，由浅入…..哦本人才疏学浅依然是……浅…..方便个人进行知识梳理亦方便他人学习指教。本站目录将持续更新，敬请期待！</p>
+<a id="more"></a>
+<h2 id="本站目录"><a href="#本站目录" class="headerlink" title="本站目录"></a>本站目录</h2><h3 id="linux入门系列"><a href="#linux入门系列" class="headerlink" title="linux入门系列"></a>linux入门系列</h3><h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/24/linux基础/">linux基础精选系列</a></p>
+<p><a href="https://annecoding.github.io/2019/03/25/Linux学习笔记/">Linux个人学习笔记整理</a></p>
+<p><a href="https://annecoding.github.io/2019/03/27/linux常用命令/">linux常用命令整理·精选</a></p>
+<p><a href="https://annecoding.github.io/2019/03/23/rpm命令/">rpm命令使用</a></p>
+</blockquote>
+<h4 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/22/linxu下vi编辑器的使用/">生产环境下最快速学会vi编辑器的使用</a></p>
+<p><a href="https://annecoding.github.io/2019/03/22/linxu下vi编辑器的配置/">linxu下vi编辑器的配置</a></p>
+</blockquote>
+<h4 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/18/linux_centos网卡配置/">centos网卡配置</a></p>
+<p><a href="https://annecoding.github.io/2019/07/20/ubuntu修改IP地址/">ubuntu修改IP地址</a></p>
+</blockquote>
+<h4 id="端口开放"><a href="#端口开放" class="headerlink" title="端口开放"></a>端口开放</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/18/linux%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/">linux系统下端口的开放</a></p>
+</blockquote>
+<h4 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/18/linux_nodejs%E5%AE%89%E8%A3%85/">linux下最详细安装nodejs及配置</a></p>
+<p><a href="https://annecoding.github.io/2019/03/19/nginx%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">Linux系统Nginx安装及反向代理配置</a></p>
+<p><a href="https://annecoding.github.io/2019/05/15/项目上线流程/">linux下项目上线流程</a></p>
+<p><a href="https://annecoding.github.io/2019/08/22/Centos使用mailx告警邮件配置/">Centos使用mailx告警邮件配置</a></p>
+</blockquote>
+<h3 id="linux进阶学习"><a href="#linux进阶学习" class="headerlink" title="linux进阶学习"></a>linux进阶学习</h3><h4 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/07/20/linux系统扫描命令和安全防范笔记/">linux系统扫描命令和安全防范笔记</a></p>
+</blockquote>
+<h4 id="shell知识碎片"><a href="#shell知识碎片" class="headerlink" title="shell知识碎片"></a>shell知识碎片</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/06/10/linux中玩转awk/">linux中玩转awk技巧分享</a></p>
+<p><a href="https://annecoding.github.io/2019/06/11/linux中玩转sed/">linux中玩转sed技巧分享</a></p>
+<p><a href="https://annecoding.github.io/2019/08/13/shell中切分文件名和扩展名/">shell中切分文件名和扩展名</a></p>
+</blockquote>
+<h4 id="shell实例"><a href="#shell实例" class="headerlink" title="shell实例"></a>shell实例</h4><blockquote>
+<p><a href="https://annecoding.github.io/2019/05/15/shell脚本练习/">shell脚本实例入门精选系列</a></p>
+<p><a href="https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/">linux下占用cpu和内存top10</a></p>
+<p><a href="https://annecoding.github.io/2019/08/30/linux查看网卡实时流量/">linux查看网卡实时流量</a></p>
+<p><a href="https://annecoding.github.io/2019/07/25/监控多台服务器利用率/">监控多台服务器利用率</a></p>
+<p><a href="https://annecoding.github.io/2019/08/28/shell脚本实现centos系统初始化配置/">shell脚本实现centos系统初始化配置</a></p>
+<p><a href="https://annecoding.github.io/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a></p>
+<p><a href="https://annecoding.github.io/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a></p>
+<p><a href="https://annecoding.github.io/2019/09/04/linux使用expect批量执行主机命令/">linux使用expect批量执行主机命令</a></p>
+<p><a href="https://annecoding.github.io/2019/09/23/nginx访问日志分析/">nginx访问日志分析</a></p>
+</blockquote>
+<h3 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h3><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/18/git使用/">Git命令的使用及总结</a></p>
+</blockquote>
+<h3 id="Docker部署系列"><a href="#Docker部署系列" class="headerlink" title="Docker部署系列"></a>Docker部署系列</h3><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/19/docker安装jenkins/#利用Docker来部署jenkins的部署过程">利用Docker来部署jenkins的部署过程</a></p>
+</blockquote>
+<h3 id="Vue学习系列"><a href="#Vue学习系列" class="headerlink" title="Vue学习系列"></a>Vue学习系列</h3><blockquote>
+<p><a href="https://annecoding.github.io/2019/03/21/vue学习/">vue.js初使用</a></p>
+<p><a href="https://annecoding.github.io/2019/04/16/vue组件/">vue组件学习</a></p>
+<p><a href="https://annecoding.github.io/2019/04/16/vue路由/">vue路由学习</a></p>
+<p><a href="https://annecoding.github.io/2019/04/17/vue-blog项目/">vue-myblog项目实现</a></p>
+<p><a href="https://annecoding.github.io/2019/04/25/vcustomers_demo/">Vue后台用户管理系统</a></p>
+</blockquote>
+<h3 id="Mac使用系列"><a href="#Mac使用系列" class="headerlink" title="Mac使用系列"></a>Mac使用系列</h3><blockquote>
+<p><a href="https://annecoding.github.io/2019/07/20/linux安装hping添加环境变量/">Linux安装hping添加环境变量</a></p>
+<p><a href="https://annecoding.github.io/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a></p>
+</blockquote>
+<h3 id="Hexo使用系列"><a href="#Hexo使用系列" class="headerlink" title="Hexo使用系列"></a>Hexo使用系列</h3><blockquote>
+<p><a href="https://annecoding.github.io/2019/05/20/hexo img 403/">hexo图片显示问题</a></p>
+</blockquote>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
-            </p><p>原文链接：<a href="https://annecoding.github.io/2019/03/18/linux_nodejs安装/">https://annecoding.github.io/2019/03/18/linux_nodejs安装/</a>
-            </p><p>发表日期：<a href="https://annecoding.github.io/2019/03/18/linux_nodejs安装/">March 18th 2019, 5:08:40 pm</a>
-            </p><p>更新日期：<a href="https://annecoding.github.io/2019/03/18/linux_nodejs安装/">March 18th 2019, 5:13:38 pm</a>
+            </p><p>原文链接：<a href="https://annecoding.github.io/2019/11/21/站点目录/">https://annecoding.github.io/2019/11/21/站点目录/</a>
+            </p><p>发表日期：<a href="https://annecoding.github.io/2019/11/21/站点目录/">November 21st 2019, 11:37:57 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2019/11/21/站点目录/">November 21st 2019, 11:39:31 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -427,17 +482,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/03/19/nginx安装及配置/" title="Linux系统Nginx安装及反向代理配置">
-                    <div class="nextTitle">Linux系统Nginx安装及反向代理配置</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/03/18/linux_centos网卡配置/" title="Centos网卡配置">
-                    <div class="prevTitle">Centos网卡配置</div>
+                <a href="/2019/09/23/nginx访问日志分析/" title="nginx访问日志分析">
+                    <div class="prevTitle">nginx访问日志分析</div>
                 </a>
             
         </li>
@@ -551,7 +601,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux安装Nodejs及环境配置"><span class="toc-number">1.</span> <span class="toc-text">Linux安装Nodejs及环境配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#去官网下载和自己系统匹配的文件："><span class="toc-number">2.</span> <span class="toc-text">去官网下载和自己系统匹配的文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局"><span class="toc-number">3.</span> <span class="toc-text">将下载下来的tar文件上传到服务器并且解压，然后通过建立软连接变为全局</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本站目录"><span class="toc-number">1.</span> <span class="toc-text">本站目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux入门系列"><span class="toc-number">1.1.</span> <span class="toc-text">linux入门系列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础知识"><span class="toc-number">1.1.1.</span> <span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工具使用"><span class="toc-number">1.1.2.</span> <span class="toc-text">工具使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络配置"><span class="toc-number">1.1.3.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#端口开放"><span class="toc-number">1.1.4.</span> <span class="toc-text">端口开放</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软件安装"><span class="toc-number">1.1.5.</span> <span class="toc-text">软件安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux进阶学习"><span class="toc-number">1.2.</span> <span class="toc-text">linux进阶学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#网络安全"><span class="toc-number">1.2.1.</span> <span class="toc-text">网络安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shell知识碎片"><span class="toc-number">1.2.2.</span> <span class="toc-text">shell知识碎片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shell实例"><span class="toc-number">1.2.3.</span> <span class="toc-text">shell实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git使用"><span class="toc-number">1.3.</span> <span class="toc-text">Git使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker部署系列"><span class="toc-number">1.4.</span> <span class="toc-text">Docker部署系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue学习系列"><span class="toc-number">1.5.</span> <span class="toc-text">Vue学习系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac使用系列"><span class="toc-number">1.6.</span> <span class="toc-text">Mac使用系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo使用系列"><span class="toc-number">1.7.</span> <span class="toc-text">Hexo使用系列</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
