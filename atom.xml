@@ -117,6 +117,29 @@
   </entry>
   
   <entry>
+    <title>hexo文章置顶</title>
+    <link href="https://annecoding.github.io/2019/10/21/hexo%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/"/>
+    <id>https://annecoding.github.io/2019/10/21/hexo文章置顶/</id>
+    <published>2019-10-21T07:28:24.000Z</published>
+    <updated>2019-11-23T07:31:30.882Z</updated>
+    
+    <content type="html"><![CDATA[<!-- <meta name="referrer" content="no-referrer" /> --><p>Hexo默认只提供了按发布日期的排序，只好网上找了些资料修改。</p><a id="more"></a><p>原理：<strong>在Hexo生成首页HTML时，将top值高的文章排在前面，达到置顶功能</strong>。</p><p>修改Hexo文件夹下的<code>node_modules/hexo-generator-index/lib/generator.js</code>，在生成文章之前进行文章top值排序。</p><p>需添加的代码：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">posts.data = posts.data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a.top &amp;&amp; b.top) &#123; <span class="comment">// 两篇文章top都有定义</span></span><br><span class="line">        <span class="keyword">if</span>(a.top == b.top) <span class="keyword">return</span> b.date - a.date; <span class="comment">// 若top值一样则按照文章日期降序排</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> b.top - a.top; <span class="comment">// 否则按照top值降序排</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a.top &amp;&amp; !b.top) &#123; <span class="comment">// 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(!a.top &amp;&amp; b.top) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> b.date - a.date; <span class="comment">// 都没定义按照文章日期降序排</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>其中涉及Javascript的比较函数：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmp(<span class="keyword">var</span> a, <span class="keyword">var</span> b) &#123;</span><br><span class="line">    <span class="keyword">return</span>  a - b; <span class="comment">// 升序，降序的话就 b - a</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>修改完成后，只需要在front-matter中设置需要置顶文章的top值，将会根据top值大小来选择置顶顺序top值越大越靠前。需要注意的是，这个文件不是主题的一部分，也不是Git管理的，备份的时候比较容易忽略。</p><p>以下是最终的generator.js内容</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pagination = <span class="built_in">require</span>(<span class="string">'hexo-pagination'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = <span class="keyword">this</span>.config;</span><br><span class="line">  <span class="keyword">var</span> posts = locals.posts.sort(config.index_generator.order_by);</span><br><span class="line"></span><br><span class="line">  posts.data = posts.data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a.top &amp;&amp; b.top) &#123; <span class="comment">// 两篇文章top都有定义</span></span><br><span class="line">        <span class="keyword">if</span>(a.top == b.top) <span class="keyword">return</span> b.date - a.date; <span class="comment">// 若top值一样则按照文章日期降序排</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> b.top - a.top; <span class="comment">// 否则按照top值降序排</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a.top &amp;&amp; !b.top) &#123; <span class="comment">// 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(!a.top &amp;&amp; b.top) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> b.date - a.date; <span class="comment">// 都没定义按照文章日期降序排</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> paginationDir = config.pagination_dir || <span class="string">'page'</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> path = config.index_generator.path || <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> pagination(path, posts, &#123;</span><br><span class="line">    perPage: config.index_generator.per_page,</span><br><span class="line">    layout: [<span class="string">'index'</span>, <span class="string">'archive'</span>],</span><br><span class="line">    format: paginationDir + <span class="string">'/%d/'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">      __index: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>参考链接：<a href="https://www.jianshu.com/p/42a4efcdf8d7" target="_blank" rel="noopener">解决Hexo博客文章置顶问题</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt; --&gt;
+&lt;p&gt;Hexo默认只提供了按发布日期的排序，只好网上找了些资料修改。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="hexo" scheme="https://annecoding.github.io/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://annecoding.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac下实用工具推荐</title>
     <link href="https://annecoding.github.io/2019/10/15/Mac%E4%B8%8B%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
     <id>https://annecoding.github.io/2019/10/15/Mac下实用工具推荐/</id>
@@ -416,9 +439,9 @@
       <category term="Mac" scheme="https://annecoding.github.io/categories/Mac/"/>
     
     
-      <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
-    
       <category term="Mac" scheme="https://annecoding.github.io/tags/Mac/"/>
+    
+      <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -441,9 +464,9 @@
       <category term="Mac" scheme="https://annecoding.github.io/categories/Mac/"/>
     
     
-      <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
-    
       <category term="Mac" scheme="https://annecoding.github.io/tags/Mac/"/>
+    
+      <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
     
       <category term="hping" scheme="https://annecoding.github.io/tags/hping/"/>
     
@@ -505,33 +528,6 @@
       <category term="Ncap" scheme="https://annecoding.github.io/tags/Ncap/"/>
     
       <category term="fping" scheme="https://annecoding.github.io/tags/fping/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux下占用cpu和内存top10</title>
-    <link href="https://annecoding.github.io/2019/06/15/linux%E4%B8%8B%E5%8D%A0%E7%94%A8cpu%E5%92%8C%E5%86%85%E5%AD%98%E5%BE%88%E9%AB%98%E7%9A%84%E8%BF%9B%E7%A8%8B/"/>
-    <id>https://annecoding.github.io/2019/06/15/linux下占用cpu和内存很高的进程/</id>
-    <published>2019-06-15T06:00:21.000Z</published>
-    <updated>2019-09-01T04:58:41.496Z</updated>
-    
-    <content type="html"><![CDATA[<!-- <meta name="referrer" content="no-referrer" /> --><p>服务器访问变慢，那么到底是什么进程导致服务器资源变慢呢？我们可以根据cpu、内存等查看占用资源较高的进程。</p><a id="more"></a><p>可以通过ps命令的相关操作来查看。这里分别找出最高占用cpu和内存的10个进程，实现脚本如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat cpu_memory_top.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 查看占用cpu、内存过高的进程</span></span><br><span class="line"><span class="comment"># 占用cpu内存过高的前十个进程</span></span><br><span class="line"><span class="comment"># -e 显示所有程序 -o 使用用户自定义格式 --sort排序</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------    cpu top10   ---------"</span></span><br><span class="line">ps -eo user,pid,pcpu,pmem,args --sort=-pcpu |head -n 10</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------  memory top10  ---------"</span></span><br><span class="line">ps -eo user,pid,pcpu,pmem,args --sort=-pmem |head -n 10</span><br></pre></td></tr></table></figure><p>执行结果如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ./cpu_memory_top.sh   </span><br><span class="line">--------    cpu top10   ---------</span><br><span class="line">USER       PID %CPU %MEM COMMAND</span><br><span class="line">root      1066  0.3  0.6 /usr/<span class="built_in">local</span>/aegis/aegis_client/aegis_10_69/AliYunDun</span><br><span class="line">root         1  0.0  0.1 /usr/lib/systemd/systemd --switched-root --system --deserialize 21</span><br><span class="line">root         2  0.0  0.0 [kthreadd]</span><br><span class="line">root         3  0.0  0.0 [ksoftirqd/0]</span><br><span class="line">root         5  0.0  0.0 [kworker/0:0H]</span><br><span class="line">root         7  0.0  0.0 [migration/0]</span><br><span class="line">root         8  0.0  0.0 [rcu_bh]</span><br><span class="line">root         9  0.0  0.0 [rcu_sched]</span><br><span class="line">root        10  0.0  0.0 [watchdog/0]</span><br><span class="line">--------  memory top10  ---------</span><br><span class="line">USER       PID %CPU %MEM COMMAND</span><br><span class="line">root       683  0.0  1.8 /sbin/dhclient -H localhost -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid eth0</span><br><span class="line">root       328  0.0  1.5 /usr/lib/systemd/systemd-journald</span><br><span class="line">root       765  0.0  0.8 /usr/bin/python -Es /usr/sbin/tuned -l -P</span><br><span class="line">polkitd    458  0.0  0.6 /usr/lib/polkit-1/polkitd --no-debug</span><br><span class="line">root      1066  0.3  0.6 /usr/<span class="built_in">local</span>/aegis/aegis_client/aegis_10_69/AliYunDun</span><br><span class="line">root       767  0.0  0.4 /usr/sbin/rsyslogd -n</span><br><span class="line">root     11661  0.0  0.3 sshd: root@notty</span><br><span class="line">root     11752  0.0  0.2 sshd: root@pts/0</span><br><span class="line">root      2166  0.0  0.2 /usr/sbin/aliyun-service</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt; --&gt;
-&lt;p&gt;服务器访问变慢，那么到底是什么进程导致服务器资源变慢呢？我们可以根据cpu、内存等查看占用资源较高的进程。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="https://annecoding.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://annecoding.github.io/tags/Linux/"/>
-    
-      <category term="Centos" scheme="https://annecoding.github.io/tags/Centos/"/>
-    
-      <category term="shell" scheme="https://annecoding.github.io/tags/shell/"/>
     
   </entry>
   
