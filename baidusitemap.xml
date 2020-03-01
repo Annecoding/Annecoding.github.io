@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://annecoding.github.io/2019/03/22/linxu%E4%B8%8Bvi%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-03-01</lastmod>
+  </url>  <url>
+    <loc>https://annecoding.github.io/2020/01/20/linux%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</loc>
+    <lastmod>2020-03-01</lastmod>
+  </url>  <url>
     <loc>https://annecoding.github.io/2019/08/03/%E7%AB%99%E5%A4%96%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0%E5%8F%8A%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2019-11-27</lastmod>
   </url>  <url>
@@ -33,9 +39,6 @@
   </url>  <url>
     <loc>https://annecoding.github.io/2019/03/18/linux_centos%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2019-11-19</lastmod>
-  </url>  <url>
-    <loc>https://annecoding.github.io/2019/03/22/linxu%E4%B8%8Bvi%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2019-11-17</lastmod>
   </url>  <url>
     <loc>https://annecoding.github.io/2019/03/22/linxu%E4%B8%8Bvi%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2019-11-17</lastmod>
