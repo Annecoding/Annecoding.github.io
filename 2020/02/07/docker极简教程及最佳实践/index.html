@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Annecoding's">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Annecoding's">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>docker极简教程及最佳实践 · Annecoding&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+        <!-- algolia -->
+        <script>
+            
+            var hits = JSON.parse('{"per_page":10}')
+            var labels = JSON.parse('{"input_placeholder":"Search for Posts","hits_empty":"We did not find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}')
+
+            var algolia = {
+                applicationID: '7O1Y7GDA81',
+                apiKey: 'c879aafc1b4d0340a5c6f0500ab081c5',
+                indexName: 'annecoding',
+                hits: hits,
+                labels: labels
+            }
+        </script>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Annecoding&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">docker极简教程及最佳实践</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">Annecoding's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600*900)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            docker极简教程及最佳实践
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="docker">docker</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="tomcat">tomcat</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="redis">redis</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.5k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/07</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <meta name="referrer" content="no-referrer">
+
+
+<p>Docker 是一个开源的应用容器引擎，基于 <a href="https://www.runoob.com/go/go-tutorial.html" target="_blank" rel="noopener">Go 语言</a> 并遵从 Apache2.0 协议开源。</p>
+<p>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p>
+<a id="more"></a>
+<h2 id="为什么要使用docker"><a href="#为什么要使用docker" class="headerlink" title="为什么要使用docker"></a>为什么要使用docker</h2><p>首先，Docker 容器的启动可以在秒级实现，这相比传统的虚拟机方式要快得多。 其次，Docker 对系统资源的利用率很高，一台主机上可以同时运行数千个 Docker 容器。</p>
+<p>容器除了运行其中应用外，基本不消耗额外的系统资源，使得应用的性能很高，同时系统的开销尽量小。传统虚拟机方式运行 10 个不同的应用就要起 10 个虚拟机，而Docker 只需要启动 10 个隔离的应用即可。</p>
+<h3 id="对比传统虚拟机"><a href="#对比传统虚拟机" class="headerlink" title="对比传统虚拟机"></a>对比传统虚拟机</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">容器</th>
+<th style="text-align:left">虚拟机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">启动</td>
+<td style="text-align:left">秒级</td>
+<td style="text-align:left">分钟级</td>
+</tr>
+<tr>
+<td style="text-align:left">硬盘使用</td>
+<td style="text-align:left">一般为 <code>MB</code></td>
+<td style="text-align:left">一般为 <code>GB</code></td>
+</tr>
+<tr>
+<td style="text-align:left">性能</td>
+<td style="text-align:left">接近原生</td>
+<td style="text-align:left">弱于</td>
+</tr>
+<tr>
+<td style="text-align:left">系统支持量</td>
+<td style="text-align:left">单机支持上千个容器</td>
+<td style="text-align:left">一般几十个</td>
+</tr>
+</tbody>
+</table>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>上手快，用户可以很容易的把自己的程序Docker化。Docker依赖于“写时复制”（copy-on-write）模型，开箱即用，使修改应用程序也非常迅速。</li>
+<li>快速高效的开发声明周期。</li>
+</ul>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><ul>
+<li><p>对系统架构要求必须是64位，内核版本3.8.0以上。</p>
+</li>
+<li><p>由于“客居”于操作系统，容器只能运行与底层宿主机相同或者相似的操作系统，这看起来并不是非常灵活。例如：可以在Ubuntu服务中运行Redhat Enterprise Linux，但无法再Ubuntu服务器上运行Microsoft Windows。</p>
+</li>
+<li><p>相对于彻底隔离的管理程序虚拟化，容器被认为是不安全的。</p>
+<ul>
+<li><p>由于是系统层级的虚拟化，每运行一个容器，在宿主机都是以进程的形式存在。</p>
+</li>
+<li><p>docker容器中的应用，也同样会暴露在外部的操作系统上。</p>
+</li>
+</ul>
+</li>
+<li><p>Docker并非适合所有应用场景，Docker只能虚拟基于Linux的服务。Windows Azure 服务能够运行Docker实例，但到目前为止Windows服务还不能被虚拟化。</p>
+</li>
+</ul>
+<h2 id="docker应用场景"><a href="#docker应用场景" class="headerlink" title="docker应用场景"></a>docker应用场景</h2><ul>
+<li>Web 应用的自动化打包和发布。</li>
+<li>自动化测试和持续集成、发布。</li>
+<li>在服务型环境中部署和调整数据库或其他的后台应用。</li>
+<li>从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。</li>
+</ul>
+<h2 id="docker组件"><a href="#docker组件" class="headerlink" title="docker组件"></a>docker组件</h2><h3 id="Docker客户端和服务器"><a href="#Docker客户端和服务器" class="headerlink" title="Docker客户端和服务器"></a>Docker客户端和服务器</h3><p>Docker是一个客户端-服务器（C/S）架构程序。Docker客户端只需要向Docker服务器或守护进程发出请求，服务器或守护进程将完成所有工作并返回结果。</p>
+<p>Docker提供了一个命令行工具Docker以及一整套RESTful API。你可以在同一台宿主机上运行Docker守护进程和客户端，也可以从本地的Docker客户端连接到运行在另一台宿主机上的远程Docker守护进程。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck0vzem4hj30uu0eo46r.jpg" alt="image-20200306105834455"></p>
+<h3 id="docker镜像"><a href="#docker镜像" class="headerlink" title="docker镜像"></a>docker镜像</h3><p><strong>image镜像：</strong> 是构建Docker的基石，用户及基于镜像来运行自己的容器。</p>
+<p><strong>docker镜像是一个只读模板。</strong></p>
+<h3 id="docker容器"><a href="#docker容器" class="headerlink" title="docker容器"></a>docker容器</h3><p><strong>container容器：</strong>docker利用容器来运行应用。容器是从镜像创建的运行实例，它可以被启动，开始、停止、删除、每个容器都是互相隔离的，保证安全的平台，可以吧容器看做是要给简易版的linux环境（包括root用户权限、镜像空间、用户空间和网络空间等）和运行再其中的应用程序。</p>
+<p><strong>镜像也是只读的</strong>。</p>
+<h3 id="docker仓库"><a href="#docker仓库" class="headerlink" title="docker仓库"></a>docker仓库</h3><p><strong>Registry仓库：</strong>仓库是集中存放镜像文件的场所。Registry分为共有和私有两种。Docker公司运营公共的Registry叫做<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>。国内的公开仓库包括 <a href="http://www.dockerpool.com/" target="_blank" rel="noopener">Docker Pool</a> 等。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl3dv3m2lj30qu0fiwko.jpg" alt="image-20200307091033888" style="zoom:67%;"></p>
+<h2 id="docker安装和启动"><a href="#docker安装和启动" class="headerlink" title="docker安装和启动"></a>docker安装和启动</h2><p>Docker 分为 CE 和 EE 两大版本。CE 即社区版（免费，支持周期 7 个月），EE 即企业版，强调安全，付费使用，支持周期 24 个月。</p>
+<p>Docker CE 分为 <code>stable</code> <code>test</code> 和 <code>nightly</code> 三个更新版本。</p>
+<p>官方网站上有各种环境下的 <strong><a href="https://docs.docker.com/install/" target="_blank" rel="noopener">安装指南</a></strong>，整理主要介绍Centos脚本安装。</p>
+<h4 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载安装脚本</span></span><br><span class="line">$ curl -fsSL https://get.docker.com -o get-docker.sh</span><br><span class="line"><span class="comment"># 执行安装脚本</span></span><br><span class="line">$ sudo sh get-docker.sh</span><br><span class="line"><span class="comment"># 查看docker版本，验证是否验证成功</span></span><br><span class="line">$ docker -v</span><br><span class="line"><span class="comment"># 启动docker</span></span><br><span class="line">$ systemctl start docker</span><br><span class="line"><span class="comment"># 开机后自启动docker </span></span><br><span class="line">$ systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck42je3trj30vc02ijv8.jpg" alt="image-20200306124842214"></p>
+<p>1.查看docker版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">$ docker version 或者 docker -v</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck41u2o2bj30jc02cwel.jpg" alt="image-20200306124757492"></p>
+<p>2.运行测试容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck4bauar6j315r0u0x6q.jpg" alt="image-20200306125706717"></p>
+<h4 id="配置镜像加速器"><a href="#配置镜像加速器" class="headerlink" title="配置镜像加速器"></a>配置镜像加速器</h4><ul>
+<li><a href="https://github.com/Azure/container-service-for-azure-china/blob/master/aks/README.md#22-container-registry-proxy" target="_blank" rel="noopener">Azure 中国镜像 <code>https://dockerhub.azk8s.cn</code></a></li>
+<li><a href="https://cr.console.aliyun.com/cn-hangzhou/mirrors" target="_blank" rel="noopener">阿里云加速器(需登录账号获取)</a></li>
+<li><a href="https://www.163yun.com/help/documents/56918246390157312" target="_blank" rel="noopener">网易云加速器 <code>https://hub-mirror.c.163.com</code></a></li>
+</ul>
+<p>对于使用 <a href="https://www.freedesktop.org/wiki/Software/systemd/" target="_blank" rel="noopener">systemd</a> 的系统，请在 <code>/etc/docker/daemon.json</code> 中写入如下内容（如果文件不存在请新建该文件）。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">    <span class="string">"https://dockerhub.azk8s.cn"</span>,</span><br><span class="line">    <span class="string">"https://hub-mirror.c.163.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>💡 注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。重新启动服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重载所有修改过的配置文件</span></span><br><span class="line">$ sudo systemctl daemon-reload</span><br><span class="line"><span class="comment"># 重新启动docker</span></span><br><span class="line">$ sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p><strong>检查加速器是否生效</strong></p>
+<p>执行 <code>$ docker info</code>，如果从结果中看到了如下内容，说明配置成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Registry Mirrors:</span><br><span class="line"> https://dockerhub.azk8s.cn/</span><br></pre></td></tr></table></figure>
+<p>附：阿里云镜像加速器配置如下</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck4ppq11fj30ql0geta5.jpg" alt="img"></p>
+<h4 id="docker服务命令"><a href="#docker服务命令" class="headerlink" title="docker服务命令"></a>docker服务命令</h4><p><code>systemctl</code>命令是系统服务管理器指令，它是<code>service</code>和<code>chkconfig</code>两个命令组合。</p>
+<p>1.启动Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+<p>2.停止Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure>
+<p>3.重启Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>4.查看Docker状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status docker</span><br></pre></td></tr></table></figure>
+<p>5.开机启动Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+<p>6.查看Docker概要信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<p>7.查看Docker帮助文档</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<h2 id="docker镜像操作"><a href="#docker镜像操作" class="headerlink" title="docker镜像操作"></a>docker镜像操作</h2><p>Docker 运行容器前需要本地存在对应的镜像，如果本地不存在该镜像，Docker 会从镜像仓库下载该镜像。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck529dcz5j3094091myo.jpg" alt="img"></p>
+<h4 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck5jkzttcj313a04i0xl.jpg" alt="image-20200306133942194"></p>
+<ul>
+<li>REPOSITORY: 镜像所在的仓库名称</li>
+<li>TAG： 镜像标签</li>
+<li>IMAGE ID：镜像ID</li>
+<li>CREATED：镜像的创建日期（不是获取该镜像的日期）</li>
+<li>SIZE：镜像大小</li>
+</ul>
+<p>这些镜像都储存在Docker宿主机的<code>/var/lib/docker</code>目录下。</p>
+<p><strong>常用参数</strong></p>
+<ul>
+<li>-a :列出本地所有的镜像（含中间映像层） </li>
+<li>-q :只显示镜像ID。</li>
+<li>–digests :显示镜像的摘要信息</li>
+<li>–no-trunc :显示完整的镜像信息</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck65mkj9oj31300a6h2t.jpg" alt="image-20200306140053970"></p>
+<h4 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search 镜像名称</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck5lckkdoj31ek0pq4qq.jpg" alt="image-20200306134122426"></p>
+<ul>
+<li>STARS：和github上一样</li>
+<li>OFFICIAL：是否官方</li>
+<li>AUTOMATED：是否自动部署</li>
+</ul>
+<p><strong>常用参数</strong></p>
+<ul>
+<li>–no-trunc : 显示完整的镜像描述</li>
+<li>-s : 列出收藏数不小于指定值的镜像。</li>
+<li>–automated : 只列出 automated build类型的镜像。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck68n39xzj31a80dqact.jpg" alt></p>
+<h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull 镜像名称</span><br><span class="line">$ docker pull 镜像名称:版本</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck5p5x0w8j31360b8ng3.jpg" alt="image-20200306134503199"></p>
+<h4 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除单个</span></span><br><span class="line">$ docker rmi 镜像ID</span><br><span class="line"><span class="comment"># 删除多个</span></span><br><span class="line">docker rmi 镜像名1:版本号 镜像名2:版本号</span><br><span class="line"><span class="comment"># 删除全部</span></span><br><span class="line">docker rmi `docker images -q`</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck6bvn8rvj31cy082qmb.jpg" alt="image-20200306140653202"></p>
+<p>使用<code>-f</code>参数可进行强制删除。不管是否有容器在使用该镜像。</p>
+<h2 id="docker容器操作"><a href="#docker容器操作" class="headerlink" title="docker容器操作"></a>docker容器操作</h2><h3 id="容器常用服务指令"><a href="#容器常用服务指令" class="headerlink" title="容器常用服务指令"></a>容器常用服务指令</h3><p>1.查看正在运行的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p>2.查看所有的容器（启动过的历史容器）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>3.查看最后一次运行的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -l</span><br></pre></td></tr></table></figure>
+<p>4.查看停止的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -f status=exited</span><br></pre></td></tr></table></figure>
+<p>5.删除容器</p>
+<p>删除指定容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm $CONTAINER_ID/NAME</span><br></pre></td></tr></table></figure>
+<p>删除所有容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm `docker ps -a -q`</span><br></pre></td></tr></table></figure>
+<h3 id="创建并启动容器"><a href="#创建并启动容器" class="headerlink" title="创建并启动容器"></a>创建并启动容器</h3><p>创建容器命令：<code>docker run</code></p>
+<ul>
+<li><code>-i</code>: 表示运行容器</li>
+<li><code>-t</code>: 表示容器启动后会进入其命令行，加入这两个参数后，容器创建就能登录进去。即分配一个伪终端。<strong>交互式容器退出就停止。</strong></li>
+<li><code>-d</code>: 在<code>run</code>后面加上<code>-d</code>参数，则会创建一个守护式容器在后台运行（这样创建容器后不会自动登录容器，如果只加<code>-i</code> <code>-t</code>两个参数，创建后就会自动进去容器）。<strong>守护式容器会一直在后台运行。</strong></li>
+<li><code>—name</code>: 为创建的容器命名</li>
+<li><code>-v</code>: 表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录），可以使用多个<code>-v</code>做多个目录或文件映射。注意：最好做目录映射，在宿主机上修改，然后共享到容器上。</li>
+<li><code>-p</code>: 表示端口映射，前者是宿主机端口，后者是容器内的映射端口。可以使用多个<code>-p</code>做多个端口映射。</li>
+</ul>
+<h4 id="交互式容器"><a href="#交互式容器" class="headerlink" title="交互式容器"></a>交互式容器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建并启动容器</span></span><br><span class="line">$ docker run -it --name=xx  镜像名:版本号 /bin/bash  <span class="comment"># /bin/bash为进入容器的初始化指令</span></span><br><span class="line">$ docker run -it --name=c1 centos:7 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck6t605e1j30si0cg7lw.jpg" alt="image-20200306142330224"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck6uzhy90j31fa0a4ace.jpg" alt="image-20200306142423986"></p>
+<h4 id="守护式容器"><a href="#守护式容器" class="headerlink" title="守护式容器"></a>守护式容器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建并启动守护式容器 不需要加/bin/bash</span></span><br><span class="line">$ docker run -id --name=XX 镜像名:版本号  /bin/bash</span><br><span class="line">$ docker run -id --name=c2 centos:7  /bin/bash</span><br><span class="line"><span class="comment"># 进入正在运行的容器并以命令行交互</span></span><br><span class="line">$ docker <span class="built_in">exec</span> -it 容器名 /bin/bash</span><br><span class="line">$ docker <span class="built_in">exec</span> -it c2 /bin/bash</span><br><span class="line"><span class="comment"># 重新进入</span></span><br><span class="line"><span class="comment"># exec 是在容器中打开新的终端，并且可以启动新的进程 </span></span><br><span class="line"><span class="comment"># attach 直接进入容器启动命令的终端，不会启动新的进程</span></span><br><span class="line">$ docker attach 容器ID</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck7hxv05vj30ta02cn0b.jpg" alt="image-20200306144718729"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck7idyv8zj31cw0c07vi.jpg" alt="image-20200306144743533"></p>
+<h4 id="启动和停止容器"><a href="#启动和停止容器" class="headerlink" title="启动和停止容器"></a>启动和停止容器</h4><p>1.停止正在运行的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop 容器名称</span><br></pre></td></tr></table></figure>
+<p>2.启动已运行过的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器名称</span><br></pre></td></tr></table></figure>
+<p>3.重启容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart 容器ID或者容器名</span><br></pre></td></tr></table></figure>
+<p>4.停止容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止容器</span></span><br><span class="line">docker stop 容器ID或者容器名</span><br><span class="line"><span class="comment"># 强制停止容器</span></span><br><span class="line">docker <span class="built_in">kill</span> 容器ID或者容器名</span><br></pre></td></tr></table></figure>
+<p>5.查看容器日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -ft --tail 容器ID</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-t 是加入时间戳</li>
+<li>-f 跟随最新的日志打印</li>
+<li>–tail 数字 显示最后多少条</li>
+</ul>
+<p>6.查看容器内运行的进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker top 容器ID</span><br></pre></td></tr></table></figure>
+<p>7.查看容器信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inpect 容器名称/容器id</span><br></pre></td></tr></table></figure>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><h4 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h4><p>将文件拷贝到容器内可以用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 需要拷贝的文件或目录 容器名称:容器目录</span><br></pre></td></tr></table></figure>
+<p>将文件从容器中拷贝出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 容器名称:容器目录 需要拷贝的文件或目录</span><br></pre></td></tr></table></figure>
+<h2 id="docker容器的数据卷"><a href="#docker容器的数据卷" class="headerlink" title="docker容器的数据卷"></a>docker容器的数据卷</h2><h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><ul>
+<li>数据卷是宿主机中的一个目录或文件</li>
+<li>当容器目录和数据卷目录绑定后，双方的修改会立即同步</li>
+<li>一个数据卷可以被多个容器同时挂载</li>
+<li>一个容器也可以挂载多个数据卷</li>
+</ul>
+<p><strong>数据卷作用：</strong></p>
+<ul>
+<li>容器数据持久化 </li>
+<li>外部及其和容器的简介通信 </li>
+<li>容器之间的数据交换，两个容器挂载在同一个目录，间接实现容器间数据交换。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gck8tjc84aj30di0a4q7x.jpg" alt="image-20200306153303333" style="zoom: 50%;"></p>
+<h4 id="配置数据卷"><a href="#配置数据卷" class="headerlink" title="配置数据卷"></a>配置数据卷</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建容器时 使用-v参数 设置数据卷</span></span><br><span class="line">docker run ...-v 宿主机目录(文件):容器内目录(文件)</span><br><span class="line"><span class="comment"># 创建容器挂载目录</span></span><br><span class="line">docker run -it --name=c3 -v ~/data3:/root/data3 centos:7</span><br></pre></td></tr></table></figure>
+<ul>
+<li>目录必须是绝对路径 </li>
+<li>如果目录不存在，会自动创建  </li>
+<li>可以挂载多个数据卷</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gckgg370kkj30y20baww4.jpg" alt="image-20200306195654177"></p>
+<p>综上：可以给容器挂载多个目录。也可以多个容器挂载一个目录。但这样管理起来比较麻烦。我们可以使用数据卷容器来进行多个容器之间数据的交换。</p>
+<h3 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h3><ul>
+<li>多个容器进行数据交换</li>
+<li>多个容器挂载同一个数据卷</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gckgqopu2aj30l40a810x.jpg" alt="image-20200306200705891" style="zoom:67%;"></p>
+<h4 id="配置数据卷容器"><a href="#配置数据卷容器" class="headerlink" title="配置数据卷容器"></a>配置数据卷容器</h4><p>1.创建数据卷容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name=c4 -v /volume centos:7 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/Users/rose/Library/Application Support/typora-user-images/image-20200306201218259.png" alt="image-20200306201218259"></p>
+<p>2.创建启动c5，c6容器,使用 –volumes-from参数，设置数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name=c5 --volumes-from c4 centos:7 /bin/bash</span><br><span class="line">docker run -it --name=c2 --volumes-from c4 centos:7 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/Users/rose/Library/Application Support/typora-user-images/image-20200306201247844.png" alt="image-20200306201247844"></p>
+<p>可通过<code>docker inspect</code>来查看所挂载的数据卷。像上面就是没有指定目录，会随机分配目录。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gckgzgp48tj30gy018dgn.jpg" alt="image-20200306201534278"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gckgz782grj31es0ei7wh.jpg" alt="image-20200306201511542"></p>
+<h2 id="Docker-应用部署"><a href="#Docker-应用部署" class="headerlink" title="Docker 应用部署"></a>Docker 应用部署</h2><h3 id="一、部署MySQL"><a href="#一、部署MySQL" class="headerlink" title="一、部署MySQL"></a>一、部署MySQL</h3><ul>
+<li>容器内的网络服务和外部机器不能直接通信</li>
+<li>外部机器和宿主机可以直接通信</li>
+<li>宿主机和容器可以直接通信</li>
+<li>当容器中的网络服务需要被外部机器访问时，可以将容器中提供服务的端口映射到宿主机的端口上。外部机器访问宿主机的该端口，从而间接访问容器的服务。</li>
+<li>这种操作称为：端口映射</li>
+</ul>
+<ol>
+<li>搜索mysql镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>拉取mysql镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.6</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建容器，设置端口映射、目录映射</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在/root目录下创建mysql目录用于存储mysql数据信息</span></span><br><span class="line">mkdir ~/mysql</span><br><span class="line">cd ~/mysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -id \</span><br><span class="line">-p 3306:3306 \</span><br><span class="line">--name=c_mysql \</span><br><span class="line">-v $PWD/conf:/etc/mysql/conf.d \</span><br><span class="line">-v $PWD/logs:/logs \</span><br><span class="line">-v $PWD/data:/var/lib/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=123456 \</span><br><span class="line">mysql:5.6</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li><strong>-p 3306:3306</strong>：将容器的 3306 端口映射到宿主机的 3306 端口。</li>
+<li><strong>-v $PWD/conf:/etc/mysql/conf.d</strong>：将主机当前目录下的 conf/my.cnf 挂载到容器的 <code>/etc/mysql/my.cnf</code>配置目录</li>
+<li><strong>-v $PWD/logs:/logs</strong>：将主机当前目录下的 logs 目录挂载到容器的<code>/logs</code>日志目录</li>
+<li><strong>-v $PWD/data:/var/lib/mysql</strong> ：将主机当前目录下的data目录挂载到容器的 <code>/var/lib/mysql</code>数据目录</li>
+<li><strong>-e MYSQL_ROOT_PASSWORD=123456：</strong>初始化 root 用户的密码。</li>
+</ul>
+<ol start="4">
+<li>进入容器，操作mysql</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec –it c_mysql /bin/bash</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>使用外部机器连接容器中的mysql</li>
+</ol>
+<h3 id="二、部署Tomcat"><a href="#二、部署Tomcat" class="headerlink" title="二、部署Tomcat"></a>二、部署Tomcat</h3><ol>
+<li>搜索tomcat镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>拉取tomcat镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tomcat</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建容器，设置端口映射、目录映射</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在/root目录下创建tomcat目录用于存储tomcat数据信息</span></span><br><span class="line">mkdir ~/tomcat</span><br><span class="line">cd ~/tomcat</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name=c_tomcat \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">-v $PWD:/usr/local/tomcat/webapps \</span><br><span class="line">tomcat</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li><strong>-p 8080:8080：</strong>将容器的8080端口映射到主机的8080端口</li>
+<li><strong>-v $PWD:/usr/local/tomcat/webapps：</strong>将主机中当前目录挂载到容器的webapps</li>
+</ul>
+<ol start="4">
+<li>使用外部机器访问tomcat</li>
+</ol>
+<h3 id="三、部署Nginx"><a href="#三、部署Nginx" class="headerlink" title="三、部署Nginx"></a>三、部署Nginx</h3><ol>
+<li>搜索nginx镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search nginx</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>拉取nginx镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建容器，设置端口映射、目录映射</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在/root目录下创建nginx目录用于存储nginx数据信息</span></span><br><span class="line">mkdir ~/nginx</span><br><span class="line">cd ~/nginx</span><br><span class="line">mkdir conf</span><br><span class="line">cd conf</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在~/nginx/conf/下创建nginx.conf文件,粘贴下面内容</span></span><br><span class="line">vim nginx.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                      '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                      '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name=c_nginx \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf \</span><br><span class="line">-v $PWD/logs:/var/log/nginx \</span><br><span class="line">-v $PWD/html:/usr/share/nginx/html \</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li><strong>-p 80:80</strong>：将容器的 80端口映射到宿主机的 80 端口。</li>
+<li><strong>-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf</strong>：将主机当前目录下的 /conf/nginx.conf 挂载到容器的 :/etc/nginx/nginx.conf。配置目录</li>
+<li><strong>-v $PWD/logs:/var/log/nginx</strong>：将主机当前目录下的 logs 目录挂载到容器的/var/log/nginx。日志目录</li>
+</ul>
+<ol start="4">
+<li>使用外部机器访问nginx</li>
+</ol>
+<h3 id="四、部署Redis"><a href="#四、部署Redis" class="headerlink" title="四、部署Redis"></a>四、部署Redis</h3><ol>
+<li>搜索redis镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search redis</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>拉取redis镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:5.0</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建容器，设置端口映射</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name=c_redis -p 6379:6379 redis:5.0</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>使用外部机器连接redis</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli.exe -h 192.168.149.135 -p 6379</span><br></pre></td></tr></table></figure>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><h3 id="Docker镜像原理"><a href="#Docker镜像原理" class="headerlink" title="Docker镜像原理"></a>Docker镜像原理</h3><p>操作系统组成部分:</p>
+<ul>
+<li>进程调度子系统</li>
+<li>进程通信子系统</li>
+<li>内存管理子系统</li>
+<li>设备管理子系统</li>
+<li><strong>文件管理子系统</strong></li>
+<li>网络通信子系统</li>
+<li>作业控制子系统</li>
+</ul>
+<p>Linux文件系统由<strong>bootfs</strong>和<strong>rootfs</strong>两部分组成</p>
+<ul>
+<li><strong>bootfs：</strong>包含bootloader （引导加载程序）和kernel （内核）<br><strong>rootfs：</strong> root文件系统，包含的就是典型Linux系统中的<code>/dev</code>，<code>/proc</code>，<code>/bin</code>， <code>/etc</code>等标准目录和文件</li>
+<li>不同的linux发行版， bootfs基本一样，而rootfs不同，如ubuntu，centos等。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl44f59ylj30ew0bggr9.jpg" alt="image-20200307093605379" style="zoom:50%;"></p>
+<ul>
+<li>Docker镜像是由特殊的文件系统叠加而成，本质就是一个分层的文件系统</li>
+<li>最底端是bootfs，并使用宿主机的bootfs</li>
+<li>第二层是root文件系统rootfs，称为base image</li>
+<li>然后再往上可以叠加其他的镜像</li>
+<li>文件统一文件系统(Union File System) 技术能够将不同的层整合成一个文件系统,为这些层提供了一个统一的视角，这样就隐藏了多层的存在,在用户的角度看来，只存在一个文件系统。</li>
+<li>一个镜像可以放在另一个镜像的上面。位于下面的镜像称为父镜像，最底部的镜像成为基础镜像。</li>
+<li>当从一个镜像启动容器时, Docker会在最顶层加载一个读写文件系统作为容器</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl3c31o9oj30mk0hi7hg.jpg" alt="image-20200307090851362" style="zoom:67%;"></p>
+<p><strong>思考：</strong></p>
+<p>Docker中一个centos镜像为什么只有200MB, 而一个centos操作系统的iso文件要几个个G?</p>
+<ul>
+<li>Centos的iso镜像文件包含bootfs和rootfs， 而docker的centos镜像复用操作系统的bootfs，只有rootfs和其他镜像层。</li>
+</ul>
+<p>Docker中一个tomcat镜像为什么有500MB,而一个tomcat安装包只有70多MB?</p>
+<ul>
+<li>由于docker中镜像是分层的，tomcat虽然只有70多MB，但他需要依赖于父镜像和基础镜像，所有整个对外暴露的tomcat镜像大小500多MB。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<p>查看mysql镜像分层的文件系统：</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4aelc9lj312k05m4a0.jpg" alt="image-20200307094150423"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4bqk6ghj311g0j2hdt.jpg" alt="image-20200307094306571"></p>
+<h3 id="docker镜像制作"><a href="#docker镜像制作" class="headerlink" title="docker镜像制作"></a>docker镜像制作</h3><p>docker镜像可通过<strong>容器转为镜像</strong>的方式来制作，也可通过<strong>dockerfile</strong>来制作。此处仅展示容器转为镜像。</p>
+<p>1.容器保存为镜像</p>
+<p>可以通过以下命令将我们已创建（配置好的）容器打包为镜像，这样我们以后就能用该镜像再次创建新的容器了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker commit 容器id/容器名称 镜像名称:版本号 </span><br><span class="line">docker commit c2 centos72</span><br></pre></td></tr></table></figure>
+<p><code>c2</code>是容器名称，<code>centos72</code>是新的镜像名称。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4nmw9roj31bm0foe81.jpg" alt></p>
+<p>2.镜像备份</p>
+<p>通过以下命令可以将镜像打包为tar文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker save -o 压缩文件名称 镜像名称:版本号 </span><br><span class="line">docker save -o centos73.tar centos72:1</span><br></pre></td></tr></table></figure>
+<p><code>-o</code>输出到的文件</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4q6rfuqj30sc01cdhp.jpg" alt="image-20200307095700527"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4qmyccfj30x002e786.jpg" alt="image-20200307095726007"></p>
+<p>3.镜像恢复</p>
+<p>当我们删除了<code>c2</code>镜像后，可以通过以下命令将刚才打包备份的<code>.tar</code>镜像文件恢复成一个Docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load -i 压缩文件名称</span><br><span class="line">docker load -i centos73.tar</span><br></pre></td></tr></table></figure>
+<p><code>-i</code>输入的文件。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcl4s3bgfej311u02g78z.jpg" alt="image-20200307095850614"></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://annecoding.github.io">Annecoding's</a>
+            </p><p>原文链接：<a href="https://annecoding.github.io/2020/02/07/docker极简教程及最佳实践/">https://annecoding.github.io/2020/02/07/docker极简教程及最佳实践/</a>
+            </p><p>发表日期：<a href="https://annecoding.github.io/2020/02/07/docker极简教程及最佳实践/">February 7th 2020, 10:07:24 am</a>
+            </p><p>更新日期：<a href="https://annecoding.github.io/2020/02/07/docker极简教程及最佳实践/">March 7th 2020, 10:09:55 am</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/02/02/linux下使用lrzsz安装使用/" title="linux下lrzsz安装和使用">
+                    <div class="prevTitle">linux下lrzsz安装和使用</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:Annecoding@163.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Annecoding" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用docker"><span class="toc-number">1.</span> <span class="toc-text">为什么要使用docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对比传统虚拟机"><span class="toc-number">1.1.</span> <span class="toc-text">对比传统虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局限性"><span class="toc-number">1.3.</span> <span class="toc-text">局限性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker应用场景"><span class="toc-number">2.</span> <span class="toc-text">docker应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker组件"><span class="toc-number">3.</span> <span class="toc-text">docker组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker客户端和服务器"><span class="toc-number">3.1.</span> <span class="toc-text">Docker客户端和服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker镜像"><span class="toc-number">3.2.</span> <span class="toc-text">docker镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker容器"><span class="toc-number">3.3.</span> <span class="toc-text">docker容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker仓库"><span class="toc-number">3.4.</span> <span class="toc-text">docker仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker安装和启动"><span class="toc-number">4.</span> <span class="toc-text">docker安装和启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装docker"><span class="toc-number">4.0.1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置镜像加速器"><span class="toc-number">4.0.2.</span> <span class="toc-text">配置镜像加速器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker服务命令"><span class="toc-number">4.0.3.</span> <span class="toc-text">docker服务命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker镜像操作"><span class="toc-number">5.</span> <span class="toc-text">docker镜像操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看镜像"><span class="toc-number">5.0.1.</span> <span class="toc-text">查看镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#搜索镜像"><span class="toc-number">5.0.2.</span> <span class="toc-text">搜索镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取镜像"><span class="toc-number">5.0.3.</span> <span class="toc-text">拉取镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除镜像"><span class="toc-number">5.0.4.</span> <span class="toc-text">删除镜像</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker容器操作"><span class="toc-number">6.</span> <span class="toc-text">docker容器操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#容器常用服务指令"><span class="toc-number">6.1.</span> <span class="toc-text">容器常用服务指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建并启动容器"><span class="toc-number">6.2.</span> <span class="toc-text">创建并启动容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#交互式容器"><span class="toc-number">6.2.1.</span> <span class="toc-text">交互式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#守护式容器"><span class="toc-number">6.2.2.</span> <span class="toc-text">守护式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动和停止容器"><span class="toc-number">6.2.3.</span> <span class="toc-text">启动和停止容器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他操作"><span class="toc-number">6.3.</span> <span class="toc-text">其他操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件拷贝"><span class="toc-number">6.3.1.</span> <span class="toc-text">文件拷贝</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker容器的数据卷"><span class="toc-number">7.</span> <span class="toc-text">docker容器的数据卷</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据卷"><span class="toc-number">7.1.</span> <span class="toc-text">数据卷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置数据卷"><span class="toc-number">7.1.1.</span> <span class="toc-text">配置数据卷</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据卷容器"><span class="toc-number">7.2.</span> <span class="toc-text">数据卷容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置数据卷容器"><span class="toc-number">7.2.1.</span> <span class="toc-text">配置数据卷容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-应用部署"><span class="toc-number">8.</span> <span class="toc-text">Docker 应用部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、部署MySQL"><span class="toc-number">8.1.</span> <span class="toc-text">一、部署MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、部署Tomcat"><span class="toc-number">8.2.</span> <span class="toc-text">二、部署Tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、部署Nginx"><span class="toc-number">8.3.</span> <span class="toc-text">三、部署Nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、部署Redis"><span class="toc-number">8.4.</span> <span class="toc-text">四、部署Redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-number">9.</span> <span class="toc-text">Dockerfile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker镜像原理"><span class="toc-number">9.1.</span> <span class="toc-text">Docker镜像原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker镜像制作"><span class="toc-number">9.2.</span> <span class="toc-text">docker镜像制作</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 48
+        </div>
+        <!-- search  -->
+        
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span><a class="archive-post-title" href="/2020/02/07/docker极简教程及最佳实践/">docker极简教程及最佳实践</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href="/2020/02/02/linux下使用lrzsz安装使用/">linux下lrzsz安装和使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2020/01/20/linux下ssh免密登录/">linux下实现ssh免密登录并禁止密码登录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href="/2019/11/23/ubuntu中ufw防火墙配置/">ubuntu中ufw防火墙配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href="/2019/11/23/ubuntu拉黑ssh恶意连接地址/">ubuntu拉黑ssh恶意连接地址</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2019/11/21/站点目录/">Annecoding's Studio.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href="/2019/10/15/Mac下实用工具推荐/">Mac下实用工具推荐</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href="/2019/09/23/nginx访问日志分析/">nginx访问日志分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href="/2019/09/04/linux使用expect批量执行主机命令/">linux使用expect批量执行主机命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/30</span><a class="archive-post-title" href="/2019/08/30/linux查看网卡实时流量/">linux查看网卡实时流量</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/批量创建用户并设置随机密码/">批量创建用户并设置随机密码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2019/08/29/一键查看服务器资源利用率/">一键查看服务器资源利用率</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href="/2019/08/28/shell脚本实现centos系统初始化配置/">shell脚本实现centos系统初始化配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href="/2019/08/22/Centos使用mailx告警邮件配置/">Centos使用mailx告警邮件配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href="/2019/08/13/shell中切分文件名和扩展名/">shell中切分文件名和扩展名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/03</span><a class="archive-post-title" href="/2019/08/03/站外学习平台及实用工具推荐/">Learning Platform Utilities Recommended</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href="/2019/07/25/监控多台服务器利用率/">监控多台服务器利用率</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mac下如何修改环境变量/">mac下如何修改环境变量</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href="/2019/07/24/mtr网络分析工具安装/">mtr网络分析工具安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/linux安装hping添加环境变量/">linux安装hping添加环境变量</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/ubuntu修改IP地址/">ubuntu修改IP地址</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href="/2019/07/20/linux系统扫描命令和安全防范笔记/">linux系统扫描命令和安全防范笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href="/2019/07/11/hexo文章置顶/">hexo文章置顶</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href="/2019/06/15/linux下占用cpu和内存很高的进程/">linux下占用cpu和内存top10</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span><a class="archive-post-title" href="/2019/06/11/linux中玩转sed/">linux中玩转sed技巧分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href="/2019/06/10/linux中玩转awk/">linux中玩转awk技巧分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href="/2019/05/20/hexo img 403/">hexo图片显示问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/项目上线流程/">linux下项目上线流程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/shell脚本练习/">shell脚本实例入门精选系列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span><a class="archive-post-title" href="/2019/05/13/ubuntu允许root远程ssh访问/">ubuntu允许root远程ssh访问</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href="/2019/04/25/vcustomers后台管理系统/">Vue后台用户管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href="/2019/04/17/vue-blog项目/">vue-myblog项目实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2019/04/16/vue路由/">Vue.js路由组件学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2019/04/16/vue组件/">Vue.js中组件的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span><a class="archive-post-title" href="/2019/03/27/linux常用命令/">Linux系统常用命令整理（精选）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/Linux学习笔记/">Linux学习笔记整理·精选</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/linux基础/">linux基础知识精选系列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span><a class="archive-post-title" href="/2019/03/23/rpm命令/">rpm命令使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2019/03/22/linxu下vi编辑器的使用/">生产环境下最快速学会vi编辑器的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2019/03/22/linxu下vi编辑器的配置/">linxu下vi编辑器的配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/vue学习/">Vue.js初使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/docker安装jenkins/">Docker部署jenkins详细精简教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/nginx安装及配置/">Linux系统Nginx安装及反向代理配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_nodejs安装/">史上最详细的linux下安装Nodejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/git使用/">Git命令的使用及总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux_centos网卡配置/">Centos网卡配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/linux端口开放/">Linux系统下端口的开放</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2019/03/18/hello-world/">Hello World</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Centos"><span class="iconfont-archer">&#xe606;</span>Centos</span>
+    
+        <span class="sidebar-tag-name" data-tags="mailx"><span class="iconfont-archer">&#xe606;</span>mailx</span>
+    
+        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="jenkins"><span class="iconfont-archer">&#xe606;</span>jenkins</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="nodejs"><span class="iconfont-archer">&#xe606;</span>nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ssh"><span class="iconfont-archer">&#xe606;</span>ssh</span>
+    
+        <span class="sidebar-tag-name" data-tags="lrzsz"><span class="iconfont-archer">&#xe606;</span>lrzsz</span>
+    
+        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
+    
+        <span class="sidebar-tag-name" data-tags="hping"><span class="iconfont-archer">&#xe606;</span>hping</span>
+    
+        <span class="sidebar-tag-name" data-tags="traceroute"><span class="iconfont-archer">&#xe606;</span>traceroute</span>
+    
+        <span class="sidebar-tag-name" data-tags="nmap"><span class="iconfont-archer">&#xe606;</span>nmap</span>
+    
+        <span class="sidebar-tag-name" data-tags="ncap"><span class="iconfont-archer">&#xe606;</span>ncap</span>
+    
+        <span class="sidebar-tag-name" data-tags="fping"><span class="iconfont-archer">&#xe606;</span>fping</span>
+    
+        <span class="sidebar-tag-name" data-tags="vim"><span class="iconfont-archer">&#xe606;</span>vim</span>
+    
+        <span class="sidebar-tag-name" data-tags="mtr"><span class="iconfont-archer">&#xe606;</span>mtr</span>
+    
+        <span class="sidebar-tag-name" data-tags="nginx"><span class="iconfont-archer">&#xe606;</span>nginx</span>
+    
+        <span class="sidebar-tag-name" data-tags="rpm"><span class="iconfont-archer">&#xe606;</span>rpm</span>
+    
+        <span class="sidebar-tag-name" data-tags="ubuntu"><span class="iconfont-archer">&#xe606;</span>ubuntu</span>
+    
+        <span class="sidebar-tag-name" data-tags="vue"><span class="iconfont-archer">&#xe606;</span>vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="awk"><span class="iconfont-archer">&#xe606;</span>awk</span>
+    
+        <span class="sidebar-tag-name" data-tags="sed"><span class="iconfont-archer">&#xe606;</span>sed</span>
+    
+        <span class="sidebar-tag-name" data-tags="grep"><span class="iconfont-archer">&#xe606;</span>grep</span>
+    
+        <span class="sidebar-tag-name" data-tags="cut"><span class="iconfont-archer">&#xe606;</span>cut</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Mac"><span class="iconfont-archer">&#xe60a;</span>Mac</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
+        <span class="sidebar-category-name" data-categories="hexo"><span class="iconfont-archer">&#xe60a;</span>hexo</span>
+    
+        <span class="sidebar-category-name" data-categories="Git"><span class="iconfont-archer">&#xe60a;</span>Git</span>
+    
+        <span class="sidebar-category-name" data-categories="Vue"><span class="iconfont-archer">&#xe60a;</span>Vue</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Annecoding's"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+        <div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="iconfont-archer">&#xe609;</i>
+    </span>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.0/dist/instantsearch.min.js" defer></script>
+        <script src="/scripts/search.js" defer></script>
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
