@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://annecoding.github.io/2019/11/23/ubuntu%E4%B8%ADufw%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2020-03-19T07:56:00.443Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://annecoding.github.io/2020/02/20/dockerfile%E8%AF%A6%E8%A7%A3%E5%8F%8A%E7%A4%BA%E4%BE%8B/</loc>
     
     <lastmod>2020-03-19T01:08:10.691Z</lastmod>
@@ -124,13 +131,6 @@
     <loc>https://annecoding.github.io/2019/07/20/ubuntu%E4%BF%AE%E6%94%B9IP%E5%9C%B0%E5%9D%80/</loc>
     
     <lastmod>2020-03-01T11:42:14.590Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://annecoding.github.io/2019/11/23/ubuntu%E4%B8%ADufw%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2020-03-01T11:42:12.924Z</lastmod>
     
   </url>
   
